@@ -40,5 +40,6 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         public Task<ResponseModel?> UpdateResponseAsync(ResponseModel responseToUpdate);
         public void RemoveResponseAsync(ResponseModel responseToRemove);
 
+        public Task SaveChanges();
     }
 }

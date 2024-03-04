@@ -13,6 +13,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             this.context = context;
         }
 
+
         public async Task<CategoryModel> AddCategoryAsync(CategoryModel categoryToAdd)
         {
             await context.CategoryModels.AddAsync(categoryToAdd);
@@ -36,7 +37,10 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             await context.SubCategoryModels.AddAsync(subCategoryToAdd);
             return subCategoryToAdd;
         }
-
+        /// <summary>
+        /// Gets all Categories with all the includes all the way down the tree
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<CategoryModel>> GetAllAsync()
         {
             return await context.CategoryModels.Include(c => c.Segments).ThenInclude(s => s.SubCategories).ThenInclude(s => s.Questions).ThenInclude(q => q.Responses).ToListAsync();
@@ -56,11 +60,20 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         {
             return context.SubCategoryModels.ToListAsync();
         }
-
+        /// <summary>
+        /// Gets the Category by id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<CategoryModel?> GetCategoryAsync(int id)
         {
             return await context.CategoryModels.FirstOrDefaultAsync(c => c.Id == id);
         }
+        /// <summary>
+        /// Gets the Category by name 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         public async Task<CategoryModel?> GetCategoryAsync(string name)
         {
