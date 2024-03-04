@@ -151,5 +151,37 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             await context.SaveChangesAsync();
         }
 
+        public async Task<List<ResponseModel>> GetAllResponsesAsync()
+        {
+            return await context.ResponseModels.ToListAsync();
+        }
+
+        public async Task<ResponseModel?> GetResponseAsync(int id)
+        {
+            return await context.ResponseModels.FirstOrDefaultAsync(r => r.Id == id);
+        }
+
+        public async Task<ResponseModel?> GetResponseAsync(QuestionModel question)
+        {
+            return await context.ResponseModels.FirstOrDefaultAsync(r => r.QuestionId == question.Id);
+        }
+
+        public async Task<ResponseModel> AddResponseAsync(ResponseModel responseToAdd)
+        {
+            await context.ResponseModels.AddAsync(responseToAdd);
+            return responseToAdd;
+        }
+
+        public async Task<ResponseModel?> UpdateResponseAsync(ResponseModel responseToUpdate)
+        {
+            var currentResponse = await GetResponseAsync(responseToUpdate.Id);
+            currentResponse = responseToUpdate;
+            return currentResponse;
+        }
+
+        public void RemoveResponseAsync(ResponseModel responseToRemove)
+        {
+            context.ResponseModels.Remove(responseToRemove);
+        }
     }
 }

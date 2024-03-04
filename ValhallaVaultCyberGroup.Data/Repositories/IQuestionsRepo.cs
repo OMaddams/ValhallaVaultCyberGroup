@@ -33,7 +33,12 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         public Task<QuestionModel> UpdateQuestionAsync(QuestionModel questionToUpdate);
         public void RemoveQuestionAsync(QuestionModel questionToRemove);
 
-
+        public Task<List<ResponseModel>> GetAllResponsesAsync();
+        public Task<ResponseModel?> GetResponseAsync(int id);
+        public Task<ResponseModel?> GetResponseAsync(QuestionModel question);
+        public Task<ResponseModel> AddResponseAsync(ResponseModel responseToAdd);
+        public Task<ResponseModel?> UpdateResponseAsync(ResponseModel responseToUpdate);
+        public void RemoveResponseAsync(ResponseModel responseToRemove);
 
     }
 }
