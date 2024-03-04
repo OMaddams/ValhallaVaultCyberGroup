@@ -89,15 +89,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         {
             return await context.QuestionModels.FirstOrDefaultAsync(q => q.Id == id);
         }
-        /// <summary>
-        /// Gets the Question by name 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<QuestionModel> GetQuestionAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
+
         /// <summary>
         /// Gets the Segment by Id 
         /// </summary>
