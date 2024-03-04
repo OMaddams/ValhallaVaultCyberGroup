@@ -7,7 +7,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         public Task<List<CategoryModel?>> GetAllAsync();
         public Task<CategoryModel?> GetCategoryAsync(int id);
         public Task<CategoryModel?> GetCategoryAsync(string id);
-        public Task RemoveCategoryAsync(CategoryModel modelToRemove);
+        public void RemoveCategoryAsync(CategoryModel modelToRemove);
         public Task<CategoryModel> AddCategoryAsync(CategoryModel categoryToAdd);
         public Task<CategoryModel> UpdateCategoryAsync(CategoryModel categoryToUpdate);
 
@@ -17,21 +17,21 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         public Task<SegmentModel?> GetSegmentAsync(string name);
         public Task<SegmentModel> AddSegmentAsync(SegmentModel segmentToAdd);
         public Task<SegmentModel> UpdateSegmentAsync(SegmentModel segmentToUpdate);
-        public Task RemoveSegmentAsync(SegmentModel segmentToRemove);
+        public void RemoveSegmentAsync(SegmentModel segmentToRemove);
 
         public Task<List<SubCategoryModel?>> GetAllSubCategoriesAsync();
         public Task<SubCategoryModel?> GetSubCategoryAsync(int id);
         public Task<SubCategoryModel?> GetSubCategoryAsync(string name);
         public Task<SubCategoryModel> AddSubCategoryAsync(SubCategoryModel subCategoryToAdd);
         public Task<SubCategoryModel> UpdateSubCategoryAsync(SubCategoryModel subCategoryToUpdate);
-        public Task RemoveSubCategoryAsync(SubCategoryModel subCategoryToRemove);
+        public void RemoveSubCategoryAsync(SubCategoryModel subCategoryToRemove);
 
         public Task<List<QuestionModel?>> GetAllQuestionsAsync();
         public Task<QuestionModel?> GetQuestionAsync(int id);
         public Task<QuestionModel?> GetQuestionAsync(string name);
         public Task<QuestionModel> AddQuestionAsync(QuestionModel questionToAdd);
         public Task<QuestionModel> UpdateQuestionAsync(QuestionModel questionToUpdate);
-        public Task RemoveQuestionAsync(QuestionModel questionToRemove);
+        public void RemoveQuestionAsync(QuestionModel questionToRemove);
 
 
 
