@@ -80,31 +80,57 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             return await context.CategoryModels.FirstOrDefaultAsync(c => c.Name == name);
         }
 
+        /// <summary>
+        /// Gets the Question by Id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<QuestionModel?> GetQuestionAsync(int id)
         {
             return await context.QuestionModels.FirstOrDefaultAsync(q => q.Id == id);
         }
-
+        /// <summary>
+        /// Gets the Question by name 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<QuestionModel> GetQuestionAsync(string name)
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Gets the Segment by Id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<SegmentModel?> GetSegmentAsync(int id)
         {
             return await context.SegmentModels.FirstOrDefaultAsync(s => s.Id == id);
         }
-
+        /// <summary>
+        /// Gets the Segment by name 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<SegmentModel?> GetSegmentAsync(string name)
         {
             return await context.SegmentModels.FirstOrDefaultAsync(s => s.Name == name);
         }
+        /// <summary>
+        /// Gets the Sub category by Id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         public async Task<SubCategoryModel?> GetSubCategoryAsync(int id)
         {
             return await context.SubCategoryModels.FirstOrDefaultAsync(s => s.Id == id);
         }
-
+        /// <summary>
+        /// Gets the Sub category by name 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<SubCategoryModel?> GetSubCategoryAsync(string name)
         {
             return await context.SubCategoryModels.FirstOrDefaultAsync(s => s.Name == name);
@@ -131,13 +157,22 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         {
             context.SubCategoryModels.Remove(subCategoryToRemove);
         }
-
+        /// <summary>
+        /// Takes a updated CategoryModel, uses it to update the existing categorymodel, returns updated model
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<CategoryModel> UpdateCategoryAsync(CategoryModel categoryToUpdate)
         {
             var currentModel = await GetCategoryAsync(categoryToUpdate.Id);
             currentModel = categoryToUpdate;
             return currentModel;
         }
+        /// <summary>
+        /// Takes a updated Question, uses it to update the existing questionmodel, returns updated model
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         public async Task<QuestionModel> UpdateQuestionAsync(QuestionModel questionToUpdate)
         {
@@ -145,21 +180,29 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             currentQuestion = questionToUpdate;
             return currentQuestion;
         }
-
+        /// <summary>
+        /// Takes a updated SegmentModel, uses it to update the existing segment, returns updated model
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<SegmentModel> UpdateSegmentAsync(SegmentModel segmentToUpdate)
         {
             var currentSegment = await GetSegmentAsync(segmentToUpdate.Id);
             currentSegment = segmentToUpdate;
             return currentSegment;
         }
-
+        /// <summary>
+        /// Takes a updated SegmentModel, uses it to update the existing segmentmodel, returns updated model
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<SubCategoryModel> UpdateSubCategoryAsync(SubCategoryModel subCategoryToUpdate)
         {
             var currentSubCategory = await GetSubCategoryAsync(subCategoryToUpdate.Id);
             currentSubCategory = subCategoryToUpdate;
             return currentSubCategory;
         }
-        public async Task SaveChanges()
+        public async Task SaveChangesAsync()
         {
             await context.SaveChangesAsync();
         }
@@ -168,11 +211,20 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         {
             return await context.ResponseModels.ToListAsync();
         }
-
+        /// <summary>
+        /// Gets the response by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ResponseModel?> GetResponseAsync(int id)
         {
             return await context.ResponseModels.FirstOrDefaultAsync(r => r.Id == id);
         }
+        /// <summary>
+        /// Gets the response by QuestionModel
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         public async Task<ResponseModel?> GetResponseAsync(QuestionModel question)
         {
@@ -184,7 +236,11 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             await context.ResponseModels.AddAsync(responseToAdd);
             return responseToAdd;
         }
-
+        /// <summary>
+        /// Takes a updated ResponseModel, uses it to update the existing responsemodel, returns updated model
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ResponseModel?> UpdateResponseAsync(ResponseModel responseToUpdate)
         {
             var currentResponse = await GetResponseAsync(responseToUpdate.Id);
