@@ -13,24 +13,28 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             this.context = context;
         }
 
-        public Task<CategoryModel> AddCategoryAsync(CategoryModel categoryToAdd)
+        public async Task<CategoryModel> AddCategoryAsync(CategoryModel categoryToAdd)
         {
-            throw new NotImplementedException();
+            await context.CategoryModels.AddAsync(categoryToAdd);
+            return categoryToAdd;
         }
 
-        public Task<QuestionModel> AddQuestionAsync(QuestionModel questionToAdd)
+        public async Task<QuestionModel> AddQuestionAsync(QuestionModel questionToAdd)
         {
-            throw new NotImplementedException();
+            await context.QuestionModels.AddAsync(questionToAdd);
+            return questionToAdd;
         }
 
-        public Task<SegmentModel> AddSegmentAsync(SegmentModel segmentToAdd)
+        public async Task<SegmentModel> AddSegmentAsync(SegmentModel segmentToAdd)
         {
-            throw new NotImplementedException();
+            await context.SegmentModels.AddAsync(segmentToAdd);
+            return segmentToAdd;
         }
 
-        public Task<SubCategoryModel> AddSubCategoryAsync(SubCategoryModel subCategoryToAdd)
+        public async Task<SubCategoryModel> AddSubCategoryAsync(SubCategoryModel subCategoryToAdd)
         {
-            throw new NotImplementedException();
+            await context.SubCategoryModels.AddAsync(subCategoryToAdd);
+            return subCategoryToAdd;
         }
 
         public async Task<List<CategoryModel>> GetAllAsync()
@@ -38,19 +42,19 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             return await context.CategoryModels.Include(c => c.Segments).ThenInclude(s => s.SubCategories).ThenInclude(s => s.Questions).ThenInclude(q => q.Responses).ToListAsync();
         }
 
-        public Task<List<QuestionModel>> GetAllQuestionsAsync()
+        public async Task<List<QuestionModel>> GetAllQuestionsAsync()
         {
-            throw new NotImplementedException();
+            return await context.QuestionModels.ToListAsync();
         }
 
         public Task<List<SegmentModel>> GetAllSegmentsAsync()
         {
-            throw new NotImplementedException();
+            return context.SegmentModels.ToListAsync();
         }
 
         public Task<List<SubCategoryModel>> GetAllSubCategoriesAsync()
         {
-            throw new NotImplementedException();
+            return context.SubCategoryModels.ToListAsync();
         }
 
         public async Task<CategoryModel?> GetCategoryAsync(int id)
@@ -63,78 +67,89 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             return await context.CategoryModels.FirstOrDefaultAsync(c => c.Name == name);
         }
 
-        public Task<QuestionModel> GetQuestionAsync(int id)
+        public async Task<QuestionModel?> GetQuestionAsync(int id)
+        {
+            return await context.QuestionModels.FirstOrDefaultAsync(q => q.Id == id);
+        }
+
+        public async Task<QuestionModel> GetQuestionAsync(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<QuestionModel> GetQuestionAsync(string name)
+        public async Task<SegmentModel?> GetSegmentAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.SegmentModels.FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public Task<SegmentModel> GetSegmentAsync(int id)
+        public async Task<SegmentModel?> GetSegmentAsync(string name)
         {
-            throw new NotImplementedException();
+            return await context.SegmentModels.FirstOrDefaultAsync(s => s.Name == name);
         }
 
-        public Task<SegmentModel> GetSegmentAsync(string name)
+        public async Task<SubCategoryModel?> GetSubCategoryAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.SubCategoryModels.FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public Task<SubCategoryModel> GetSubCategoryAsync(int id)
+        public async Task<SubCategoryModel?> GetSubCategoryAsync(string name)
         {
-            throw new NotImplementedException();
+            return await context.SubCategoryModels.FirstOrDefaultAsync(s => s.Name == name);
         }
 
-        public Task<SubCategoryModel> GetSubCategoryAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task RemoveCategoryAsync(CategoryModel modelToRemove)
+        public void RemoveCategoryAsync(CategoryModel modelToRemove)
         {
             context.CategoryModels.Remove(modelToRemove);
-            await context.SaveChangesAsync();
+
         }
 
-        public Task RemoveQuestionAsync(QuestionModel questionToRemove)
+        public void RemoveQuestionAsync(QuestionModel questionToRemove)
         {
-            throw new NotImplementedException();
+
+            context.QuestionModels.Remove(questionToRemove);
         }
 
-        public Task RemoveSegmentAsync(SegmentModel segmentToRemove)
+        public void RemoveSegmentAsync(SegmentModel segmentToRemove)
         {
-            throw new NotImplementedException();
+            context.SegmentModels.Remove(segmentToRemove);
         }
 
-        public Task RemoveSubCategoryAsync(SubCategoryModel subCategoryToRemove)
+        public void RemoveSubCategoryAsync(SubCategoryModel subCategoryToRemove)
         {
-            throw new NotImplementedException();
+            context.SubCategoryModels.Remove(subCategoryToRemove);
         }
 
         public async Task<CategoryModel> UpdateCategoryAsync(CategoryModel categoryToUpdate)
         {
             var currentModel = await GetCategoryAsync(categoryToUpdate.Id);
             currentModel = categoryToUpdate;
-            await context.SaveChangesAsync();
             return currentModel;
         }
 
-        public Task<QuestionModel> UpdateQuestionAsync(QuestionModel questionToUpdate)
+        public async Task<QuestionModel> UpdateQuestionAsync(QuestionModel questionToUpdate)
         {
-            throw new NotImplementedException();
+            var currentQuestion = await GetQuestionAsync(questionToUpdate.Id);
+            currentQuestion = questionToUpdate;
+            return currentQuestion;
         }
 
-        public Task<SegmentModel> UpdateSegmentAsync(SegmentModel segmentToUpdate)
+        public async Task<SegmentModel> UpdateSegmentAsync(SegmentModel segmentToUpdate)
         {
-            throw new NotImplementedException();
+            var currentSegment = await GetSegmentAsync(segmentToUpdate.Id);
+            currentSegment = segmentToUpdate;
+            return currentSegment;
         }
 
-        public Task<SubCategoryModel> UpdateSubCategoryAsync(SubCategoryModel subCategoryToUpdate)
+        public async Task<SubCategoryModel> UpdateSubCategoryAsync(SubCategoryModel subCategoryToUpdate)
         {
-            throw new NotImplementedException();
+            var currentSubCategory = await GetSubCategoryAsync(subCategoryToUpdate.Id);
+            currentSubCategory = subCategoryToUpdate;
+            return currentSubCategory;
         }
+        public async Task SaveChanges()
+        {
+            await context.SaveChangesAsync();
+        }
+
     }
 }

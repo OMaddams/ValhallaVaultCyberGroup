@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ValhallaVaultCyberGroup.Data.Data;
+using ValhallaVaultCyberGroup.Data.Repositories;
 using ValhallaVaultCyberGroup.Ui.Components;
 using ValhallaVaultCyberGroup.Ui.Components.Account;
 using ValhallaVaultCyberGroup.Ui.Data;
@@ -16,6 +17,7 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddScoped<IQuestionsRepo, QuestionsRepo>();
 
 builder.Services.AddAuthentication(options =>
     {
