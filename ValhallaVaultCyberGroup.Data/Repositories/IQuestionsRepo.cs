@@ -4,34 +4,34 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
 {
     public interface IQuestionsRepo
     {
-        public List<CategoryModel> GetAllAsync();
-        public CategoryModel GetById(int id);
-        public CategoryModel GetByName(string id);
-        public void RemoveCategory(CategoryModel modelToRemove);
-        public CategoryModel AddCategory(CategoryModel categoryToAdd);
-        public CategoryModel UpdateCategory(CategoryModel categoryToUpdate);
+        public Task<List<CategoryModel>> GetAllAsync();
+        public Task<CategoryModel> GetByIdAsync(int id);
+        public Task<CategoryModel> GetByNameAsync(string id);
+        public Task RemoveCategoryAsync(CategoryModel modelToRemove);
+        public Task<CategoryModel> AddCategoryAsync(CategoryModel categoryToAdd);
+        public Task<CategoryModel> UpdateCategoryAsync(CategoryModel categoryToUpdate);
 
 
-        public List<SegmentModel> GetAllSegments();
-        public SegmentModel GetSegment(int id);
-        public SegmentModel GetSegment(string name);
-        public SegmentModel AddSegment(SegmentModel segmentToAdd);
-        public SegmentModel UpdateSegment(SegmentModel segmentToUpdate);
-        public void RemoveSegment(SegmentModel segmentToRemove);
+        public Task<List<SegmentModel>> GetAllSegmentsAsync();
+        public Task<SegmentModel> GetSegmentAsync(int id);
+        public Task<SegmentModel> GetSegmentAsync(string name);
+        public Task<SegmentModel> AddSegmentAsync(SegmentModel segmentToAdd);
+        public Task<SegmentModel> UpdateSegmentAsync(SegmentModel segmentToUpdate);
+        public Task RemoveSegmentAsync(SegmentModel segmentToRemove);
 
-        public List<SubCategoryModel> GetAllSubCategories();
-        public SubCategoryModel GetSubCategory(int id);
-        public SubCategoryModel GetSubCategory(string name);
-        public SubCategoryModel AddSubCategory(SubCategoryModel subCategoryToAdd);
-        public SubCategoryModel UpdateSubCategory(SubCategoryModel subCategoryToUpdate);
-        public void RemoveSubCategory(SubCategoryModel subCategoryToRemove);
+        public Task<List<SubCategoryModel>> GetAllSubCategoriesAsync();
+        public Task<SubCategoryModel> GetSubCategoryAsync(int id);
+        public Task<SubCategoryModel> GetSubCategoryAsync(string name);
+        public Task<SubCategoryModel> AddSubCategoryAsync(SubCategoryModel subCategoryToAdd);
+        public Task<SubCategoryModel> UpdateSubCategoryAsync(SubCategoryModel subCategoryToUpdate);
+        public Task RemoveSubCategoryAsync(SubCategoryModel subCategoryToRemove);
 
-        public List<QuestionModel> GetAllQuestions();
-        public QuestionModel GetQuestion(int id);
-        public QuestionModel GetQuestion(string name);
-        public QuestionModel AddQuestion(QuestionModel questionToAdd);
-        public QuestionModel UpdateQuestion(QuestionModel questionToUpdate);
-        public void RemoveQuestion(QuestionModel questionToRemove);
+        public Task<List<QuestionModel>> GetAllQuestionsAsync();
+        public Task<QuestionModel> GetQuestionAsync(int id);
+        public Task<QuestionModel> GetQuestionAsync(string name);
+        public Task<QuestionModel> AddQuestionAsync(QuestionModel questionToAdd);
+        public Task<QuestionModel> UpdateQuestionAsync(QuestionModel questionToUpdate);
+        public Task RemoveQuestionAsync(QuestionModel questionToRemove);
 
 
 
