@@ -1,4 +1,8 @@
-﻿
+﻿@page "/Admin"
+@using Microsoft.AspNetCore.Authorization
+@using ValhallaVaultCyberGroup.App.Managers
+@inject QuestionManager questionManager
+@attribute [Authorize(Roles = "Admin")]
 
 
 <h3>Admin</h3>
