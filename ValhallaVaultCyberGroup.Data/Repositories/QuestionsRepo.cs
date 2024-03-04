@@ -53,14 +53,14 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<CategoryModel> GetByIdAsync(int id)
+        public async Task<CategoryModel?> GetCategoryAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.CategoryModels.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public Task<CategoryModel> GetByNameAsync(string id)
+        public async Task<CategoryModel?> GetCategoryAsync(string name)
         {
-            throw new NotImplementedException();
+            return await context.CategoryModels.FirstOrDefaultAsync(c => c.Name == name);
         }
 
         public Task<QuestionModel> GetQuestionAsync(int id)
@@ -93,9 +93,10 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Task RemoveCategoryAsync(CategoryModel modelToRemove)
+        public async Task RemoveCategoryAsync(CategoryModel modelToRemove)
         {
-            throw new NotImplementedException();
+            context.CategoryModels.Remove(modelToRemove);
+            await context.SaveChangesAsync();
         }
 
         public Task RemoveQuestionAsync(QuestionModel questionToRemove)
@@ -113,9 +114,12 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<CategoryModel> UpdateCategoryAsync(CategoryModel categoryToUpdate)
+        public async Task<CategoryModel> UpdateCategoryAsync(CategoryModel categoryToUpdate)
         {
-            throw new NotImplementedException();
+            var currentModel = await GetCategoryAsync(categoryToUpdate.Id);
+            currentModel = categoryToUpdate;
+            await context.SaveChangesAsync();
+            return currentModel;
         }
 
         public Task<QuestionModel> UpdateQuestionAsync(QuestionModel questionToUpdate)
