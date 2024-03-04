@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\NewFolder\**" />
+    <EmbeddedResource Remove="Models\NewFolder\**" />
+    <None Remove="Models\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="microsoft.aspnetcore.diagnostics.entityframeworkcore" Version="8.0.2" />
     <PackageReference Include="microsoft.aspnetcore.identity.entityframeworkcore" Version="8.0.2" />
     <PackageReference Include="microsoft.entityframeworkcore" Version="8.0.2" />
@@ -19,10 +25,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\NewFolder\" />
   </ItemGroup>
 
 </Project>

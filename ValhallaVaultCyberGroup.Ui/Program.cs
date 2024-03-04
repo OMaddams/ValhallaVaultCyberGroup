@@ -30,15 +30,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+var quizConnectionString = builder.Configuration.GetConnectionString("QuizConnection");
 builder.Services.AddDbContext<QuizDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(quizConnectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddEntityFrameworkStores<QuizDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
@@ -55,13 +55,13 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
 
     ApplicationUser newUser = new()
     {
-        UserName = "user",
+        UserName = "user@gmail.com",
         Email = "user@gmail.com",
         EmailConfirmed = true,
     };
     ApplicationUser newAdmin = new()
     {
-        UserName = "admin",
+        UserName = "admin@gmail.com",
         Email = "admin@gmail.com",
         EmailConfirmed = true,
     };

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValhallaVaultCyberGroup.Ui", "ValhallaVaultCyberGroup.Ui\ValhallaVaultCyberGroup.Ui.csproj", "{A80F1FC5-F71F-4E56-AA30-62454D7388DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValhallaVaultCyberGroup.Ui", "ValhallaVaultCyberGroup.Ui\ValhallaVaultCyberGroup.Ui.csproj", "{A80F1FC5-F71F-4E56-AA30-62454D7388DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValhallaVaultCyberGroup.Data", "ValhallaVaultCyberGroup.Data\ValhallaVaultCyberGroup.Data.csproj", "{C53C011D-79E1-4709-8F57-84215636BE99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValhallaVaultCyberGroup.Data", "ValhallaVaultCyberGroup.Data\ValhallaVaultCyberGroup.Data.csproj", "{C53C011D-79E1-4709-8F57-84215636BE99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValhallaVaultCyberGroup.App", "ValhallaVaultCyberGroup.App\ValhallaVaultCyberGroup.App.csproj", "{05D3C9C6-2177-4741-AFDD-C34DA8248B04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValhallaVaultCyberGroup.App", "ValhallaVaultCyberGroup.App\ValhallaVaultCyberGroup.App.csproj", "{05D3C9C6-2177-4741-AFDD-C34DA8248B04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
