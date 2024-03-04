@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ValhallaVaultCyberGroup.Data.Models.Domain
 {
@@ -15,6 +10,6 @@ namespace ValhallaVaultCyberGroup.Data.Models.Domain
         public List<ResponseModel> Responses { get; set; }
 
         public int SubCategoryId { get; set; }
-        public int SubCategoryModel { get; set; }
+        public SubCategoryModel SubCategory { get; set; }
     }
 }
