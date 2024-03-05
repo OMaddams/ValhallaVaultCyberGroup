@@ -96,6 +96,7 @@
 
     private async void SubmitAddCategory()
     {
+        errorMessages.Clear();
         if (string.IsNullOrEmpty(CategoryToAdd.Name))
         {
             errorMessages.Add("The category needs a name");
@@ -109,9 +110,9 @@
     }
     private async void SubmitAddSegment()
     {
-
+        errorMessages.Clear();
         var category = await questionManager.GetCategoryAsync(SegmentToAdd.CategoriesId);
-        if (string.IsNullOrEmpty(CategoryToAdd.Name))
+        if (string.IsNullOrEmpty(CategoryToAdd.Name.Trim()))
         {
             errorMessages.Add("The segment needs a name");
 
@@ -125,13 +126,81 @@
             StateHasChanged();
             return;
         }
-        await questionManager.AddCategoryAsync(CategoryToAdd.Name);
+        await questionManager.AddSegmentAsync(SegmentToAdd.Name, SegmentToAdd.CategoriesId);
         errorMessages.Clear();
         navmanager.NavigateTo("admin", true);
     }
 
     private async void SubmitAddSubCat()
     {
-        
+        errorMessages.Clear();
+        var segment = await questionManager.GetSegmentAsync(SubCatToAdd.SegmentId);
+        if (string.IsNullOrEmpty(SubCatToAdd.Name))
+        {
+            errorMessages.Add("The subcategory needs a name");
+
+        }
+        if(segment == null)
+        {
+            errorMessages.Add("The subcategory needs a valid parent segment");
+        }
+        if (errorMessages.Any())
+        {
+           
+            StateHasChanged();
+            return;
+        }
+
+        await questionManager.AddSubCategoryAsync(SubCatToAdd.Name, SubCatToAdd.SegmentId);
+        errorMessages.Clear();
+        navmanager.NavigateTo("admin", true);
+    }
+
+    private async void SubmitAddQuestion()
+    {
+        errorMessages.Clear();
+        var segment = await questionManager.GetSegmentAsync(SubCatToAdd.SegmentId);
+        if (string.IsNullOrEmpty(SubCatToAdd.Name))
+        {
+            errorMessages.Add("The question needs a name");
+
+        }
+        if (segment == null)
+        {
+            errorMessages.Add("The question needs a valid parent sub category");
+        }
+        if (errorMessages.Any())
+        {
+            StateHasChanged();
+            return;
+        }
+
+        await questionManager.AddQuestionAsync(QuestionToAdd.Text, QuestionToAdd.SubCategoryId);
+        errorMessages.Clear();
+        navmanager.NavigateTo("admin", true);
+    }
+
+    private async void SubmitAddResponse()
+    {
+        errorMessages.Clear();
+        var question = await questionManager.GetQuestionAsync(ResponseToAdd.QuestionId);
+        if (string.IsNullOrEmpty(ResponseToAdd.Text))
+        {
+            errorMessages.Add("The answer / response needs text");
+
+        }
+        if (question == null)
+        {
+            errorMessages.Add("The Response / Answer needs a valid parent question");
+        }
+        if (errorMessages.Any())
+        {
+            StateHasChanged();
+            return;
+        }
+
+        await questionManager.AddSubCategoryAsync(SubCatToAdd.Name);
+        errorMessages.Clear();
+        navmanager.NavigateTo("admin", true);
     }
 }
