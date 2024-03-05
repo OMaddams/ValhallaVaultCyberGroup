@@ -38,6 +38,7 @@ builder.Services.AddDbContext<QuizDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddControllers();
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -126,11 +127,6 @@ app.MapRazorComponents<App>()
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers(); // Lägger till controllers som endpoints
-    endpoints.MapRazorComponents<App>().AddInteractiveServerRenderMode();
-    endpoints.MapAdditionalIdentityEndpoints();
-});
+app.MapControllers();
 
 app.Run();

@@ -69,6 +69,36 @@
                             <button class="btn btn-primary" type="submit">Add</button>
                         </EditForm>
                     }
+                    @if (isAdding && addOption == "Question")
+                    {
+                        <EditForm Model="QuestionToAdd" OnSubmit="SubmitAddQuestion">
+                            <div>
+                                <label for="subcategory-id">Subcategory Id:</label>
+                                <InputNumber id="subcategory-id" class="form-control" @bind-Value="QuestionToAdd.SubCategoryId"></InputNumber>
+                            </div>
+                            <div>
+                            <label for="question-text">Text:</label>
+                                <InputText id="question-text" class="form-control" @bind-Value=QuestionToAdd.Text></InputText>
+                            </div>
+
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </EditForm>
+                    }
+                    @if (isAdding && addOption == "Answer")
+                    {
+                        <EditForm Model="ResponseToAdd" OnSubmit="SubmitAddResponse">
+                            <div>
+                                <label for="question-id">Question Id:</label>
+                                <InputNumber id="question-id" class="form-control" @bind-Value="ResponseToAdd.QuestionId"></InputNumber>
+                            </div>
+                            <div>
+                                <label for="response-text">Text:</label>
+                                <InputText id="response-text" class="form-control" @bind-Value=ResponseToAdd.Text></InputText>
+                            </div>
+
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </EditForm>
+                    }
                 @foreach(string error in errorMessages)
                 {
                     <p class="text-danger">@error</p>
@@ -108,11 +138,12 @@
         navmanager.NavigateTo("admin", true);
 
     }
+
     private async void SubmitAddSegment()
     {
         errorMessages.Clear();
         var category = await questionManager.GetCategoryAsync(SegmentToAdd.CategoriesId);
-        if (string.IsNullOrEmpty(CategoryToAdd.Name.Trim()))
+        if (string.IsNullOrEmpty(CategoryToAdd.Name))
         {
             errorMessages.Add("The segment needs a name");
 
@@ -199,7 +230,7 @@
             return;
         }
 
-        await questionManager.AddSubCategoryAsync(SubCatToAdd.Name);
+        await questionManager.AddResponseAsync(ResponseToAdd.Text, ResponseToAdd.QuestionId);
         errorMessages.Clear();
         navmanager.NavigateTo("admin", true);
     }
