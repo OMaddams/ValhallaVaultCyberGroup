@@ -28,7 +28,6 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
 
         public Task<List<QuestionModel?>> GetAllQuestionsAsync();
         public Task<QuestionModel?> GetQuestionAsync(int id);
-        public Task<QuestionModel?> GetQuestionAsync(string name);
         public Task<QuestionModel> AddQuestionAsync(QuestionModel questionToAdd);
         public Task<QuestionModel> UpdateQuestionAsync(QuestionModel questionToUpdate);
         public void RemoveQuestionAsync(QuestionModel questionToRemove);
