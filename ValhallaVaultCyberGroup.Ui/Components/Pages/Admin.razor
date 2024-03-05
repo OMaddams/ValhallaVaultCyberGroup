@@ -2,12 +2,13 @@
 @using Microsoft.AspNetCore.Authorization
 @using ValhallaVaultCyberGroup.App.Managers
 @using ValhallaVaultCyberGroup.Data.Models.Domain
+@using ValhallaVaultCyberGroup.Ui.Components.Reusable_Components
 @inject QuestionManager questionManager
 @inject NavigationManager navmanager
 @attribute [Authorize(Roles = "Admin")]
 @rendermode InteractiveServer
 
-<h3>Admin</h3>
+
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -18,26 +19,34 @@
            <div class="w-100 d-flex justify-content-between">
            @if (isAdding)
             {
-                <InputSelect TValue="string" @bind-Value=addOption>
+                <div>
+
+                <label for="addOption-id">What do you wish to add:</label>
+                <InputSelect id="addOption-id" TValue="string" @bind-Value=addOption>
                     <option value="Category"> Category</option>
                     <option value="Segment"> Segment</option>
                     <option value="SubCategory"> Sub Category</option>
                     <option value="Question"> Question</option>
                     <option value="Answer"> Answer</option>
                 </InputSelect>
+                </div>
             }
+                @if (isEditing)
+                {
+                    
+                }
             <div></div>
-            <button class="btn btn-primary " style="justify-self:flex-end" @onclick=AddButtonClick>+</button>
+            <button class="btn btn-primary " style="justify-self:flex-end; width:36px" @onclick=AddButtonClick>@(isAdding? "-" : "+")</button>
 
             </div>
                 <div>
                     
-                    @if(isAdding && addOption == "Category")
+                    @if(isAdding || isEditing && addOption == "Category")
                     {
-                        <EditForm Model="CategoryToAdd" OnSubmit="SubmitAddCategory">
+                        <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="SubmitAddCategory">
                             <label for="category-name">Name:</label>
-                            <InputText class="form-control" @bind-Value=CategoryToAdd.Name></InputText>
-                            <button class="btn btn-primary" type="submit">Add</button>
+                            <InputText class="form-control" @(isAdding ? @bind-Value=CategoryToAdd.Name : @bind-Value=CategoryToEdit.Name)></InputText>
+                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit" )</button>
                         </EditForm>
                     }
                     @if (isAdding && addOption == "Segment")
@@ -107,18 +116,186 @@
             </div>
         </div>
     </div>
+    <div class="card">
+        @if(Categories == null || !Categories.Any())
+        {
+            <h1>Loading...</h1>
+        }
+        else
+        {
+            @foreach(var category in Categories)
+            {
+                <Category >
+                    <Title>
+                        <div class="d-flex  justify-content-between">
+                            <h4>@category.Name</h4>
+                            
+                            <EditAndRemove ItemId="@category.Id" Type="Category" EditOrRemove="@EditOrRemove"/>
+
+                            
+                        </div>
+                    </Title>
+                    <Body>
+                        @foreach(var segment in category.Segments)
+                        {
+                            <Category>
+                                <Title>
+                                    <div class="d-flex  justify-content-between">
+                                        <h4>@segment.Name</h4>
+
+                                        <EditAndRemove ItemId="@segment.Id" Type="Segment" EditOrRemove="@EditOrRemove" />
+
+
+                                    </div>
+                                </Title>
+                                <Body>
+                                    @foreach(var subcategory in segment.SubCategories)
+                                    {
+                                        <Category>
+                                            <Title>
+                                                <div class="d-flex  justify-content-between">
+                                                    <h4>@subcategory.Name</h4>
+
+                                                    <EditAndRemove ItemId="@subcategory.Id" Type="SubCat" EditOrRemove="@EditOrRemove" />
+
+
+                                                </div>
+                                            </Title>
+                                            <Body>
+                                                @foreach(var question in subcategory.Questions)
+                                                {
+                                                    <Category>
+                                                        <Title>
+                                                            <h4>@question.Text</h4>
+                                                        </Title>
+                                                        <Body>
+                                                            @foreach(var response in question.Responses)
+                                                            {
+                                                                <p>@response.Text</p>
+                                                                <p>Is this the right answer: @response.IsRightAnswer</p>
+                                                            }
+                                                        </Body>
+                                                    </Category>
+                                                }
+                                            </Body>
+                                        </Category>
+                                    }
+                                </Body>
+                            </Category>
+                        }
+                    </Body>
+                </Category>
+            }
+
+
+
+        }
+    </div>
 </div>
 
 @code {
     private bool isAdding = false;
+    private bool isEditing = false; 
     private string addOption = "";
     private List<string> errorMessages = new();
+    public List<CategoryModel>? Categories { get; set; }
 
     public CategoryModel CategoryToAdd { get; set; } = new();
     public SegmentModel SegmentToAdd { get; set; } = new();
     public SubCategoryModel SubCatToAdd { get; set; } = new();
     public QuestionModel QuestionToAdd { get; set; } = new();
     public ResponseModel ResponseToAdd { get; set; } = new();
+
+    public CategoryModel? CategoryToEdit { get; set; } = new();
+    public SegmentModel? SegmentToEdit { get; set; } = new();
+    public SubCategoryModel? SubCatToEdit { get; set; } = new();
+    public QuestionModel? QuestionToEdit { get; set; } = new();
+    public ResponseModel? ResponseToEdit { get; set; } = new();
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        Categories = await questionManager.GetAllCategoriesAsync();
+    }
+
+    private async void EditOrRemove(string action, string type, int id)
+    {
+        if(action == "remove")
+        {
+            switch (type)
+            {
+                case "Category":
+                    {
+                        var categoryToRemove = await questionManager.GetCategoryAsync(id);
+                        if(categoryToRemove != null)
+                        {
+                            questionManager.RemoveCategory(categoryToRemove);
+                        }
+                        break;
+                    }
+                case "Segment":
+                    {
+                        var segmentToRemove = await questionManager.GetSegmentAsync(id);
+                        if (segmentToRemove != null)
+                        {
+                            questionManager.RemoveSegmentAsync(segmentToRemove);
+                        }
+                        break;
+                    }
+                case "SubCat":
+                    {
+                        var SubCatToRemove = await questionManager.GetSubCategoryAsync(id);
+                        if (SubCatToRemove != null)
+                        {
+                            questionManager.RemoveSubCategoryAsync(SubCatToRemove);
+                        }
+                        break;
+                    }
+                case "Question":
+                    {
+                        var questionToRemove = await questionManager.GetQuestionAsync(id);
+                        if (questionToRemove != null)
+                        {
+                            questionManager.RemoveQuestionAsync(questionToRemove);
+                        }
+                        break;
+                    }
+                case "Response":
+                    {
+                        var responseToRemove = await questionManager.GetResponseAsync(id);
+                        if(responseToRemove != null)
+                        {
+                            questionManager.RemoveResponseAsync(responseToRemove);
+                        }
+                        break;
+                    }
+                default :
+                    {
+                        break;
+                    }
+
+            }
+        }
+        else if(action == "edit")
+        {
+            isEditing = true;
+            switch (type)
+            {
+                case "Category":
+                    {
+                        CategoryToEdit = await questionManager.GetCategoryAsync(id);
+                        if(CategoryToEdit != null)
+                        {
+                            addOption = "Category";
+                            
+                        }
+                        break;
+                    }
+            }
+        }
+        StateHasChanged();
+    }
+
     private void AddButtonClick()
     {
         isAdding = !isAdding;
