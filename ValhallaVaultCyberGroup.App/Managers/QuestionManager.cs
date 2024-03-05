@@ -1,11 +1,4 @@
-﻿using Azure;
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ValhallaVaultCyberGroup.Data.Models.Domain;
+﻿using ValhallaVaultCyberGroup.Data.Models.Domain;
 using ValhallaVaultCyberGroup.Data.Repositories;
 
 namespace ValhallaVaultCyberGroup.App.Managers
@@ -24,28 +17,28 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         public async Task<List<CategoryModel?>> GetAllCategoriesAsync()
         {
-            return await _repo.GetAllAsync();   
+            return await _repo.GetAllAsync();
         }
 
 
         //Hämta en kategori med namn
 
-        public async Task <CategoryModel?> GetCategoryAsync(string name)
+        public async Task<CategoryModel?> GetCategoryAsync(string name)
         {
             return await _repo.GetCategoryAsync(name);
         }
 
-        public async Task <CategoryModel?> GetCategoryAsync(int id)
-        { 
-           return await _repo.GetCategoryAsync(id);  
+        public async Task<CategoryModel?> GetCategoryAsync(int id)
+        {
+            return await _repo.GetCategoryAsync(id);
         }
 
         //Ta bort en kategori
-        public void RemoveCategory (CategoryModel modelToRemove)
+        public void RemoveCategory(CategoryModel modelToRemove)
         {
             _repo.RemoveCategoryAsync(modelToRemove);
             _repo.SaveChangesAsync();
-         
+
         }
 
         //Lägg till en ny kategori
@@ -53,20 +46,20 @@ namespace ValhallaVaultCyberGroup.App.Managers
         {
             CategoryModel model = new CategoryModel();
 
-             model.Name = name;
-             var addedModel =  await _repo.AddCategoryAsync(model);
-           await _repo.SaveChangesAsync();
-            return addedModel;  
-            
+            model.Name = name;
+            var addedModel = await _repo.AddCategoryAsync(model);
+            await _repo.SaveChangesAsync();
+            return addedModel;
+
         }
 
         //Uppdatera kategori
-        public async Task <CategoryModel?> UpdateCategoryAsync(int id, string name)
+        public async Task<CategoryModel?> UpdateCategoryAsync(int id, string name)
         {
 
-          var categoryToUpdate = await _repo.GetCategoryAsync(id);
+            var categoryToUpdate = await _repo.GetCategoryAsync(id);
 
-            if(categoryToUpdate != null)
+            if (categoryToUpdate != null)
             {
                 categoryToUpdate.Name = name;
 
@@ -74,15 +67,15 @@ namespace ValhallaVaultCyberGroup.App.Managers
                 await _repo.SaveChangesAsync();
             }
 
-        
+
             return categoryToUpdate;
-   
+
         }
 
 
         //Hämta alla frågor
 
-        public async Task <List<QuestionModel?>> GetAllQuestionsAsync()
+        public async Task<List<QuestionModel?>> GetAllQuestionsAsync()
         {
             return await _repo.GetAllQuestionsAsync();
         }
@@ -101,16 +94,16 @@ namespace ValhallaVaultCyberGroup.App.Managers
         public async void RemoveQuestionAsync(QuestionModel question)
         {
             _repo.RemoveQuestionAsync(question);
-           await _repo.SaveChangesAsync();
+            await _repo.SaveChangesAsync();
         }
 
 
         //Lägg till en ny fråga
-        public async Task <QuestionModel> AddQuestionAsync(string text)
+        public async Task<QuestionModel> AddQuestionAsync(string text)
         {
-            QuestionModel model = new QuestionModel();  
+            QuestionModel model = new QuestionModel();
             model.Text = text;
-            var addedModel = await _repo.AddQuestionAsync(model);   
+            var addedModel = await _repo.AddQuestionAsync(model);
             await _repo.SaveChangesAsync();
             return addedModel;
         }
@@ -118,32 +111,32 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Uppdatera en fråga
 
-        public async Task <QuestionModel?> UpdateQuestionAsync(int id, string text)
+        public async Task<QuestionModel?> UpdateQuestionAsync(int id, string text)
         {
-           var questionToUpdate = await _repo.GetQuestionAsync(id);
+            var questionToUpdate = await _repo.GetQuestionAsync(id);
 
-            if(questionToUpdate !=null)
+            if (questionToUpdate != null)
             {
                 questionToUpdate.Text = text;
                 await _repo.UpdateQuestionAsync(questionToUpdate);
                 await _repo.SaveChangesAsync();
             }
-          
-           return questionToUpdate;
+
+            return questionToUpdate;
 
 
         }
 
 
         //Hämta alla Sub-kategorier
-        public async Task <List<SubCategoryModel?>> GetAllSubCategoriesAsync()
+        public async Task<List<SubCategoryModel?>> GetAllSubCategoriesAsync()
         {
             return await GetAllSubCategoriesAsync();
         }
 
         //Hämta en sub kategori med id
 
-        public async Task <SubCategoryModel?> GetSubCategoryAsync(int id)
+        public async Task<SubCategoryModel?> GetSubCategoryAsync(int id)
         {
             return await GetSubCategoryAsync(id);
         }
@@ -164,16 +157,16 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         public async Task<SubCategoryModel?> UpdateSubCategoryAsync(int id, string name)
         {
-            var subCategoryToUpdate = await _repo.GetSubCategoryAsync(id);  
-            
-            if(subCategoryToUpdate != null)
+            var subCategoryToUpdate = await _repo.GetSubCategoryAsync(id);
+
+            if (subCategoryToUpdate != null)
             {
                 subCategoryToUpdate.Name = name;
                 await _repo.UpdateSubCategoryAsync(subCategoryToUpdate);
                 await _repo.SaveChangesAsync();
 
             }
-           
+
             return subCategoryToUpdate;
 
         }
@@ -184,20 +177,20 @@ namespace ValhallaVaultCyberGroup.App.Managers
             SubCategoryModel model = new SubCategoryModel();
             model.Name = name;
             var addedModel = await _repo.AddSubCategoryAsync(model);
-            await _repo.SaveChangesAsync(); 
+            await _repo.SaveChangesAsync();
             return addedModel;
         }
 
 
         //Hämta alla responses
-        public async Task <List<ResponseModel>> GetAllResponsesAsync()
+        public async Task<List<ResponseModel>> GetAllResponsesAsync()
         {
-            return await _repo.GetAllResponsesAsync();  
+            return await _repo.GetAllResponsesAsync();
         }
 
         //Hämta en response med id
 
-        public async Task <ResponseModel?> GetResponseAsync(int id)
+        public async Task<ResponseModel?> GetResponseAsync(int id)
         {
             return await GetResponseAsync(id);
         }
@@ -219,24 +212,24 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Uppdate
 
-        public async Task <ResponseModel?> UpdateResponseAsync(int id, string text)
+        public async Task<ResponseModel?> UpdateResponseAsync(int id, string text)
         {
             var responseToUpdate = await _repo.GetResponseAsync(id);
-            if(responseToUpdate != null)
+            if (responseToUpdate != null)
 
             {
                 responseToUpdate.Text = text;
                 await _repo.UpdateResponseAsync(responseToUpdate);
                 await _repo.SaveChangesAsync();
-                
+
             }
 
             return responseToUpdate;
         }
-           
+
 
         //Add
-         
+
         public async Task<ResponseModel> AddResponseAsync(string text)
         {
             ResponseModel model = new ResponseModel();
@@ -248,14 +241,14 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Hämta alla segments
 
-        public async Task <List<SegmentModel>> GetSegmentAsync()
+        public async Task<List<SegmentModel>> GetSegmentAsync()
         {
             return await _repo.GetAllSegmentsAsync();
         }
 
         //Hämta segment med id
 
-        public async Task <SegmentModel?> GetSegmentAsync(int id)
+        public async Task<SegmentModel?> GetSegmentAsync(int id)
         {
             return await _repo.GetSegmentAsync(id);
         }
@@ -279,32 +272,32 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //update
 
-        public async Task<SegmentModel?> UpdateSegmentAsync(int id, string  name)
+        public async Task<SegmentModel?> UpdateSegmentAsync(int id, string name)
         {
             var segmentToUpdate = await _repo.GetSegmentAsync(id);
-            if(segmentToUpdate != null)
+            if (segmentToUpdate != null)
             {
                 segmentToUpdate.Name = name;
                 await _repo.UpdateSegmentAsync(segmentToUpdate);
                 await _repo.SaveChangesAsync();
             }
-           
+
             return segmentToUpdate;
         }
 
 
         //Add
 
-        public async Task <SegmentModel> AddSegmentAsync(string name)
+        public async Task<SegmentModel> AddSegmentAsync(string name)
         {
             SegmentModel model = new SegmentModel();
             model.Name = name;
             var addedModel = await _repo.AddSegmentAsync(model);
             await _repo.SaveChangesAsync();
-            return addedModel;  
+            return addedModel;
         }
 
- 
+
 
     }
 
