@@ -49,3 +49,34 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+
+.categoryBox {
+    width: 100%; 
+    /*min-height: 10vh;*/ 
+    background-color: lightblue;
+    border: 1px solid #ccc; 
+    text-align: left; 
+    line-height: 100px;
+    margin: 20px auto; 
+    padding: 10px;
+}
+
+    .categoryBox button {
+      
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+.questionForm {
+    background-color: #ffffe0; 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+}
+
+.questionStyle {
+    
+}
