@@ -11,6 +11,8 @@ using ValhallaVaultCyberGroup.Ui.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
@@ -99,8 +101,7 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
 }
 
 
-// Add MVC services
-builder.Services.AddControllers();
+
 
 var app = builder.Build();
 
