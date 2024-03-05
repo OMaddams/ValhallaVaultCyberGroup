@@ -26,6 +26,7 @@
                     <option value="Answer"> Answer</option>
                 </InputSelect>
             }
+            <div></div>
             <button class="btn btn-primary " style="justify-self:flex-end" @onclick=AddButtonClick>+</button>
 
             </div>
@@ -58,12 +59,12 @@
                     {
                         <EditForm Model="SubCatToAdd" OnSubmit="SubmitAddSubCat">
                             <div>
-                                <label for="category-id">Segment Id:</label>
-                                <InputNumber id="category-id" class="form-control" @bind-Value="SubCatToAdd.SegmentId"></InputNumber>
+                                <label for="segment-id">Segment Id:</label>
+                            <InputNumber id="segment-id" class="form-control" @bind-Value="SubCatToAdd.SegmentId"></InputNumber>
                             </div>
                             <div>
-                                <label for="segment-name">Name:</label>
-                                <InputText id="segment-name" class="form-control" @bind-Value=SegmentToAdd.Name></InputText>
+                                <label for="subcat-name">Name:</label>
+                            <InputText id="subcat-name" class="form-control" @bind-Value=SubCatToAdd.Name></InputText>
                             </div>
 
                             <button class="btn btn-primary" type="submit">Add</button>
@@ -143,7 +144,7 @@
     {
         errorMessages.Clear();
         var category = await questionManager.GetCategoryAsync(SegmentToAdd.CategoriesId);
-        if (string.IsNullOrEmpty(CategoryToAdd.Name))
+        if (string.IsNullOrEmpty(SegmentToAdd.Name))
         {
             errorMessages.Add("The segment needs a name");
 
@@ -190,13 +191,13 @@
     private async void SubmitAddQuestion()
     {
         errorMessages.Clear();
-        var segment = await questionManager.GetSegmentAsync(SubCatToAdd.SegmentId);
-        if (string.IsNullOrEmpty(SubCatToAdd.Name))
+        var subCategory = await questionManager.GetSegmentAsync(QuestionToAdd.SubCategoryId);
+        if (string.IsNullOrEmpty(QuestionToAdd.Text))
         {
-            errorMessages.Add("The question needs a name");
+            errorMessages.Add("The question needs Text");
 
         }
-        if (segment == null)
+        if (subCategory == null)
         {
             errorMessages.Add("The question needs a valid parent sub category");
         }
