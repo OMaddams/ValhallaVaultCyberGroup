@@ -6,6 +6,9 @@
 @rendermode InteractiveServer
 
 
+@if(isTestOpen ==false)
+{
+
 <div class="d-flex flex-column" style = "width:70vw;">
 @if (Categories != null)
 {
@@ -18,7 +21,7 @@
 
            <Body>
               
-                @foreach(var segment in Segments)
+                @foreach(var segment in category.Segments)
                 {
                     <Category>
                         <Title>
@@ -26,25 +29,19 @@
                         </Title>
 
                         <Body>
-
-                                @foreach(var subCategory in SubCategories)
+                           
+                                @foreach(var subCategory in segment.SubCategories)
                                 {
                                 <Category>
+                                    
                                     <Title>
-                                        <h1>@subCategory.Name</h1>
+                                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                    <h1 style="margin: 0;">@subCategory.Name</h1>
+                                                    <button style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
+                                                </div>
+                                       
                                     </Title>
-                                    <Body>
-
-                                            @foreach(var question in Questions)
-                                            {
-                                                <Category>
-                                                    <Title>
-                                                        <h2>@question.Text</h2>
-                                                    </Title>
-                                                </Category>
-                                           
-                                            }
-                                        </Body> 
+                                    
                                 </Category>
                                 }
                             </Body>
@@ -57,8 +54,40 @@
     }
   
     
+    
 }
 </div>
+
+}
+
+@if (isTestOpen == true)
+{
+   <QuestionForm>
+
+       <Header>
+           <h2>@selectedSubCategory.Name</h2>
+       </Header>
+
+       <Body>
+            @foreach(var question in selectedSubCategory.Questions)
+            {
+                <Question>
+                    <Text>
+                        <p class="font-weight-bold">@question.Text</p>
+                    </Text>
+                </Question>
+                @foreach(var response in question.Responses)
+                {
+                    <p class="fst-italic">@response.Text</p>
+
+                }
+            }
+
+
+       </Body>
+
+   </QuestionForm>
+}
 
         
     
@@ -69,20 +98,22 @@
 
 @code
 {
-
+    private SubCategoryModel selectedSubCategory = new();
+    private bool isTestOpen = false; 
     private List<CategoryModel> Categories = new();
-    private List<SegmentModel> Segments = new();
-    private List<SubCategoryModel> SubCategories = new();
-    private List<QuestionModel> Questions = new();
+
 
     protected override async Task OnInitializedAsync()
     {
         Categories = await questionManager.GetAllCategoriesAsync();
 
-        Segments = await questionManager.GetSegmentAsync();
 
-        SubCategories = await questionManager.GetAllSubCategoriesAsync();
-        Questions = await questionManager.GetAllQuestionsAsync();
+    }
 
+
+    private void StartTest(SubCategoryModel subCategory)
+    {
+        isTestOpen = true;
+        selectedSubCategory = subCategory;
     }
 }

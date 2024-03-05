@@ -404,6 +404,24 @@ namespace ValhallaVaultCyberGroup.Data.Data
                     Text = "Fråga 10",
                     SubCategoryId = 4,
                 });
+
+
+            modelBuilder.Entity<ResponseModel>().HasData(
+                new ResponseModel
+                {
+                    Id = 1,
+                    Text = "Svar 1",
+                    IsRightAnswer = true,
+                    QuestionId = 1,
+                },
+                new ResponseModel
+                {
+                    Id = 2,
+                    Text = "Svar 2",
+                    IsRightAnswer = true,
+                    QuestionId = 2,
+                });
+
         }
 
     }

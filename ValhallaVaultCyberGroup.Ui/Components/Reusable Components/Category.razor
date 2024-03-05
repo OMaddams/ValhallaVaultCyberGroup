@@ -7,9 +7,11 @@
 
 
    
-        <div class="categoryBox card" @onclick="Expand" >
+        <div class="categoryBox card" >
 
+    <div @onclick="Expand">
             @Title
+    </div>
            
             @if (IsExpanded == true)
             {
