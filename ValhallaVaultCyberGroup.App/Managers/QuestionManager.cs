@@ -132,21 +132,21 @@ namespace ValhallaVaultCyberGroup.App.Managers
         //Hämta alla Sub-kategorier
         public async Task<List<SubCategoryModel?>> GetAllSubCategoriesAsync()
         {
-            return await GetAllSubCategoriesAsync();
+            return await _repo.GetAllSubCategoriesAsync();
         }
 
         //Hämta en sub kategori med id
 
         public async Task<SubCategoryModel?> GetSubCategoryAsync(int id)
         {
-            return await GetSubCategoryAsync(id);
+            return await _repo.GetSubCategoryAsync(id);
         }
 
         //Hämta en sub kategori med name
 
         public async Task<SubCategoryModel?> GetSubCategoryAsync(string name)
         {
-            return await GetSubCategoryAsync(name);
+            return await _repo.GetSubCategoryAsync(name);
         }
 
         public void RemoveSubCategoryAsync(SubCategoryModel model)
@@ -194,15 +194,15 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         public async Task<ResponseModel?> GetResponseAsync(int id)
         {
-            return await GetResponseAsync(id);
+            return await _repo.GetResponseAsync(id);
         }
 
         //Hämta en response med text
 
-        public async Task<ResponseModel?> GetResponseAsync(string text)
-        {
-            return await GetResponseAsync(text);
-        }
+        //public async Task<ResponseModel?> GetResponseAsync(string text)
+        //{
+        //    return await _repo.GetResponseAsync(text);
+        //}
 
         //Remove
 
