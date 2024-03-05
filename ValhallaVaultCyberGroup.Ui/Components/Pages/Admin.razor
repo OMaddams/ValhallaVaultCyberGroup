@@ -1,12 +1,137 @@
 ﻿@page "/Admin"
 @using Microsoft.AspNetCore.Authorization
 @using ValhallaVaultCyberGroup.App.Managers
+@using ValhallaVaultCyberGroup.Data.Models.Domain
 @inject QuestionManager questionManager
+@inject NavigationManager navmanager
 @attribute [Authorize(Roles = "Admin")]
-
+@rendermode InteractiveServer
 
 <h3>Admin</h3>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h5>Admin control panel</h5>
+        </div>
+        <div class="card-body w-100 d-flex flex-column">
+           
+           <div class="w-100 d-flex justify-content-between">
+           @if (isAdding)
+            {
+                <InputSelect TValue="string" @bind-Value=addOption>
+                    <option value="Category"> Category</option>
+                    <option value="Segment"> Segment</option>
+                    <option value="SubCategory"> Sub Category</option>
+                    <option value="Question"> Question</option>
+                    <option value="Answer"> Answer</option>
+                </InputSelect>
+            }
+            <button class="btn btn-primary " style="justify-self:flex-end" @onclick=AddButtonClick>+</button>
+
+            </div>
+                <div>
+                    
+                    @if(isAdding && addOption == "Category")
+                    {
+                        <EditForm Model="CategoryToAdd" OnSubmit="SubmitAddCategory">
+                            <label for="category-name">Name:</label>
+                            <InputText class="form-control" @bind-Value=CategoryToAdd.Name></InputText>
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </EditForm>
+                    }
+                    @if (isAdding && addOption == "Segment")
+                    {
+                        <EditForm Model="SegmentToAdd" OnSubmit="SubmitAddSegment">
+                            <div>
+                                 <label for="category-id">Category Id:</label>
+                                 <InputNumber id="category-id" class="form-control" @bind-Value="SegmentToAdd.CategoriesId"></InputNumber>
+                            </div>
+                            <div>
+                                <label for="segment-name">Name:</label>
+                                <InputText id="segment-name" class="form-control" @bind-Value=SegmentToAdd.Name></InputText>
+                            </div>
+                        
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </EditForm>
+                    }
+                    @if (isAdding && addOption == "SubCategory")
+                    {
+                        <EditForm Model="SubCatToAdd" OnSubmit="SubmitAddSubCat">
+                            <div>
+                                <label for="category-id">Segment Id:</label>
+                                <InputNumber id="category-id" class="form-control" @bind-Value="SubCatToAdd.SegmentId"></InputNumber>
+                            </div>
+                            <div>
+                                <label for="segment-name">Name:</label>
+                                <InputText id="segment-name" class="form-control" @bind-Value=SegmentToAdd.Name></InputText>
+                            </div>
+
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </EditForm>
+                    }
+                @foreach(string error in errorMessages)
+                {
+                    <p class="text-danger">@error</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
+    private bool isAdding = false;
+    private string addOption = "";
+    private List<string> errorMessages = new();
 
+    public CategoryModel CategoryToAdd { get; set; } = new();
+    public SegmentModel SegmentToAdd { get; set; } = new();
+    public SubCategoryModel SubCatToAdd { get; set; } = new();
+    public QuestionModel QuestionToAdd { get; set; } = new();
+    public ResponseModel ResponseToAdd { get; set; } = new();
+    private void AddButtonClick()
+    {
+        isAdding = !isAdding;
+        StateHasChanged();
+    }
+
+    private async void SubmitAddCategory()
+    {
+        if (string.IsNullOrEmpty(CategoryToAdd.Name))
+        {
+            errorMessages.Add("The category needs a name");
+            StateHasChanged();
+            return;
+        }
+        await questionManager.AddCategoryAsync(CategoryToAdd.Name);
+        errorMessages.Clear();
+        navmanager.NavigateTo("admin", true);
+
+    }
+    private async void SubmitAddSegment()
+    {
+
+        var category = await questionManager.GetCategoryAsync(SegmentToAdd.CategoriesId);
+        if (string.IsNullOrEmpty(CategoryToAdd.Name))
+        {
+            errorMessages.Add("The segment needs a name");
+
+        }
+        if(category == null)
+        {
+            errorMessages.Add(" The segment needs a valid parent category");
+        }
+        if(errorMessages.Any())
+        {
+            StateHasChanged();
+            return;
+        }
+        await questionManager.AddCategoryAsync(CategoryToAdd.Name);
+        errorMessages.Clear();
+        navmanager.NavigateTo("admin", true);
+    }
+
+    private async void SubmitAddSubCat()
+    {
+        
+    }
 }
