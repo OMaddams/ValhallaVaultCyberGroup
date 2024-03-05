@@ -1,97 +1,121 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
 @using ValhallaVaultCyberGroup.App.Managers
 @using ValhallaVaultCyberGroup.Data.Models.Domain
 @using ValhallaVaultCyberGroup.Ui.Components.Reusable_Components
+@using ValhallaVaultCyberGroup.Ui.Data
+@using ValhallaVaultCyberGroup.Data
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject QuestionManager questionManager
 @rendermode InteractiveServer
 
 
-@if(isTestOpen ==false)
+@if (!isAuthenticated)
 {
+    <div class="text-center mb-4">
+        <a href="/Account/Login" class="btn btn-primary">
+            <strong>Welcome to the Test!</strong><br>
+            Please login to proceed
+        </a>
+    </div>
+}
+else
+{
+    <div class="row justify-content-center">
+        <div class="text-center mb-4">
+            <h2>Hello @Name</h2>
+            <h2>You are logged in, please procceed with the test below!</h2>
+        </div>
+    </div>
+}
 
-<div class="d-flex flex-column" style = "width:70vw;">
-@if (Categories != null)
+@if (isAuthenticated)
 {
-    @foreach(var category in Categories)
+    @if(isTestOpen ==false)
     {
-          <Category>
-        <Title>
-            <h2>@category.Name</h2>
-        </Title>
+    <div class="row justify-content-center">
+        <div class="d-flex flex-column" style = "width:70vw;">
+        @if (Categories != null)
+        {
+            @foreach(var category in Categories)
+            {
+                <Category>
+                <Title>
+                    <h2>@category.Name</h2>
+                </Title>
 
-           <Body>
+                   <Body>
               
-                @foreach(var segment in category.Segments)
-                {
-                    <Category>
-                        <Title>
-                            <h1>@segment.Name</h1>
-                        </Title>
+                        @foreach(var segment in category.Segments)
+                        {
+                            <Category>
+                                <Title>
+                                    <h1>@segment.Name</h1>
+                                </Title>
 
-                        <Body>
+                                <Body>
                            
-                                @foreach(var subCategory in segment.SubCategories)
-                                {
-                                <Category>
+                                    @foreach(var subCategory in segment.SubCategories)
+                                    {
+                                    <Category>
                                     
-                                    <Title>
-                                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                                    <h1 style="margin: 0;">@subCategory.Name</h1>
-                                                    <button style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
-                                                </div>
+                                        <Title>
+                                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                        <h1 style="margin: 0;">@subCategory.Name</h1>
+                                                        <button style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
+                                                    </div>
                                        
-                                    </Title>
+                                        </Title>
                                     
-                                </Category>
-                                }
-                            </Body>
+                                    </Category>
+                                    }
+                                </Body>
 
-                    </Category>
-                }
+                            </Category>
+                        }
                
-           </Body>
-        </Category>
-    }
+                   </Body>
+                </Category>
+            }
   
     
     
-}
-</div>
+        }
+        </div>
+    </div>
+    }
 
-}
+    @if (isTestOpen == true)
+    {
+        <QuestionForm>
 
-@if (isTestOpen == true)
-{
-   <QuestionForm>
+            <Header>
+                <h2>@selectedSubCategory.Name</h2>
+            </Header>
 
-       <Header>
-           <h2>@selectedSubCategory.Name</h2>
-       </Header>
-
-       <Body>
-            @foreach(var question in selectedSubCategory.Questions)
-            {
-                <Question>
-                    <Text>
-                        <p class="font-weight-bold">@question.Text</p>
-                    </Text>
-                </Question>
-                @foreach(var response in question.Responses)
+            <Body>
+                @foreach(var question in selectedSubCategory.Questions)
                 {
-                    <p class="fst-italic">@response.Text</p>
+                    <Question>
+                        <Text>
+                            <p class="font-weight-bold">@question.Text</p>
+                        </Text>
+                    </Question>
+                    @foreach(var response in question.Responses)
+                    {
+                        <p class="fst-italic">@response.Text</p>
 
+                    }
                 }
-            }
 
 
-       </Body>
+            </Body>
 
-   </QuestionForm>
+        </QuestionForm>
+    }
 }
-
-        
-    
-
 
 
 
@@ -101,12 +125,25 @@
     private SubCategoryModel selectedSubCategory = new();
     private bool isTestOpen = false; 
     private List<CategoryModel> Categories = new();
-
+    private bool isAuthenticated;
+    private string Name;
 
     protected override async Task OnInitializedAsync()
     {
-        Categories = await questionManager.GetAllCategoriesAsync();
+        await LoadAuthenticationStateAsync();
+        if (isAuthenticated)
+        {
+            Categories = await questionManager.GetAllCategoriesAsync();
 
+        }
+    }
+
+    private async Task LoadAuthenticationStateAsync()
+    {
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+        Name = user.Identity.Name;
+        isAuthenticated = user.Identity.IsAuthenticated;
 
     }
 
