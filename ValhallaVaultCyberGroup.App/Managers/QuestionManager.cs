@@ -99,9 +99,10 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
 
         //Lägg till en ny fråga
-        public async Task<QuestionModel> AddQuestionAsync(string text)
+        public async Task <QuestionModel> AddQuestionAsync(string text, int id)
         {
-            QuestionModel model = new QuestionModel();
+            QuestionModel model = new QuestionModel();  
+            model.SubCategoryId = id;
             model.Text = text;
             var addedModel = await _repo.AddQuestionAsync(model);
             await _repo.SaveChangesAsync();
@@ -172,9 +173,10 @@ namespace ValhallaVaultCyberGroup.App.Managers
         }
 
         //Lägg till en subcategory
-        public async Task<SubCategoryModel> AddSubCategoryAsync(string name)
+        public async Task<SubCategoryModel> AddSubCategoryAsync(string name, int id)
         {
             SubCategoryModel model = new SubCategoryModel();
+            model.SegmentId = id;
             model.Name = name;
             var addedModel = await _repo.AddSubCategoryAsync(model);
             await _repo.SaveChangesAsync();
@@ -229,10 +231,11 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
 
         //Add
-
-        public async Task<ResponseModel> AddResponseAsync(string text)
+         
+        public async Task<ResponseModel> AddResponseAsync(string text, int id)
         {
             ResponseModel model = new ResponseModel();
+            model.QuestionId = id;
             model.Text = text;
             var addedModel = await _repo.AddResponseAsync(model);
             await _repo.SaveChangesAsync();
@@ -288,9 +291,10 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Add
 
-        public async Task<SegmentModel> AddSegmentAsync(string name)
+        public async Task <SegmentModel> AddSegmentAsync(string name, int id)
         {
             SegmentModel model = new SegmentModel();
+            model.CategoriesId = id;
             model.Name = name;
             var addedModel = await _repo.AddSegmentAsync(model);
             await _repo.SaveChangesAsync();
