@@ -11,6 +11,8 @@ using ValhallaVaultCyberGroup.Ui.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
@@ -98,6 +100,8 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
 }
 
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -122,5 +126,7 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+
+app.MapControllers();
 
 app.Run();
