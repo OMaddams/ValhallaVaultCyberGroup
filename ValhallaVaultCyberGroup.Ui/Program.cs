@@ -126,11 +126,11 @@ app.MapRazorComponents<App>()
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers(); // Lägger till controllers som endpoints
-    endpoints.MapRazorComponents<App>().AddInteractiveServerRenderMode();
-    endpoints.MapAdditionalIdentityEndpoints();
-});
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers(); // Lägger till controllers som endpoints
+//    endpoints.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+//    endpoints.MapAdditionalIdentityEndpoints();
+//});
 
 app.Run();
