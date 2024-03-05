@@ -98,6 +98,9 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
 }
 
 
+// Add MVC services
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -122,5 +125,12 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers(); // Lägger till controllers som endpoints
+    endpoints.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+    endpoints.MapAdditionalIdentityEndpoints();
+});
 
 app.Run();
