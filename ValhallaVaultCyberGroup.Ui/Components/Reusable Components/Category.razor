@@ -1,0 +1,50 @@
+﻿@using ValhallaVaultCyberGroup.App.Managers
+@using ValhallaVaultCyberGroup.Data.Models.Domain
+
+
+
+
+
+
+   
+        <div class="categoryBox card" @onclick="Expand" >
+
+            @Title
+           
+            @if (IsExpanded == true)
+            {
+                @Body
+               
+            }
+
+        </div>
+
+    
+
+  
+
+    
+ 
+
+
+
+
+@code {
+    
+    private bool IsExpanded = false;
+    [Parameter]
+
+    public RenderFragment Title{ get; set; }
+
+    [Parameter]
+
+    public RenderFragment Body {get ;set;}
+
+
+    private void Expand()
+    {
+        IsExpanded= !IsExpanded;
+    }
+
+  
+}

@@ -1,7 +1,88 @@
 ﻿@page "/"
+@using ValhallaVaultCyberGroup.App.Managers
+@using ValhallaVaultCyberGroup.Data.Models.Domain
+@using ValhallaVaultCyberGroup.Ui.Components.Reusable_Components
+@inject QuestionManager questionManager
+@rendermode InteractiveServer
 
-<PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="d-flex flex-column" style = "width:70vw;">
+@if (Categories != null)
+{
+    @foreach(var category in Categories)
+    {
+          <Category>
+        <Title>
+            <h2>@category.Name</h2>
+        </Title>
 
-Welcome to your new app.
+           <Body>
+              
+                @foreach(var segment in Segments)
+                {
+                    <Category>
+                        <Title>
+                            <h1>@segment.Name</h1>
+                        </Title>
+
+                        <Body>
+
+                                @foreach(var subCategory in SubCategories)
+                                {
+                                <Category>
+                                    <Title>
+                                        <h1>@subCategory.Name</h1>
+                                    </Title>
+                                    <Body>
+
+                                            @foreach(var question in Questions)
+                                            {
+                                                <Category>
+                                                    <Title>
+                                                        <h2>@question.Text</h2>
+                                                    </Title>
+                                                </Category>
+                                           
+                                            }
+                                        </Body> 
+                                </Category>
+                                }
+                            </Body>
+
+                    </Category>
+                }
+               
+           </Body>
+        </Category>
+    }
+  
+    
+}
+</div>
+
+        
+    
+
+
+
+
+
+@code
+{
+
+    private List<CategoryModel> Categories = new();
+    private List<SegmentModel> Segments = new();
+    private List<SubCategoryModel> SubCategories = new();
+    private List<QuestionModel> Questions = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Categories = await questionManager.GetAllCategoriesAsync();
+
+        Segments = await questionManager.GetSegmentAsync();
+
+        SubCategories = await questionManager.GetAllSubCategoriesAsync();
+        Questions = await questionManager.GetAllQuestionsAsync();
+
+    }
+}
