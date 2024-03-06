@@ -13,6 +13,7 @@ namespace ValhallaVaultCyberGroup.Data.Data
         public DbSet<SegmentModel> SegmentModels { get; set; }
         public DbSet<SubCategoryModel> SubCategoryModels { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
