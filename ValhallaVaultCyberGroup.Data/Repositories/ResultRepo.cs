@@ -1,4 +1,6 @@
-﻿using ValhallaVaultCyberGroup.Ui.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ValhallaVaultCyberGroup.Data.Models.Result;
+using ValhallaVaultCyberGroup.Ui.Data;
 
 namespace ValhallaVaultCyberGroup.Data.Repositories
 {
@@ -40,6 +42,28 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
                 }
             }
             return false;
+        }
+
+        public async Task<ResultModel?> GetResultByIdAsync(int resultId)
+        {
+            return await _context.Results
+                .Include(r => r.ResultsCategories)
+                    .ThenInclude(c => c.ResultSegments)
+                        .ThenInclude(s => s.ResultSubCategories)
+                            .ThenInclude(sc => sc.ResultQuestions)
+                .FirstOrDefaultAsync(r => r.Id == resultId);
+        }
+
+        public async Task AddResultAsync(ResultModel result)
+        {
+            await _context.Results.AddAsync(result);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateResultAsync(ResultModel result)
+        {
+            _context.Entry(result).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
     }

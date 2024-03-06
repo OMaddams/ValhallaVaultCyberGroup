@@ -1,4 +1,5 @@
-﻿using ValhallaVaultCyberGroup.Data.Repositories;
+﻿using ValhallaVaultCyberGroup.Data.Models.Result;
+using ValhallaVaultCyberGroup.Data.Repositories;
 
 namespace ValhallaVaultCyberGroup.App.Managers
 {
@@ -28,6 +29,21 @@ namespace ValhallaVaultCyberGroup.App.Managers
                 }
             }
             return true;
+        }
+
+        public async Task<ResultModel?> GetResultByIdAsync(int resultId)
+        {
+            return await _resultRepo.GetResultByIdAsync(resultId);
+        }
+
+        public async Task AddResultAsync(ResultModel result)
+        {
+            await _resultRepo.AddResultAsync(result);
+        }
+
+        public async Task UpdateResultAsync(ResultModel result)
+        {
+            await _resultRepo.UpdateResultAsync(result);
         }
     }
 }
