@@ -20,12 +20,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowAll", options =>
-	{
-		options.AllowAnyHeader();
-		options.AllowAnyMethod();
-		options.AllowAnyOrigin();
-	});
+    options.AddPolicy("AllowAll", options =>
+    {
+        options.AllowAnyHeader();
+        options.AllowAnyMethod();
+        options.AllowAnyOrigin();
+    });
 });
 
 builder.Services.AddRazorComponents()
@@ -140,8 +140,8 @@ else
 //// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 
