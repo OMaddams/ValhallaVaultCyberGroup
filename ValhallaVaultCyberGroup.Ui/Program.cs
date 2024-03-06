@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ValhallaVaultCyberGroup.App.Managers;
-using ValhallaVaultCyberGroup.App.Services;
 using ValhallaVaultCyberGroup.Data.Data;
 using ValhallaVaultCyberGroup.Data.Repositories;
 using ValhallaVaultCyberGroup.Ui.Components;
@@ -58,6 +57,7 @@ builder.Services.AddDbContext<QuizDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddControllers();
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 	.AddRoles<IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationDbContext>()

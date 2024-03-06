@@ -99,9 +99,9 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
 
         //Lägg till en ny fråga
-        public async Task <QuestionModel> AddQuestionAsync(string text, int id)
+        public async Task<QuestionModel> AddQuestionAsync(string text, int id)
         {
-            QuestionModel model = new QuestionModel();  
+            QuestionModel model = new QuestionModel();
             model.SubCategoryId = id;
             model.Text = text;
             var addedModel = await _repo.AddQuestionAsync(model);
@@ -297,7 +297,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Add
 
-        public async Task <SegmentModel> AddSegmentAsync(string name, int id)
+        public async Task<SegmentModel> AddSegmentAsync(string name, int id)
         {
             SegmentModel model = new SegmentModel();
             model.CategoriesId = id;
