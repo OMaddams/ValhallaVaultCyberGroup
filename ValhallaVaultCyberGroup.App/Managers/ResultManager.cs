@@ -1,5 +1,7 @@
+
 ﻿using ValhallaVaultCyberGroup.Data.Models.Result;
 using ValhallaVaultCyberGroup.Data.Repositories;
+
 
 namespace ValhallaVaultCyberGroup.App.Managers
 {
@@ -16,6 +18,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
         {
             return _resultRepo.CheckSubcategoryProgress(userId, subCategoryId);
         }
+
 
         public async Task<bool> CheckPreviousSubcategoriesCompleted(string userId, int currentSubCategoryId)
         {
@@ -45,5 +48,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
         {
             await _resultRepo.UpdateResultAsync(result);
         }
+
+
     }
 }

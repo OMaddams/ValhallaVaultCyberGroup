@@ -62,13 +62,13 @@ h1:focus {
     padding: 10px;
 }
 
-    .categoryBox button {
+.categoryBox button {
       
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        background-color: #fff;
-        cursor: pointer;
-    }
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+}
 
 .questionForm {
     background-color: #ffffe0; 

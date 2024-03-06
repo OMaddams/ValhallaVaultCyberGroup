@@ -1,6 +1,8 @@
+
 ﻿using Microsoft.EntityFrameworkCore;
 using ValhallaVaultCyberGroup.Data.Models.Result;
 using ValhallaVaultCyberGroup.Ui.Data;
+
 
 namespace ValhallaVaultCyberGroup.Data.Repositories
 {
@@ -41,6 +43,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
                     }
                 }
             }
+
             return false;
         }
 
@@ -64,6 +67,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         {
             _context.Entry(result).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
         }
 
     }

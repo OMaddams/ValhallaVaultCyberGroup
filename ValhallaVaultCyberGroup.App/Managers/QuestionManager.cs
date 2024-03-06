@@ -99,9 +99,9 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
 
         //Lägg till en ny fråga
-        public async Task <QuestionModel> AddQuestionAsync(string text, int id)
+        public async Task<QuestionModel> AddQuestionAsync(string text, int id)
         {
-            QuestionModel model = new QuestionModel();  
+            QuestionModel model = new QuestionModel();
             model.SubCategoryId = id;
             model.Text = text;
             var addedModel = await _repo.AddQuestionAsync(model);
@@ -216,12 +216,13 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Uppdate
 
-        public async Task<ResponseModel?> UpdateResponseAsync(int id, string text, int questionId)
+        public async Task<ResponseModel?> UpdateResponseAsync(int id, string text, int questionId, bool isRightAnswer)
         {
             var responseToUpdate = await _repo.GetResponseAsync(id);
             if (responseToUpdate != null)
 
             {
+                responseToUpdate.IsRightAnswer = isRightAnswer;
                responseToUpdate.QuestionId = questionId;
                 responseToUpdate.Text = text;
                 await _repo.UpdateResponseAsync(responseToUpdate);
@@ -235,9 +236,10 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Add
          
-        public async Task<ResponseModel> AddResponseAsync(string text, int id)
+        public async Task<ResponseModel> AddResponseAsync(string text, int id, bool isRightAnswer)
         {
             ResponseModel model = new ResponseModel();
+            model.IsRightAnswer = isRightAnswer;
             model.QuestionId = id;
             model.Text = text;
             var addedModel = await _repo.AddResponseAsync(model);
@@ -295,7 +297,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Add
 
-        public async Task <SegmentModel> AddSegmentAsync(string name, int id)
+        public async Task<SegmentModel> AddSegmentAsync(string name, int id)
         {
             SegmentModel model = new SegmentModel();
             model.CategoriesId = id;
