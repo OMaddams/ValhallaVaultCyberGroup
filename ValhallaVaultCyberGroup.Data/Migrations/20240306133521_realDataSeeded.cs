@@ -5,7 +5,7 @@
 namespace ValhallaVaultCyberGroup.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class realDataSeeded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
