@@ -216,12 +216,13 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Uppdate
 
-        public async Task<ResponseModel?> UpdateResponseAsync(int id, string text, int questionId)
+        public async Task<ResponseModel?> UpdateResponseAsync(int id, string text, int questionId, bool isRightAnswer)
         {
             var responseToUpdate = await _repo.GetResponseAsync(id);
             if (responseToUpdate != null)
 
             {
+                responseToUpdate.IsRightAnswer = isRightAnswer;
                responseToUpdate.QuestionId = questionId;
                 responseToUpdate.Text = text;
                 await _repo.UpdateResponseAsync(responseToUpdate);
@@ -234,10 +235,11 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
 
         //Add
-
-        public async Task<ResponseModel> AddResponseAsync(string text, int id)
+         
+        public async Task<ResponseModel> AddResponseAsync(string text, int id, bool isRightAnswer)
         {
             ResponseModel model = new ResponseModel();
+            model.IsRightAnswer = isRightAnswer;
             model.QuestionId = id;
             model.Text = text;
             var addedModel = await _repo.AddResponseAsync(model);
