@@ -112,12 +112,13 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Uppdatera en fråga
 
-        public async Task<QuestionModel?> UpdateQuestionAsync(int id, string text)
+        public async Task<QuestionModel?> UpdateQuestionAsync(int id, string text, int subCategoryId)
         {
             var questionToUpdate = await _repo.GetQuestionAsync(id);
 
             if (questionToUpdate != null)
             {
+                questionToUpdate.SubCategoryId = subCategoryId;
                 questionToUpdate.Text = text;
                 await _repo.UpdateQuestionAsync(questionToUpdate);
                 await _repo.SaveChangesAsync();
@@ -156,12 +157,13 @@ namespace ValhallaVaultCyberGroup.App.Managers
         }
 
 
-        public async Task<SubCategoryModel?> UpdateSubCategoryAsync(int id, string name)
+        public async Task<SubCategoryModel?> UpdateSubCategoryAsync(int id, string name, int segmentId)
         {
             var subCategoryToUpdate = await _repo.GetSubCategoryAsync(id);
 
             if (subCategoryToUpdate != null)
             {
+                subCategoryToUpdate.SegmentId = segmentId;
                 subCategoryToUpdate.Name = name;
                 await _repo.UpdateSubCategoryAsync(subCategoryToUpdate);
                 await _repo.SaveChangesAsync();
@@ -214,12 +216,13 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //Uppdate
 
-        public async Task<ResponseModel?> UpdateResponseAsync(int id, string text)
+        public async Task<ResponseModel?> UpdateResponseAsync(int id, string text, int questionId)
         {
             var responseToUpdate = await _repo.GetResponseAsync(id);
             if (responseToUpdate != null)
 
             {
+               responseToUpdate.QuestionId = questionId;
                 responseToUpdate.Text = text;
                 await _repo.UpdateResponseAsync(responseToUpdate);
                 await _repo.SaveChangesAsync();
@@ -275,11 +278,12 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         //update
 
-        public async Task<SegmentModel?> UpdateSegmentAsync(int id, string name)
+        public async Task<SegmentModel?> UpdateSegmentAsync(int id, string name, int categoryId)
         {
             var segmentToUpdate = await _repo.GetSegmentAsync(id);
             if (segmentToUpdate != null)
             {
+                segmentToUpdate.CategoriesId = categoryId;
                 segmentToUpdate.Name = name;
                 await _repo.UpdateSegmentAsync(segmentToUpdate);
                 await _repo.SaveChangesAsync();
