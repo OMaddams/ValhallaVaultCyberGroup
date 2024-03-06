@@ -187,11 +187,11 @@
 
                             @if (isAdding)
                             {
-                                <InputCheckbox id="response-isCorrect" class="form-control" @bind-Value=ResponseToAdd.IsRightAnswer></InputCheckbox>
+                                <InputCheckbox id="response-isCorrect" class="form-check" @bind-Value=ResponseToAdd.IsRightAnswer></InputCheckbox>
                             }
                             else
                             {
-                                <InputCheckbox id="response-isCorrect" class="form-control" @bind-Value=ResponseToEdit.IsRightAnswer></InputCheckbox>
+                                <InputCheckbox id="response-isCorrect" class="form-check" @bind-Value=ResponseToEdit.IsRightAnswer></InputCheckbox>
                             }
                         </div>
 
@@ -776,7 +776,7 @@
             return;
         }
 
-        await questionManager.AddResponseAsync(ResponseToAdd.Text, ResponseToAdd.QuestionId);
+        await questionManager.AddResponseAsync(ResponseToAdd.Text, ResponseToAdd.QuestionId, ResponseToAdd.IsRightAnswer);
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -796,7 +796,7 @@
             StateHasChanged();
             return;
         }
-        await questionManager.UpdateResponseAsync(QuestionToEdit.Id, QuestionToEdit.Text, QuestionToEdit.SubCategoryId);
+        await questionManager.UpdateResponseAsync(ResponseToEdit.Id, ResponseToEdit.Text, ResponseToEdit.QuestionId, ResponseToEdit.IsRightAnswer);
         errorMessages.Clear();
         ForceRefresh();
     }
