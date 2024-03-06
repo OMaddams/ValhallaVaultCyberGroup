@@ -14,25 +14,37 @@
 
 <PageTitle>Log in</PageTitle>
 
-<h1>Log in</h1>
+<h1 class="container col-md-4">Log in</h1>
 <div class="row">
-    <div class="col-md-4">
+    <div class=" container col-md-4">
         <section>
             <StatusMessage Message="@errorMessage" />
             <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
                 <DataAnnotationsValidator />
-                <h2>Use a local account to log in.</h2>
+                
                 <hr />
                 <ValidationSummary class="text-danger" role="alert" />
                 <div class="form-floating mb-3">
-                    <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label for="email" class="form-label">Email</label>
+                    <InputText @bind-Value="Input.Email" class="form-control custom-border" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label for="email" class="form-label">Username</label>
                     <ValidationMessage For="() => Input.Email" class="text-danger" />
+                    <style>
+                        .custom-border:focus {
+                            border-color: purple;
+                            box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25);
+                        }
+                    </style>
                 </div>
                 <div class="form-floating mb-3">
-                    <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                    <InputText type="password" @bind-Value="Input.Password" class="form-control custom-border" autocomplete="current-password" aria-required="true" placeholder="password" />
                     <label for="password" class="form-label">Password</label>
                     <ValidationMessage For="() => Input.Password" class="text-danger" />
+                    <style>
+                        .custom-border:focus {
+                            border-color: purple;
+                            box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25);
+                        }
+                    </style>
                 </div>
                 <div class="checkbox mb-3">
                     <label class="form-label">
@@ -41,7 +53,7 @@
                     </label>
                 </div>
                 <div>
-                    <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button type="submit" class="w-100 btn btn-lg btn-dark">Log in</button>
                 </div>
                 <div>
                     <p>
@@ -57,13 +69,13 @@
             </EditForm>
         </section>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+ @*    <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to log in.</h3>
             <hr />
             <ExternalLoginPicker />
         </section>
-    </div>
+    </div> *@
 </div>
 
 @code {
