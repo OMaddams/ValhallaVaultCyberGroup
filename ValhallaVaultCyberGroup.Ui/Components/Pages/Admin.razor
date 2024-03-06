@@ -36,37 +36,63 @@
                     
                 }
             <div></div>
-            <button class="btn btn-primary " style="justify-self:flex-end; width:36px" @onclick=AddButtonClick>@(isAdding? "-" : "+")</button>
+            <button class="btn btn-primary " style="justify-self:flex-end; width:36px" @onclick=AddButtonClick>@(isAdding || isEditing? "-" : "+")</button>
 
             </div>
                 <div>
                     
-                    @if(isAdding || isEditing && addOption == "Category")
+                    @if((isAdding || isEditing) && addOption == "Category")
                     {
-                        <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="SubmitAddCategory">
+
+                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="@(isAdding ? SubmitAddCategory : SubmitEditCategory)">
+                            <label>Category</label>
                             <label for="category-name">Name:</label>
-                            <InputText class="form-control" @(isAdding ? @bind-Value=CategoryToAdd.Name : @bind-Value=CategoryToEdit.Name)></InputText>
+                            @if(isAdding)
+                            {
+                            <InputText class="form-control" @bind-Value=CategoryToAdd.Name></InputText>
+                            }
+                            else
+                            {
+                            <InputText class="form-control" @bind-Value=CategoryToEdit.Name></InputText>
+                            }
+
                         <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit" )</button>
                         </EditForm>
                     }
-                    @if (isAdding && addOption == "Segment")
+                    @if ((isAdding || isEditing) && addOption == "Segment")
                     {
-                        <EditForm Model="SegmentToAdd" OnSubmit="SubmitAddSegment">
+                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="@(isAdding ? SubmitAddSegment : SubmitEditSegment)">
+                            <label>Segment</label>
                             <div>
                                  <label for="category-id">Category Id:</label>
-                                 <InputNumber id="category-id" class="form-control" @bind-Value="SegmentToAdd.CategoriesId"></InputNumber>
-                            </div>
+                            @if (isAdding)
+                            {
+                                <InputNumber id="category-id" class="form-control" @bind-Value="SegmentToAdd.CategoriesId"></InputNumber>
+                            }
+                            else
+                            {
+                                <InputNumber id="category-id" class="form-control" @bind-Value="SegmentToEdit.CategoriesId"></InputNumber>
+                            }
+                        </div>
                             <div>
                                 <label for="segment-name">Name:</label>
-                                <InputText id="segment-name" class="form-control" @bind-Value=SegmentToAdd.Name></InputText>
+                                @if (isAdding)
+                                {
+                                    <InputText id="category-id" class="form-control" @bind-Value="SegmentToAdd.Name"></InputText>
+                                }
+                                else
+                                {
+                                    <InputText id="category-id" class="form-control" @bind-Value="SegmentToEdit.Name"></InputText>
+                                }
                             </div>
-                        
-                            <button class="btn btn-primary" type="submit">Add</button>
+
+                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
-                    @if (isAdding && addOption == "SubCategory")
+                    @if ((isAdding || isEditing) && addOption == "SubCategory")
                     {
                         <EditForm Model="SubCatToAdd" OnSubmit="SubmitAddSubCat">
+                        <label>Subcategory</label>
                             <div>
                                 <label for="segment-id">Segment Id:</label>
                             <InputNumber id="segment-id" class="form-control" @bind-Value="SubCatToAdd.SegmentId"></InputNumber>
@@ -76,12 +102,13 @@
                             <InputText id="subcat-name" class="form-control" @bind-Value=SubCatToAdd.Name></InputText>
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Add</button>
+                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
-                    @if (isAdding && addOption == "Question")
+                @if ((isAdding || isEditing) && addOption == "Question")
                     {
                         <EditForm Model="QuestionToAdd" OnSubmit="SubmitAddQuestion">
+                        <label>Question</label>
                             <div>
                                 <label for="subcategory-id">Subcategory Id:</label>
                                 <InputNumber id="subcategory-id" class="form-control" @bind-Value="QuestionToAdd.SubCategoryId"></InputNumber>
@@ -91,12 +118,13 @@
                                 <InputText id="question-text" class="form-control" @bind-Value=QuestionToAdd.Text></InputText>
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Add</button>
+                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
-                    @if (isAdding && addOption == "Answer")
+                @if ((isAdding || isEditing) && addOption == "Answer")
                     {
                         <EditForm Model="ResponseToAdd" OnSubmit="SubmitAddResponse">
+                        <label>Answer</label>
                             <div>
                                 <label for="question-id">Question Id:</label>
                                 <InputNumber id="question-id" class="form-control" @bind-Value="ResponseToAdd.QuestionId"></InputNumber>
@@ -106,7 +134,7 @@
                                 <InputText id="response-text" class="form-control" @bind-Value=ResponseToAdd.Text></InputText>
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Add</button>
+                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
                 @foreach(string error in errorMessages)
@@ -191,12 +219,31 @@
 
         }
     </div>
+
+
+    <Modal @ref="modal">
+        <Title><h4>Are you sure you wish to remove this item?</h4></Title>
+        <Body>
+            @if(modalInfo != null)
+            {
+                <p>Type: @modalInfo.type</p>
+                <p>Id: @modalInfo.id</p>
+            }
+            
+        </Body>
+        <Footer>
+            <button class="btn btn-primary" @onclick=@(() => EditOrRemove("remove", modalInfo.type, modalInfo.id, true))>Delete</button>
+            <button class="btn btn-primary" @onclick=CancelModal>Cancel</button>
+        </Footer>
+    </Modal>
+
 </div>
 
 @code {
     private bool isAdding = false;
     private bool isEditing = false; 
     private string addOption = "";
+    private string currentEditing = "";
     private List<string> errorMessages = new();
     public List<CategoryModel>? Categories { get; set; }
 
@@ -212,29 +259,57 @@
     public QuestionModel? QuestionToEdit { get; set; } = new();
     public ResponseModel? ResponseToEdit { get; set; } = new();
 
+    private Modal modal { get; set; }
+    public ModalInfo? modalInfo { get; set; }
+    private string modalDisable { get; set; } = "";
 
     protected async override Task OnInitializedAsync()
     {
         Categories = await questionManager.GetAllCategoriesAsync();
     }
-
-    private async void EditOrRemove(string action, string type, int id)
+    private void ShowRemoveModal(string action, string type, int id)
     {
+        modalInfo = new(id, type);
+
+        modal.Open();
+        StateHasChanged();
+    }
+    private void CancelModal()
+    {
+        modalInfo = null;
+        modal.Close();
+        StateHasChanged();
+    }
+    private async void EditOrRemove(string action, string type, int id, bool modalAccept)
+    {
+
+
         if(action == "remove")
         {
             switch (type)
             {
                 case "Category":
                     {
+                        if (!modalAccept)
+                        {
+                            ShowRemoveModal(action, type, id);
+                            break;
+                        }
                         var categoryToRemove = await questionManager.GetCategoryAsync(id);
                         if(categoryToRemove != null)
                         {
                             questionManager.RemoveCategory(categoryToRemove);
+
                         }
                         break;
                     }
                 case "Segment":
                     {
+                        if (!modalAccept)
+                        {
+                            ShowRemoveModal(action, type, id);
+                            break;
+                        }
                         var segmentToRemove = await questionManager.GetSegmentAsync(id);
                         if (segmentToRemove != null)
                         {
@@ -244,6 +319,11 @@
                     }
                 case "SubCat":
                     {
+                        if (!modalAccept)
+                        {
+                            ShowRemoveModal(action, type, id);
+                            break;
+                        }
                         var SubCatToRemove = await questionManager.GetSubCategoryAsync(id);
                         if (SubCatToRemove != null)
                         {
@@ -253,6 +333,11 @@
                     }
                 case "Question":
                     {
+                        if (!modalAccept)
+                        {
+                            ShowRemoveModal(action, type, id);
+                            break;
+                        }
                         var questionToRemove = await questionManager.GetQuestionAsync(id);
                         if (questionToRemove != null)
                         {
@@ -262,6 +347,11 @@
                     }
                 case "Response":
                     {
+                        if (!modalAccept)
+                        {
+                            ShowRemoveModal(action, type, id);
+                            break;
+                        }
                         var responseToRemove = await questionManager.GetResponseAsync(id);
                         if(responseToRemove != null)
                         {
@@ -275,6 +365,12 @@
                     }
 
             }
+            if (modalAccept)
+            {
+                CancelModal();
+                ForceRefresh();
+            }
+           
         }
         else if(action == "edit")
         {
@@ -283,11 +379,58 @@
             {
                 case "Category":
                     {
+                        if(currentEditing == type)
+                        {
+                            isEditing = false;
+                            addOption = "";
+                            currentEditing = "";
+                            break;
+                        }
+
                         CategoryToEdit = await questionManager.GetCategoryAsync(id);
                         if(CategoryToEdit != null)
                         {
                             addOption = "Category";
-                            
+                            currentEditing = "Category";
+                        }
+                        break;
+                    }
+                case "Segment":
+                    {
+
+                        if (currentEditing == type)
+                        {
+                            isEditing = false;
+                            addOption = "";
+                            currentEditing = "";
+                            break;
+                        }
+
+                        SegmentToEdit = await questionManager.GetSegmentAsync(id);
+                        if (SegmentToEdit != null)
+                        {
+                            addOption = "Segment";
+
+                        }
+                        break;
+                    }
+                case "SubCategory":
+                    {
+                        SubCatToEdit = await questionManager.GetSubCategoryAsync(id);
+                        if (SubCatToEdit != null)
+                        {
+                            addOption = "SubCategory";
+
+                        }
+                        break;
+                    }
+                case "Question":
+                    {
+                        QuestionToEdit = await questionManager.GetQuestionAsync(id);
+                        if (QuestionToEdit != null)
+                        {
+                            addOption = "Question";
+
                         }
                         break;
                     }
@@ -299,6 +442,11 @@
     private void AddButtonClick()
     {
         isAdding = !isAdding;
+
+        if(isAdding == true)
+        {
+            isEditing = false;
+        }
         StateHasChanged();
     }
 
@@ -313,7 +461,21 @@
         }
         await questionManager.AddCategoryAsync(CategoryToAdd.Name);
         errorMessages.Clear();
-        navmanager.NavigateTo("admin", true);
+        ForceRefresh();
+
+    }
+    private async void SubmitEditCategory()
+    {
+        errorMessages.Clear();
+        if (string.IsNullOrEmpty(CategoryToEdit.Name)) 
+        {
+            errorMessages.Add("The category needs a name");
+            StateHasChanged();
+            return;
+        }
+        await questionManager.UpdateCategoryAsync(CategoryToEdit.Id, CategoryToEdit.Name);
+        errorMessages.Clear();
+        ForceRefresh();
 
     }
 
@@ -337,7 +499,28 @@
         }
         await questionManager.AddSegmentAsync(SegmentToAdd.Name, SegmentToAdd.CategoriesId);
         errorMessages.Clear();
-        navmanager.NavigateTo("admin", true);
+        ForceRefresh();
+    }
+
+    private async void SubmitEditSegment()
+    {
+        errorMessages.Clear();
+        if (string.IsNullOrEmpty(SegmentToEdit.Name))
+        {
+            errorMessages.Add("The segment needs a name");
+        }
+        if (SegmentToEdit.CategoriesId == 0 || SegmentToEdit.CategoriesId > Categories.Count())
+        {
+            errorMessages.Add(" The segment needs a valid parent category");
+        }
+        if (errorMessages.Any())
+        {
+            StateHasChanged();
+            return;
+        }
+        await questionManager.UpdateSegmentAsync(SegmentToEdit.Id, SegmentToEdit.Name);
+        errorMessages.Clear();
+        ForceRefresh();
     }
 
     private async void SubmitAddSubCat()
@@ -355,15 +538,38 @@
         }
         if (errorMessages.Any())
         {
-           
+
             StateHasChanged();
             return;
         }
 
         await questionManager.AddSubCategoryAsync(SubCatToAdd.Name, SubCatToAdd.SegmentId);
         errorMessages.Clear();
-        navmanager.NavigateTo("admin", true);
+        ForceRefresh();
     }
+
+    private async void SubmitEditSubCat()
+    {
+        errorMessages.Clear();
+        if (string.IsNullOrEmpty(SubCatToEdit.Name))
+        {
+            errorMessages.Add("The sub category needs a name");
+        }
+        if (SubCatToEdit.SegmentId == 0 || SubCatToEdit.SegmentId > questionManager.GetAllSubCategoriesAsync().Result.Count())
+        {
+            errorMessages.Add(" The sub category needs a valid parent segment");
+        }
+        if (errorMessages.Any())
+        {
+            StateHasChanged();
+            return;
+        }
+        await questionManager.UpdateSubCategoryAsync(SubCatToEdit.Id, SubCatToEdit.Name);
+        errorMessages.Clear();
+        ForceRefresh();
+    }
+
+
 
     private async void SubmitAddQuestion()
     {
@@ -386,7 +592,7 @@
 
         await questionManager.AddQuestionAsync(QuestionToAdd.Text, QuestionToAdd.SubCategoryId);
         errorMessages.Clear();
-        navmanager.NavigateTo("admin", true);
+        ForceRefresh();
     }
 
     private async void SubmitAddResponse()
@@ -410,6 +616,24 @@
 
         await questionManager.AddResponseAsync(ResponseToAdd.Text, ResponseToAdd.QuestionId);
         errorMessages.Clear();
+        ForceRefresh();
+    }
+
+    private void ForceRefresh()
+    {
         navmanager.NavigateTo("admin", true);
     }
+
+    public class ModalInfo
+    {
+        public ModalInfo(int id, string? type)
+        {
+            this.id = id;
+            this.type = type;
+        }
+        public int id;
+        public string? type;
+
+    }
 }
+s

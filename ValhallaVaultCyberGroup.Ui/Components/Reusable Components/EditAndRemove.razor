@@ -1,6 +1,6 @@
 ﻿<div>
-    <button class="btn btn-warning h-auto" @onclick='() => EditOrRemove("edit", Type, ItemId)'>Edit</button>
-    <button class="btn btn-danger h-auto text-black" @onclick='() => EditOrRemove("remove", Type, ItemId)'>X</button>
+    <button class="btn btn-warning h-auto" @onclick='() => EditOrRemove("edit", Type, ItemId, false)'>Edit</button>
+    <button class="btn btn-danger h-auto text-black" @onclick='() => EditOrRemove("remove", Type, ItemId, false)'>X</button>
 </div>
 
 @code {
@@ -11,6 +11,6 @@
     public string Type { get; set; }
 
     [Parameter, EditorRequired]
-    public Action<string,string, int> EditOrRemove { get; set; }
+    public Action<string,string, int, bool> EditOrRemove { get; set; }
 
 }
