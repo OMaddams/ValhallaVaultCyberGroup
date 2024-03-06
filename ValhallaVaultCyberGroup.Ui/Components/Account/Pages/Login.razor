@@ -14,7 +14,7 @@
 
 <PageTitle>Log in</PageTitle>
 
-<h1 class="container col-md-4">Log in</h1>
+<h1 class="container col-md-4" style="color:purple">Log in</h1>
 <div class="row">
     <div class=" container col-md-4">
         <section>
@@ -60,17 +60,17 @@
                  <div class="row">
                         <div class="col">
                             
-                        <a href="Account/ForgotPassword">Forgot your password?</a>
+                        <a href="Account/ForgotPassword" style="color:black">Forgot your password?</a>
 						
 						</div>   
                             <div class="col">
-                   
-                        <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</a>
+
+                            <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" style="color:black">Register as a new user</a>
                           
                         </div>
                         <div class="col">
-                   
-                        <a href="Account/ResendEmailConfirmation">Resend email confirmation</a>
+
+                            <a href="Account/ResendEmailConfirmation" style="color:black">Resend email confirmation</a>
                         
                         </div>
 					
