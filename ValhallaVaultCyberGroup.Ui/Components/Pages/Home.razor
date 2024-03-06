@@ -1,19 +1,125 @@
 ﻿@page "/"
-
-<PageTitle>Home</PageTitle>
-
-
-<h1 class="container-md display-1 text-danger">
-	Valhalla Vault Cyber Group</h1>
-		<br />
-	<div>
-	<p class="container-md h4">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
+@using ValhallaVaultCyberGroup.App.Managers
+@using ValhallaVaultCyberGroup.Data.Models.Domain
+@using ValhallaVaultCyberGroup.Ui.Components.Reusable_Components
+@inject QuestionManager questionManager
+@rendermode InteractiveServer
 
 
-	</div>
 
 @code {
 	
 }
+
+@if(isTestOpen ==false)
+{
+
+<div class="d-flex flex-column" style = "width:70vw;">
+@if (Categories != null)
+{
+    @foreach(var category in Categories)
+    {
+          <Category>
+        <Title>
+            <h2>@category.Name</h2>
+        </Title>
+
+           <Body>
+              
+                @foreach(var segment in category.Segments)
+                {
+                    <Category>
+                        <Title>
+                            <h1>@segment.Name</h1>
+                        </Title>
+
+                        <Body>
+                           
+                                @foreach(var subCategory in segment.SubCategories)
+                                {
+                                <Category>
+                                    
+                                    <Title>
+                                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                    <h1 style="margin: 0;">@subCategory.Name</h1>
+                                                    <button style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
+                                                </div>
+                                       
+                                    </Title>
+                                    
+                                </Category>
+                                }
+                            </Body>
+
+                    </Category>
+                }
+               
+           </Body>
+        </Category>
+    }
+  
+    
+    
+}
+</div>
+
+}
+
+@if (isTestOpen == true)
+{
+   <QuestionForm>
+
+       <Header>
+           <h2>@selectedSubCategory.Name</h2>
+       </Header>
+
+       <Body>
+            @foreach(var question in selectedSubCategory.Questions)
+            {
+                <Question>
+                    <Text>
+                        <p class="font-weight-bold">@question.Text</p>
+                    </Text>
+                </Question>
+                @foreach(var response in question.Responses)
+                {
+                    <p class="fst-italic">@response.Text</p>
+
+                }
+            }
+
+
+       </Body>
+
+   </QuestionForm>
+}
+
+        
+    
+
+
+
+
+
+@code
+{
+    private SubCategoryModel selectedSubCategory = new();
+    private bool isTestOpen = false; 
+    private List<CategoryModel> Categories = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Categories = await questionManager.GetAllCategoriesAsync();
+
+
+    }
+
+
+    private void StartTest(SubCategoryModel subCategory)
+    {
+        isTestOpen = true;
+        selectedSubCategory = subCategory;
+    }
+}
+
