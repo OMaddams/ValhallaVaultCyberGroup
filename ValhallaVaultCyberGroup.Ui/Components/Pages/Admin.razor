@@ -31,14 +31,16 @@
                 </InputSelect>
                 </div>
             }
-                @if (isEditing)
-                {
+           @if (isEditing)
+           {
                     
-                }
-            <div></div>
-            <button class="btn btn-primary " style="justify-self:flex-end; width:36px" @onclick=AddButtonClick>@(isAdding || isEditing? "-" : "+")</button>
+           }
+           <div></div>
+           <button class="btn btn-primary " style="justify-self:flex-end; width:36px" @onclick=AddButtonClick>@(isAdding || isEditing? "-" : "+")</button>
 
-            </div>
+           </div>
+
+           @*  Adding and editing forms *@
                 <div>
                     
                     @if((isAdding || isEditing) && addOption == "Category")
@@ -91,59 +93,119 @@
                     }
                     @if ((isAdding || isEditing) && addOption == "SubCategory")
                     {
-                    <EditForm Model="SubCatToAdd" OnSubmit="@(isAdding ? SubmitAddSubCat : () => ShowEditModal(SubmitEditSubCat))">
+                    <EditForm Model="@(isAdding ? SubCatToAdd : SubCatToEdit)" OnSubmit="@(isAdding ? SubmitAddSubCat : () => ShowEditModal(SubmitEditSubCat))">
                         <label>Subcategory</label>
                             <div>
                                 <label for="segment-id">Segment Id:</label>
-                            <InputNumber id="segment-id" class="form-control" @bind-Value="SubCatToAdd.SegmentId"></InputNumber>
-                            </div>
+                                @if(isAdding)
+                                {
+                                <InputNumber id="segment-id" class="form-control" @bind-Value="SubCatToAdd.SegmentId"></InputNumber>
+                            }
+                            else
+                            {
+                                <InputNumber id="segment-id" class="form-control" @bind-Value="SubCatToEdit.SegmentId"></InputNumber>
+                            }
+                        </div>
                             <div>
                                 <label for="subcat-name">Name:</label>
-                            <InputText id="subcat-name" class="form-control" @bind-Value=SubCatToAdd.Name></InputText>
+                                @if(isAdding)
+                                {
+                                    <InputText id="subcat-name" class="form-control" @bind-Value=SubCatToAdd.Name></InputText>
+                                }
+                                else
+                                {
+                                    <InputText id="subcat-name" class="form-control" @bind-Value=SubCatToEdit.Name></InputText>
+                                
+                                }
                             </div>
 
                         <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
-                @if ((isAdding || isEditing) && addOption == "Question")
+                    @if ((isAdding || isEditing) && addOption == "Question")
                     {
-                    <EditForm Model="QuestionToAdd" OnSubmit="@(isAdding ? SubmitAddQuestion : () => ShowEditModal(SubmitAddQuestion))">
-                        <label>Question</label>
+                        <EditForm Model="@(isAdding ? QuestionToAdd : QuestionToEdit)" OnSubmit="@(isAdding ? SubmitAddQuestion : () => ShowEditModal(SubmitEditQuestion))">
+                            <label>Question</label>
                             <div>
                                 <label for="subcategory-id">Subcategory Id:</label>
-                                <InputNumber id="subcategory-id" class="form-control" @bind-Value="QuestionToAdd.SubCategoryId"></InputNumber>
-                            </div>
+                                @if(isAdding)
+                                {
+                                    <InputNumber id="subcategory-id" class="form-control" @bind-Value="QuestionToAdd.SubCategoryId"></InputNumber>
+                                }
+                                else
+                                {
+                                    <InputNumber id="subcategory-id" class="form-control" @bind-Value="QuestionToEdit.SubCategoryId"></InputNumber>
+                                }                
+                             </div>
                             <div>
-                            <label for="question-text">Text:</label>
-                                <InputText id="question-text" class="form-control" @bind-Value=QuestionToAdd.Text></InputText>
+                                <label for="question-text">Text:</label>
+
+                                @if(isAdding)
+                                {
+                                    <InputText id="question-text" class="form-control" @bind-Value=QuestionToAdd.Text></InputText>
+                                }
+                                else
+                                {
+                                    <InputText id="question-text" class="form-control" @bind-Value=QuestionToEdit.Text></InputText>
+                                }
+                          
                             </div>
 
                         <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
-                @if ((isAdding || isEditing) && addOption == "Answer")
+                    @if ((isAdding || isEditing) && addOption == "Answer")
                     {
-                    <EditForm Model="ResponseToAdd" OnSubmit="@(isAdding ? SubmitAddResponse : () => ShowEditModal(SubmitAddResponse))">
+                    <EditForm Model="@(isAdding ? ResponseToAdd : ResponseToEdit)" OnSubmit="@(isAdding ? SubmitAddResponse : () => ShowEditModal(SubmitEditResponse))">
                         <label>Answer</label>
-                            <div>
-                                <label for="question-id">Question Id:</label>
+                        <div>
+                            <label for="question-id">Question Id:</label>
+                            @if(isAdding)
+                            {
                                 <InputNumber id="question-id" class="form-control" @bind-Value="ResponseToAdd.QuestionId"></InputNumber>
-                            </div>
-                            <div>
-                                <label for="response-text">Text:</label>
+                            }
+                            else
+                            {
+                                <InputNumber id="question-id" class="form-control" @bind-Value="ResponseToEdit.QuestionId"></InputNumber>
+                            }
+
+                        </div>
+                        <div>
+                            <label for="response-text">Text:</label>
+                            
+                            @if (isAdding)
+                            {
                                 <InputText id="response-text" class="form-control" @bind-Value=ResponseToAdd.Text></InputText>
-                            </div>
+                            }
+                            else
+                            {
+                                <InputText id="response-text" class="form-control" @bind-Value=ResponseToEdit.Text></InputText>
+                            }
+                        </div>
+                        <div>
+                            <label for="response-isCorrect">Is correct answer:</label>
+
+                            @if (isAdding)
+                            {
+                                <InputCheckbox id="response-isCorrect" class="form-control" @bind-Value=ResponseToAdd.IsRightAnswer></InputCheckbox>
+                            }
+                            else
+                            {
+                                <InputCheckbox id="response-isCorrect" class="form-control" @bind-Value=ResponseToEdit.IsRightAnswer></InputCheckbox>
+                            }
+                        </div>
 
                         <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
-                @foreach(string error in errorMessages)
-                {
-                    <p class="text-danger">@error</p>
-                }
+                    @foreach(string error in errorMessages)
+                    {
+                        <p class="text-danger">@error</p>
+                    }
             </div>
         </div>
     </div>
+    @*Display the existing quiz trees*@
     <div class="card">
         @if(Categories == null || !Categories.Any())
         {
@@ -195,12 +257,24 @@
                                                     <Category>
                                                         <Title>
                                                             <h4>@question.Text</h4>
+
+                                                            <EditAndRemove ItemId="@question.Id" Type="Question" EditOrRemove="@EditOrRemove" />
                                                         </Title>
                                                         <Body>
                                                             @foreach(var response in question.Responses)
                                                             {
-                                                                <p>@response.Text</p>
-                                                                <p>Is this the right answer: @response.IsRightAnswer</p>
+                                                                <Category>
+                                                                    <Title>
+                                                                        <p>@response.Text</p>
+
+                                                                        <EditAndRemove ItemId="@response.Id" Type="Answer" EditOrRemove="@EditOrRemove" />
+                                                                    </Title>
+                                                                    <Body>
+                                                                        <p>Is this the right answer: @response.IsRightAnswer</p>
+                                                                    </Body>
+                                                                </Category>
+                                                                
+                                                                
                                                             }
                                                         </Body>
                                                     </Category>
@@ -220,7 +294,7 @@
         }
     </div>
 
-
+    @*Remove Modal*@
     <Modal @ref="modal">
         <Title><h4>Are you sure you wish to remove this item?</h4></Title>
         <Body>
@@ -237,7 +311,7 @@
         </Footer>
     </Modal>
 
-
+    @*Edit Modal*@
     <Modal @ref="editModal">
         <Title><h4>Are you sure you wish to edit this item?</h4></Title>
         
@@ -302,7 +376,7 @@
         StateHasChanged();
         ForceRefresh();
     }
-    
+
     private async void EditOrRemove(string action, string type, int id, bool modalAccept)
     {
 
@@ -402,7 +476,7 @@
             {
                 case "Category":
                     {
-                        
+
                         if(currentEditing == type && CategoryToEdit.Id == id)
                         {
                             isEditing = false;
@@ -438,7 +512,7 @@
                         }
                         break;
                     }
-                case "SubCategory":
+                case "SubCat":
                     {
 
                         if (currentEditing == type && SubCatToEdit.Id == id)
@@ -477,6 +551,25 @@
                         }
                         break;
                     }
+                case "Answer":
+                    {
+
+                        if (currentEditing == type && ResponseToEdit.Id == id)
+                        {
+                            isEditing = false;
+                            addOption = "";
+                            currentEditing = "";
+                            break;
+                        }
+
+                        ResponseToEdit = await questionManager.GetResponseAsync(id);
+                        if (QuestionToEdit != null)
+                        {
+                            addOption = "Answer";
+                            currentEditing = "Answer";
+                        }
+                        break;
+                    }
             }
             if (modalAccept)
             {
@@ -499,7 +592,7 @@
 
         isAdding = !isAdding;
 
-        
+
         StateHasChanged();
     }
 
@@ -554,7 +647,6 @@
         errorMessages.Clear();
         ForceRefresh();
     }
-
     private async void SubmitEditSegment()
     {
         errorMessages.Clear();
@@ -571,7 +663,7 @@
             StateHasChanged();
             return;
         }
-        await questionManager.UpdateSegmentAsync(SegmentToEdit.Id, SegmentToEdit.Name);
+        await questionManager.UpdateSegmentAsync(SegmentToEdit.Id, SegmentToEdit.Name, SegmentToEdit.CategoriesId);
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -600,7 +692,6 @@
         errorMessages.Clear();
         ForceRefresh();
     }
-
     private async void SubmitEditSubCat()
     {
         errorMessages.Clear();
@@ -617,12 +708,10 @@
             StateHasChanged();
             return;
         }
-        await questionManager.UpdateSubCategoryAsync(SubCatToEdit.Id, SubCatToEdit.Name);
+        await questionManager.UpdateSubCategoryAsync(SubCatToEdit.Id, SubCatToEdit.Name, SubCatToEdit.SegmentId);
         errorMessages.Clear();
         ForceRefresh();
     }
-
-
 
     private async void SubmitAddQuestion()
     {
@@ -644,6 +733,26 @@
         }
 
         await questionManager.AddQuestionAsync(QuestionToAdd.Text, QuestionToAdd.SubCategoryId);
+        errorMessages.Clear();
+        ForceRefresh();
+    }
+    private async void SubmitEditQuestion()
+    {
+        errorMessages.Clear();
+        if (string.IsNullOrEmpty(QuestionToEdit.Text))
+        {
+            errorMessages.Add("The question needs text");
+        }
+        if (QuestionToEdit.SubCategoryId == 0 || QuestionToEdit.SubCategoryId > questionManager.GetAllSubCategoriesAsync().Result.Count())
+        {
+            errorMessages.Add(" The sub category needs a valid parent segment");
+        }
+        if (errorMessages.Any())
+        {
+            StateHasChanged();
+            return;
+        }
+        await questionManager.UpdateQuestionAsync(QuestionToEdit.Id, QuestionToEdit.Text, QuestionToEdit.SubCategoryId);
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -671,6 +780,26 @@
         errorMessages.Clear();
         ForceRefresh();
     }
+    private async void SubmitEditResponse()
+    {
+        errorMessages.Clear();
+        if (string.IsNullOrEmpty(ResponseToEdit.Text))
+        {
+            errorMessages.Add("The answer needs text");
+        }
+        if (ResponseToEdit.QuestionId == 0 || ResponseToEdit.QuestionId > questionManager.GetAllQuestionsAsync().Result.Count())
+        {
+            errorMessages.Add(" The answer needs a valid parent question");
+        }
+        if (errorMessages.Any())
+        {
+            StateHasChanged();
+            return;
+        }
+        await questionManager.UpdateResponseAsync(QuestionToEdit.Id, QuestionToEdit.Text, QuestionToEdit.SubCategoryId);
+        errorMessages.Clear();
+        ForceRefresh();
+    }
 
     private void ForceRefresh()
     {
@@ -689,4 +818,3 @@
 
     }
 }
-s
