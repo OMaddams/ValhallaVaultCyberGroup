@@ -54,19 +54,29 @@
                 </div>
                 <div>
                     <button type="submit" class="w-100 btn btn-lg btn-dark">Log in</button>
+                    <br />
                 </div>
-                <div>
-                    <p>
+                <div class="container text-center">
+                 <div class="row">
+                        <div class="col">
+                            
                         <a href="Account/ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
+						
+						</div>   
+                            <div class="col">
+                   
                         <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</a>
-                    </p>
-                    <p>
+                          
+                        </div>
+                        <div class="col">
+                   
                         <a href="Account/ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </EditForm>
+                        
+                        </div>
+					
+                    </div>
+				</div>
+			</EditForm>
         </section>
     </div>
  @*    <div class="col-md-6 col-md-offset-2">
