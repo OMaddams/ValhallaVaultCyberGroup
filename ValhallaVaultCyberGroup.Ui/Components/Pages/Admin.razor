@@ -370,7 +370,7 @@
                 CancelModal();
                 ForceRefresh();
             }
-           
+
         }
         else if(action == "edit")
         {
@@ -379,7 +379,7 @@
             {
                 case "Category":
                     {
-                        if(currentEditing == type)
+                        if(currentEditing == type && CategoryToEdit.Id == id)
                         {
                             isEditing = false;
                             addOption = "";
@@ -398,7 +398,7 @@
                 case "Segment":
                     {
 
-                        if (currentEditing == type)
+                        if (currentEditing == type && SegmentToEdit.Id == id)
                         {
                             isEditing = false;
                             addOption = "";
@@ -410,27 +410,46 @@
                         if (SegmentToEdit != null)
                         {
                             addOption = "Segment";
-
+                            currentEditing = "Segment";
                         }
                         break;
                     }
                 case "SubCategory":
                     {
+
+                        if (currentEditing == type && SubCatToEdit.Id == id)
+                        {
+                            isEditing = false;
+                            addOption = "";
+                            currentEditing = "";
+                            break;
+                        }
+
                         SubCatToEdit = await questionManager.GetSubCategoryAsync(id);
                         if (SubCatToEdit != null)
                         {
                             addOption = "SubCategory";
+                            currentEditing = "SubCategory";
 
                         }
                         break;
                     }
                 case "Question":
                     {
+
+                        if (currentEditing == type && QuestionToEdit.Id == id)
+                        {
+                            isEditing = false;
+                            addOption = "";
+                            currentEditing = "";
+                            break;
+                        }
+
                         QuestionToEdit = await questionManager.GetQuestionAsync(id);
                         if (QuestionToEdit != null)
                         {
                             addOption = "Question";
-
+                            currentEditing = "Question";
                         }
                         break;
                     }
@@ -441,12 +460,17 @@
 
     private void AddButtonClick()
     {
-        isAdding = !isAdding;
 
-        if(isAdding == true)
+        if (isEditing)
         {
             isEditing = false;
+            StateHasChanged();
+            return;
         }
+
+        isAdding = !isAdding;
+
+        
         StateHasChanged();
     }
 
