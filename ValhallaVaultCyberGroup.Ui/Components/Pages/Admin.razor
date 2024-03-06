@@ -44,7 +44,7 @@
                     @if((isAdding || isEditing) && addOption == "Category")
                     {
 
-                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="@(isAdding ? SubmitAddCategory : SubmitEditCategory)">
+                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="@(isAdding ? SubmitAddCategory : () => ShowEditModal(SubmitEditCategory))">
                             <label>Category</label>
                             <label for="category-name">Name:</label>
                             @if(isAdding)
@@ -61,7 +61,7 @@
                     }
                     @if ((isAdding || isEditing) && addOption == "Segment")
                     {
-                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="@(isAdding ? SubmitAddSegment : SubmitEditSegment)">
+                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="@(isAdding ? SubmitAddSegment : () => ShowEditModal(SubmitEditSegment))">
                             <label>Segment</label>
                             <div>
                                  <label for="category-id">Category Id:</label>
@@ -91,7 +91,7 @@
                     }
                     @if ((isAdding || isEditing) && addOption == "SubCategory")
                     {
-                        <EditForm Model="SubCatToAdd" OnSubmit="SubmitAddSubCat">
+                    <EditForm Model="SubCatToAdd" OnSubmit="@(isAdding ? SubmitAddSubCat : () => ShowEditModal(SubmitEditSubCat))">
                         <label>Subcategory</label>
                             <div>
                                 <label for="segment-id">Segment Id:</label>
@@ -107,7 +107,7 @@
                     }
                 @if ((isAdding || isEditing) && addOption == "Question")
                     {
-                        <EditForm Model="QuestionToAdd" OnSubmit="SubmitAddQuestion">
+                    <EditForm Model="QuestionToAdd" OnSubmit="@(isAdding ? SubmitAddQuestion : () => ShowEditModal(SubmitAddQuestion))">
                         <label>Question</label>
                             <div>
                                 <label for="subcategory-id">Subcategory Id:</label>
@@ -123,7 +123,7 @@
                     }
                 @if ((isAdding || isEditing) && addOption == "Answer")
                     {
-                        <EditForm Model="ResponseToAdd" OnSubmit="SubmitAddResponse">
+                    <EditForm Model="ResponseToAdd" OnSubmit="@(isAdding ? SubmitAddResponse : () => ShowEditModal(SubmitAddResponse))">
                         <label>Answer</label>
                             <div>
                                 <label for="question-id">Question Id:</label>
@@ -237,6 +237,16 @@
         </Footer>
     </Modal>
 
+
+    <Modal @ref="editModal">
+        <Title><h4>Are you sure you wish to edit this item?</h4></Title>
+        
+        <Footer>
+            <button class="btn btn-primary" @onclick=editAction>Edit </button>
+            <button class="btn btn-primary" @onclick=CancelModal>Cancel</button>
+        </Footer>
+    </Modal>
+
 </div>
 
 @code {
@@ -260,7 +270,9 @@
     public ResponseModel? ResponseToEdit { get; set; } = new();
 
     private Modal modal { get; set; }
+    private Modal editModal {get; set;}
     public ModalInfo? modalInfo { get; set; }
+    public Action? editAction { get; set; }
     private string modalDisable { get; set; } = "";
 
     protected async override Task OnInitializedAsync()
@@ -274,12 +286,23 @@
         modal.Open();
         StateHasChanged();
     }
+    private void ShowEditModal(Action sentEditAction)
+    {
+        editAction = sentEditAction;
+        editModal.Open();
+        StateHasChanged();
+    }
     private void CancelModal()
     {
         modalInfo = null;
+        editAction = null;
+        isEditing = false;
         modal.Close();
+        editModal.Close();
         StateHasChanged();
+        ForceRefresh();
     }
+    
     private async void EditOrRemove(string action, string type, int id, bool modalAccept)
     {
 
@@ -379,6 +402,7 @@
             {
                 case "Category":
                     {
+                        
                         if(currentEditing == type && CategoryToEdit.Id == id)
                         {
                             isEditing = false;
@@ -453,6 +477,11 @@
                         }
                         break;
                     }
+            }
+            if (modalAccept)
+            {
+                CancelModal();
+                ForceRefresh();
             }
         }
         StateHasChanged();
