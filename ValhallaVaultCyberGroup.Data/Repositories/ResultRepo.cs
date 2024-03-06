@@ -39,7 +39,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
                     }
                 }
             }
-            return false; // Användaren har inte slutfört subkategorin
+            return false;
         }
 
     }

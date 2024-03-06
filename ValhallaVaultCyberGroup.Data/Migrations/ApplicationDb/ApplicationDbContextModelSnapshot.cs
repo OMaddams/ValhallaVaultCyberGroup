@@ -8,7 +8,7 @@ using ValhallaVaultCyberGroup.Ui.Data;
 
 #nullable disable
 
-namespace ValhallaVaultCyberGroup.Ui.Migrations
+namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

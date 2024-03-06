@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
-namespace ValhallaVaultCyberGroup.Data.Migrations
+namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
 {
     /// <inheritdoc />
-    public partial class SeedData : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,19 +48,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CategoryModels",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoryModels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,7 +157,7 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResultModel",
+                name: "Results",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -181,9 +166,9 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResultModel", x => x.Id);
+                    table.PrimaryKey("PK_Results", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResultModel_AspNetUsers_ApplicationUserId",
+                        name: "FK_Results_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -191,27 +176,7 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SegmentModels",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoriesId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SegmentModels", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SegmentModels_CategoryModels_CategoriesId",
-                        column: x => x.CategoriesId,
-                        principalTable: "CategoryModels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ResultCategoryModel",
+                name: "ResultCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -222,36 +187,16 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResultCategoryModel", x => x.Id);
+                    table.PrimaryKey("PK_ResultCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResultCategoryModel_ResultModel_ResultModelId",
+                        name: "FK_ResultCategories_Results_ResultModelId",
                         column: x => x.ResultModelId,
-                        principalTable: "ResultModel",
+                        principalTable: "Results",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubCategoryModels",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SegmentId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubCategoryModels", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SubCategoryModels_SegmentModels_SegmentId",
-                        column: x => x.SegmentId,
-                        principalTable: "SegmentModels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ResultSegmentModel",
+                name: "ResultSegments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -262,36 +207,16 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResultSegmentModel", x => x.Id);
+                    table.PrimaryKey("PK_ResultSegments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResultSegmentModel_ResultCategoryModel_ResultCategoryModelId",
+                        name: "FK_ResultSegments_ResultCategories_ResultCategoryModelId",
                         column: x => x.ResultCategoryModelId,
-                        principalTable: "ResultCategoryModel",
+                        principalTable: "ResultCategories",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuestionModels",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SubCategoryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QuestionModels", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_QuestionModels_SubCategoryModels_SubCategoryId",
-                        column: x => x.SubCategoryId,
-                        principalTable: "SubCategoryModels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ResultSubCategoryModel",
+                name: "ResultSubCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -302,37 +227,16 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResultSubCategoryModel", x => x.Id);
+                    table.PrimaryKey("PK_ResultSubCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResultSubCategoryModel_ResultSegmentModel_ResultSegmentModelId",
+                        name: "FK_ResultSubCategories_ResultSegments_ResultSegmentModelId",
                         column: x => x.ResultSegmentModelId,
-                        principalTable: "ResultSegmentModel",
+                        principalTable: "ResultSegments",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResponseModels",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsRightAnswer = table.Column<bool>(type: "bit", nullable: false),
-                    QuestionId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ResponseModels", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ResponseModels_QuestionModels_QuestionId",
-                        column: x => x.QuestionId,
-                        principalTable: "QuestionModels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ResultQuestionModel",
+                name: "ResultQuestions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -344,104 +248,12 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResultQuestionModel", x => x.Id);
+                    table.PrimaryKey("PK_ResultQuestions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResultQuestionModel_ResultSubCategoryModel_ResultSubCategoryModelId",
+                        name: "FK_ResultQuestions_ResultSubCategories_ResultSubCategoryModelId",
                         column: x => x.ResultSubCategoryModelId,
-                        principalTable: "ResultSubCategoryModel",
+                        principalTable: "ResultSubCategories",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.InsertData(
-                table: "CategoryModels",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Grundläggande IT-säkerhet" },
-                    { 2, "Att skydda sig mot bedrägerier" },
-                    { 3, "Cybersäkerhet för företag" },
-                    { 4, "Cyberspionage" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "SegmentModels",
-                columns: new[] { "Id", "CategoriesId", "Name" },
-                values: new object[,]
-                {
-                    { 1, 1, "Segment 1" },
-                    { 2, 2, "Segment 2" },
-                    { 3, 3, "Segment 3" },
-                    { 4, 4, "Segment 4" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "SubCategoryModels",
-                columns: new[] { "Id", "Name", "SegmentId" },
-                values: new object[,]
-                {
-                    { 1, "Allmänt om digital säkerhet", 1 },
-                    { 2, "Brandväggar och antivirus-program", 1 },
-                    { 3, "Håll dina program aktuella", 1 },
-                    { 4, "N/A, Sub-category for Segment 1", 1 },
-                    { 5, "Skydda din anslutning", 2 },
-                    { 6, "Ta hand om dina lösenord", 2 },
-                    { 7, "Var rädd om dina kortuppgifter", 2 },
-                    { 8, "N/A, Sub-category for Segment 2", 2 },
-                    { 9, "N/A, Sub-category for Segment 3", 3 },
-                    { 10, "N/A, Sub-category for Segment 3", 3 },
-                    { 11, "N/A, Sub-category for Segment 3", 3 },
-                    { 12, "N/A, Sub-category for Segment 3", 3 },
-                    { 13, "N/A, Sub-category for Segment 4", 4 },
-                    { 14, "N/A, Sub-category for Segment 4", 4 },
-                    { 15, "N/A, Sub-category for Segment 4", 4 },
-                    { 16, "N/A, Sub-category for Segment 4", 4 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "QuestionModels",
-                columns: new[] { "Id", "SubCategoryId", "Text" },
-                values: new object[,]
-                {
-                    { 1, 1, "Fråga 1" },
-                    { 2, 1, "Fråga 2" },
-                    { 3, 1, "Fråga 3" },
-                    { 4, 1, "Fråga 4" },
-                    { 5, 1, "Fråga 5" },
-                    { 6, 1, "Fråga 6" },
-                    { 7, 1, "Fråga 7" },
-                    { 8, 1, "Fråga 8" },
-                    { 9, 1, "Fråga 9" },
-                    { 10, 1, "Fråga 10" },
-                    { 11, 2, "Fråga 1" },
-                    { 12, 2, "Fråga 2" },
-                    { 13, 2, "Fråga 3" },
-                    { 14, 2, "Fråga 4" },
-                    { 15, 2, "Fråga 5" },
-                    { 16, 2, "Fråga 6" },
-                    { 17, 2, "Fråga 7" },
-                    { 18, 2, "Fråga 8" },
-                    { 19, 2, "Fråga 9" },
-                    { 20, 2, "Fråga 10" },
-                    { 21, 3, "Fråga 1" },
-                    { 22, 3, "Fråga 2" },
-                    { 23, 3, "Fråga 3" },
-                    { 24, 3, "Fråga 4" },
-                    { 25, 3, "Fråga 5" },
-                    { 26, 3, "Fråga 6" },
-                    { 27, 3, "Fråga 7" },
-                    { 28, 3, "Fråga 8" },
-                    { 29, 3, "Fråga 9" },
-                    { 30, 3, "Fråga 10" },
-                    { 31, 4, "Fråga 1" },
-                    { 32, 4, "Fråga 2" },
-                    { 33, 4, "Fråga 3" },
-                    { 34, 4, "Fråga 4" },
-                    { 35, 4, "Fråga 5" },
-                    { 36, 4, "Fråga 6" },
-                    { 37, 4, "Fråga 7" },
-                    { 38, 4, "Fråga 8" },
-                    { 39, 4, "Fråga 9" },
-                    { 40, 4, "Fråga 10" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -484,50 +296,30 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuestionModels_SubCategoryId",
-                table: "QuestionModels",
-                column: "SubCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ResponseModels_QuestionId",
-                table: "ResponseModels",
-                column: "QuestionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ResultCategoryModel_ResultModelId",
-                table: "ResultCategoryModel",
+                name: "IX_ResultCategories_ResultModelId",
+                table: "ResultCategories",
                 column: "ResultModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResultModel_ApplicationUserId",
-                table: "ResultModel",
+                name: "IX_ResultQuestions_ResultSubCategoryModelId",
+                table: "ResultQuestions",
+                column: "ResultSubCategoryModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Results_ApplicationUserId",
+                table: "Results",
                 column: "ApplicationUserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResultQuestionModel_ResultSubCategoryModelId",
-                table: "ResultQuestionModel",
-                column: "ResultSubCategoryModelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ResultSegmentModel_ResultCategoryModelId",
-                table: "ResultSegmentModel",
+                name: "IX_ResultSegments_ResultCategoryModelId",
+                table: "ResultSegments",
                 column: "ResultCategoryModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResultSubCategoryModel_ResultSegmentModelId",
-                table: "ResultSubCategoryModel",
+                name: "IX_ResultSubCategories_ResultSegmentModelId",
+                table: "ResultSubCategories",
                 column: "ResultSegmentModelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SegmentModels_CategoriesId",
-                table: "SegmentModels",
-                column: "CategoriesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubCategoryModels_SegmentId",
-                table: "SubCategoryModels",
-                column: "SegmentId");
         }
 
         /// <inheritdoc />
@@ -549,37 +341,22 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ResponseModels");
-
-            migrationBuilder.DropTable(
-                name: "ResultQuestionModel");
+                name: "ResultQuestions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "QuestionModels");
+                name: "ResultSubCategories");
 
             migrationBuilder.DropTable(
-                name: "ResultSubCategoryModel");
+                name: "ResultSegments");
 
             migrationBuilder.DropTable(
-                name: "SubCategoryModels");
+                name: "ResultCategories");
 
             migrationBuilder.DropTable(
-                name: "ResultSegmentModel");
-
-            migrationBuilder.DropTable(
-                name: "SegmentModels");
-
-            migrationBuilder.DropTable(
-                name: "ResultCategoryModel");
-
-            migrationBuilder.DropTable(
-                name: "CategoryModels");
-
-            migrationBuilder.DropTable(
-                name: "ResultModel");
+                name: "Results");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

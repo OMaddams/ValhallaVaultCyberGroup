@@ -15,5 +15,19 @@ namespace ValhallaVaultCyberGroup.App.Managers
         {
             return _resultRepo.CheckSubcategoryProgress(userId, subCategoryId);
         }
+
+        public async Task<bool> CheckPreviousSubcategoriesCompleted(string userId, int currentSubCategoryId)
+        {
+
+            for (int i = 1; i < currentSubCategoryId; i++)
+            {
+                bool isCompleted = _resultRepo.CheckSubcategoryProgress(userId, i);
+                if (!isCompleted)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
