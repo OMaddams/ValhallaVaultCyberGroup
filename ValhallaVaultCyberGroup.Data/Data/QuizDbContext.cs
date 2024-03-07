@@ -458,7 +458,7 @@ namespace ValhallaVaultCyberGroup.Data.Data
 
 
             modelBuilder.Entity<ResponseModel>().HasData(
-               
+
                 new ResponseModel
                 {
                     Id = 10,
@@ -678,8 +678,6 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 },
                 new ResponseModel
                 {
-                    Id = 1,
-                    Text = "Svar fråga 1",
 
                     Id = 41,
                     Text = "En informationsinsamling för en marknadsundersökning",
@@ -742,7 +740,7 @@ namespace ValhallaVaultCyberGroup.Data.Data
                     QuestionId = 3,
                 }, new ResponseModel
                 {
-                  
+
                     Id = 42,
                     Text = "Ett potentiellt telefonbedrägeri",
                     IsRightAnswer = true,
