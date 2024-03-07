@@ -14,7 +14,7 @@
 
 <PageTitle>Log in</PageTitle>
 
-<h1 class="container col-md-4" style="color:purple">Log in</h1>
+<h1 class="container col-md-4 text-light">Log in</h1>
 <div class="row">
     <div class=" container col-md-4">
         <section>
@@ -23,54 +23,51 @@
                 <DataAnnotationsValidator />
                 
                 <hr />
-                <ValidationSummary class="text-danger" role="alert" />
-                <div class="form-floating mb-3">
+                <ValidationSummary class="text-danger" role="alert"  />
+                <div class="form-floating mb-3 " >
                     <InputText @bind-Value="Input.Email" class="form-control custom-border" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label for="email" class="form-label">Username</label>
+                    <label for="email" class="form-label ">Email</label>
                     <ValidationMessage For="() => Input.Email" class="text-danger" />
-                    <style>
-                        .custom-border:focus {
-                            border-color: purple;
-                            box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25);
-                        }
-                    </style>
+                        <p></p>
+                    <div class="form-floating mb-3">
+                        <InputText @bind-Value="Input.UserName" class="form-control custom-border" autocomplete="username" aria-required="true" placeholder="usernamexample" />
+                        <label for="username">Username</label>
+                        <ValidationMessage For="() => Input.UserName" class="text-danger" />
+
+                    </div>
+                  
                 </div>
-                <div class="form-floating mb-3">
-                    <InputText type="password" @bind-Value="Input.Password" class="form-control custom-border" autocomplete="current-password" aria-required="true" placeholder="password" />
+                <div class="form-floating mb-3 ">
+                    <InputText type="password" @bind-Value="Input.Password" class="form-control " autocomplete="current-password" aria-required="true" placeholder="password" />
                     <label for="password" class="form-label">Password</label>
                     <ValidationMessage For="() => Input.Password" class="text-danger" />
-                    <style>
-                        .custom-border:focus {
-                            border-color: purple;
-                            box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25);
-                        }
-                    </style>
+                  
                 </div>
                 <div class="checkbox mb-3">
                     <label class="form-label">
-                        <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input" />
+                        <InputCheckbox @bind-Value="Input.RememberMe" class="purple-border-checkbox form-check-input" />
                         Remember me
                     </label>
                 </div>
                 <div>
-                    <button type="submit" class="w-100 btn btn-lg btn-dark">Log in</button>
+                    <button type="submit" class="w-100 btn btn-lg btn-purple">Log in</button>
                     <br />
                 </div>
                 <div class="container text-center">
                  <div class="row">
                         <div class="col">
-                            
-                        <a href="Account/ForgotPassword" style="color:black">Forgot your password?</a>
+
+                            <a href="Account/ForgotPassword" class="text-light">Forgot your password?</a>
 						
 						</div>   
                             <div class="col">
 
-                            <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" style="color:black">Register as a new user</a>
+                            <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" class="text-light">Register as a new user</a>
                           
                         </div>
                         <div class="col">
 
-                            <a href="Account/ResendEmailConfirmation" style="color:black">Resend email confirmation</a>
+                            <a href="Account/ResendEmailConfirmation" class="text-light" >Resend email confirmation</a>
                         
                         </div>
 					
@@ -113,7 +110,7 @@
     {
         // This doesn't count login failures towards account lockout
         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        var result = await SignInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
         if (result.Succeeded)
         {
             Logger.LogInformation("User logged in.");
@@ -140,7 +137,13 @@
     {
         [Required]
         [EmailAddress]
+        [Display(Name = "Email")]
         public string Email { get; set; } = "";
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
