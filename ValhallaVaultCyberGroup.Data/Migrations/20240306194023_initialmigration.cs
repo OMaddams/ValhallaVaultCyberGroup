@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ValhallaVaultCyberGroup.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedData : Migration
+    public partial class initialmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -357,10 +357,9 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Grundläggande IT-säkerhet" },
-                    { 2, "Att skydda sig mot bedrägerier" },
-                    { 3, "Cybersäkerhet för företag" },
-                    { 4, "Cyberspionage" }
+                    { 1, "Att skydda sig mot bedrägerier" },
+                    { 2, "Cybersäkerhet för företag" },
+                    { 3, "Cyberspionage" }
                 });
 
             migrationBuilder.InsertData(
@@ -368,10 +367,16 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 columns: new[] { "Id", "CategoriesId", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, "Segment 1" },
-                    { 2, 2, "Segment 2" },
-                    { 3, 3, "Segment 3" },
-                    { 4, 4, "Segment 4" }
+                    { 1, 1, "Del 1" },
+                    { 2, 1, "Del 2" },
+                    { 3, 1, "Del 3" },
+                    { 4, 2, "Del 1" },
+                    { 5, 2, "Del 2" },
+                    { 6, 2, "Del 3" },
+                    { 7, 2, "Del 4" },
+                    { 8, 3, "Del 1" },
+                    { 9, 3, "Del 2" },
+                    { 10, 3, "Del 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -379,22 +384,51 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 columns: new[] { "Id", "Name", "SegmentId" },
                 values: new object[,]
                 {
-                    { 1, "Allmänt om digital säkerhet", 1 },
-                    { 2, "Brandväggar och antivirus-program", 1 },
-                    { 3, "Håll dina program aktuella", 1 },
-                    { 4, "N/A, Sub-category for Segment 1", 1 },
-                    { 5, "Skydda din anslutning", 2 },
-                    { 6, "Ta hand om dina lösenord", 2 },
-                    { 7, "Var rädd om dina kortuppgifter", 2 },
-                    { 8, "N/A, Sub-category for Segment 2", 2 },
-                    { 9, "N/A, Sub-category for Segment 3", 3 },
-                    { 10, "N/A, Sub-category for Segment 3", 3 },
-                    { 11, "N/A, Sub-category for Segment 3", 3 },
-                    { 12, "N/A, Sub-category for Segment 3", 3 },
-                    { 13, "N/A, Sub-category for Segment 4", 4 },
-                    { 14, "N/A, Sub-category for Segment 4", 4 },
-                    { 15, "N/A, Sub-category for Segment 4", 4 },
-                    { 16, "N/A, Sub-category for Segment 4", 4 }
+                    { 1, "Kreditkortsbedrägeri", 1 },
+                    { 2, "Romansbedrägeri", 1 },
+                    { 3, "Investeringsbedrägeri", 1 },
+                    { 4, "Telefonbedrägeri", 1 },
+                    { 5, "Bedrägeri i hemmet", 2 },
+                    { 6, "Identitetsstöld", 2 },
+                    { 7, "Nätfiske och bluffmejl", 2 },
+                    { 8, "Investeringsbedrägeri på nätet", 2 },
+                    { 9, "Abonnemangsfällor och falska fakturor", 3 },
+                    { 10, "Ransomware", 3 },
+                    { 11, "Statistik och förhållningssätt", 3 },
+                    { 12, "Digital säkerhet på företag", 4 },
+                    { 13, "Risker och beredskap", 4 },
+                    { 14, "Aktörer inom cyberbrott", 4 },
+                    { 15, "Ökad digital närvaro och distansarbete", 4 },
+                    { 16, "Cyberangrepp mot känsliga sektorer", 4 },
+                    { 17, "Cyberrånet mot Mersk Cyberrånet mot Mersk ", 4 },
+                    { 18, "Social engineering", 5 },
+                    { 19, "Nätfiske och skräppost", 5 },
+                    { 20, "Vishing", 5 },
+                    { 21, "Varning för vishing", 5 },
+                    { 22, "Identifiera VD-mejl", 5 },
+                    { 23, "Öneangrepp och presentkortsbluffar", 5 },
+                    { 25, "Virus, maskar och trojaner", 6 },
+                    { 26, "Så kan det gå till", 6 },
+                    { 27, "Nätverksintrång", 6 },
+                    { 28, "Dataintrång", 6 },
+                    { 29, "Hackad!", 6 },
+                    { 30, "Vägarna in", 6 },
+                    { 31, "Utpressningsvirus", 7 },
+                    { 32, "Attacker mot servrar", 7 },
+                    { 33, "Cyberangrepp i Norden", 7 },
+                    { 34, "It-brottslingarnas verktyg", 7 },
+                    { 35, "Mirai, Wannacry och fallet Düsseldorf", 7 },
+                    { 36, "De sårbara molnen", 7 },
+                    { 37, "Allmänt om cyberspionage", 8 },
+                    { 38, "Metoder för cyberspionage", 8 },
+                    { 39, "Säkerhetsskyddslagen", 8 },
+                    { 40, "Cyberspionagets aktörer", 8 },
+                    { 41, "Värvningsförsök", 9 },
+                    { 42, "Affärsspionage", 9 },
+                    { 43, "Påverkanskampanjer", 9 },
+                    { 44, "Svensk underrättelsetjänst och cyberförsvar", 10 },
+                    { 45, "Signalspaning, informationssäkerhet och 5G", 10 },
+                    { 46, "Samverkan mot cyberspionage", 10 }
                 });
 
             migrationBuilder.InsertData(
@@ -402,46 +436,69 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 columns: new[] { "Id", "SubCategoryId", "Text" },
                 values: new object[,]
                 {
-                    { 1, 1, "Fråga 1" },
-                    { 2, 1, "Fråga 2" },
-                    { 3, 1, "Fråga 3" },
-                    { 4, 1, "Fråga 4" },
-                    { 5, 1, "Fråga 5" },
-                    { 6, 1, "Fråga 6" },
-                    { 7, 1, "Fråga 7" },
-                    { 8, 1, "Fråga 8" },
-                    { 9, 1, "Fråga 9" },
-                    { 10, 1, "Fråga 10" },
-                    { 11, 2, "Fråga 1" },
-                    { 12, 2, "Fråga 2" },
-                    { 13, 2, "Fråga 3" },
-                    { 14, 2, "Fråga 4" },
-                    { 15, 2, "Fråga 5" },
-                    { 16, 2, "Fråga 6" },
-                    { 17, 2, "Fråga 7" },
-                    { 18, 2, "Fråga 8" },
-                    { 19, 2, "Fråga 9" },
-                    { 20, 2, "Fråga 10" },
-                    { 21, 3, "Fråga 1" },
-                    { 22, 3, "Fråga 2" },
-                    { 23, 3, "Fråga 3" },
-                    { 24, 3, "Fråga 4" },
-                    { 25, 3, "Fråga 5" },
-                    { 26, 3, "Fråga 6" },
-                    { 27, 3, "Fråga 7" },
-                    { 28, 3, "Fråga 8" },
-                    { 29, 3, "Fråga 9" },
-                    { 30, 3, "Fråga 10" },
-                    { 31, 4, "Fråga 1" },
-                    { 32, 4, "Fråga 2" },
-                    { 33, 4, "Fråga 3" },
-                    { 34, 4, "Fråga 4" },
-                    { 35, 4, "Fråga 5" },
-                    { 36, 4, "Fråga 6" },
-                    { 37, 4, "Fråga 7" },
-                    { 38, 4, "Fråga 8" },
-                    { 39, 4, "Fråga 9" },
-                    { 40, 4, "Fråga 10" }
+                    { 1, 1, "Du får ett oväntat telefonsamtal från någon som påstår sig vara från din bank. Personen ber dig bekräfta ditt kontonummer och lösenord för att \"säkerställa din kontos säkerhet\" efter en påstådd säkerhetsincident. Hur bör du tolka denna situation?" },
+                    { 2, 2, "Efter flera månader av daglig kommunikation med någon du träffade på en datingsida, börjar personen berätta om en plötslig finansiell kris och ber om din hjälp genom att överföra pengar. Vad indikerar detta mest sannolikt?" },
+                    { 3, 3, "Du får ett e-postmeddelande/samtal om ett exklusivt erbjudande att investera i ett startup-företag som påstås ha en revolutionerande ny teknologi, med garantier om exceptionellt hög avkastning på mycket kort tid. Hur bör du förhålla dig till erbjudandet?" },
+                    { 4, 4, "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?" },
+                    { 5, 12, "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?" },
+                    { 6, 13, "Inom företaget upptäckts det en sårbarhet i vår programvara som kunde möjliggöra obehörig åtkomst till användardata. Företaget har inte omedelbart en lösning. Vilken är den mest lämpliga första åtgärden?" },
+                    { 7, 14, "Vårt företag blir måltavla för en DDoS-attack som överväldigar våra servers och gör våra tjänster otillgängliga för kunder. Vilken typ av aktör är mest sannolikt ansvarig för denna typ av attack?" },
+                    { 8, 15, "Med övergången till distansarbete upptäcker vårt företag en ökning av säkerhetsincidenter, inklusive obehörig åtkomst till företagsdata. Vilken åtgärd bör företaget vidta för att adressera denna nya riskmiljö?" },
+                    { 9, 16, "Hälsovårdsmyndigheten utsätts för ett cyberangrepp som krypterar patientdata och kräver lösen för att återställa åtkomsten. Vilken typ av angrepp har de sannolikt blivit utsatta för?" },
+                    { 10, 17, "Det globala fraktbolaget Maersk blev offer för ett omfattande cyberangrepp som avsevärt störde deras verksamhet världen över. Vilken typ av malware var primärt ansvarig för denna incident?" },
+                    { 11, 37, "Regeringen upptäcker att känslig politisk kommunikation har läckt och misstänker elektronisk övervakning. Vilket fenomen beskriver bäst denna situation?" },
+                    { 12, 38, "Regeringen blir varse om en sofistikerad skadeprogramskampanj som utnyttjar Zero-day sårbarheter för att infiltrera deras nätverk och stjäla oerhört viktig data. Vilken metod för cyberspionage används sannolikt här?" },
+                    { 13, 39, "Regeringen i Sverige ökar sitt interna säkerhetsprotokoll för att skydda sig mot utländska underrättelsetjänsters infiltration. Vilken lagstiftning ger ramverket för detta skydd?" },
+                    { 14, 40, "Lunds universitet upptäcker att forskningsdata om ny teknologi har stulits. Undersökningar tyder på en välorganiserad grupp med kopplingar till en utländsk stat. Vilken typ av aktör ligger sannolikt bakom detta?" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ResponseModels",
+                columns: new[] { "Id", "IsRightAnswer", "QuestionId", "Text" },
+                values: new object[,]
+                {
+                    { 1, false, 14, "Oberoende hackare" },
+                    { 2, false, 14, "Aktivistgrupper" },
+                    { 3, true, 14, "Statssponsrade hackers" },
+                    { 4, false, 13, "GDPR" },
+                    { 5, true, 13, "Säkerhetsskyddslagen" },
+                    { 6, false, 13, "IT-säkerhetslagen" },
+                    { 7, false, 12, "Social ingenjörskonst" },
+                    { 8, false, 12, "Massövervakning" },
+                    { 9, true, 12, "Riktade cyberattacker" },
+                    { 10, false, 11, "Cyberkriminalitet" },
+                    { 11, true, 11, "Cyberspionage" },
+                    { 12, false, 11, "Cyberterrorism" },
+                    { 13, false, 10, "Spyware" },
+                    { 14, true, 10, "Ransomware" },
+                    { 15, false, 10, "Adware" },
+                    { 16, false, 9, "Phishing" },
+                    { 17, true, 9, "Ransomware" },
+                    { 18, false, 9, "Spyware" },
+                    { 19, false, 8, "Återgå till kontorsarbete" },
+                    { 20, true, 8, "Införa striktare lösenordspolicyer och tvåfaktorsautentisering för fjärråtkomst" },
+                    { 21, false, 8, "Förbjuda användning av personliga enheter för arbete" },
+                    { 22, false, 7, "En enskild hackare med ett personligt vendetta" },
+                    { 23, false, 7, "En konkurrerande företagsentitet" },
+                    { 24, true, 7, "Organiserade cyberbrottsliga grupper" },
+                    { 25, true, 6, "Informera alla användare om sårbarheten och rekommendera temporära skyddsåtgärder" },
+                    { 26, false, 6, "Ignorera problemet tills en patch kan utvecklas" },
+                    { 27, false, 6, "Stänga ner tjänsten tillfälligt" },
+                    { 28, true, 5, "Utbildning i digital säkerhet för alla anställda" },
+                    { 29, false, 5, "Installera en starkare brandvägg" },
+                    { 30, false, 5, "Byta ut all IT-utrustning" },
+                    { 31, false, 4, "Ett misstag av kreditkortsföretaget" },
+                    { 32, true, 4, "Kreditkortsbedrägeri" },
+                    { 33, false, 4, "Obehöriga köp av en familjemedlem" },
+                    { 34, false, 3, "Genomföra omedelbar investering för att inte missa möjligheten" },
+                    { 35, true, 3, "Investeringsbedrägeri" },
+                    { 36, false, 3, "Begära mer information för att utföra en noggrann due diligence" },
+                    { 37, false, 2, "En legitim begäran om hjälp från en person i nöd" },
+                    { 38, true, 2, "Ett romansbedrägeri" },
+                    { 39, false, 2, "En tillfällig ekonomisk svårighet" },
+                    { 40, false, 1, "Ett legitimt försök från banken att skydda ditt konto" },
+                    { 41, false, 1, "En informationsinsamling för en marknadsundersökning" },
+                    { 42, true, 1, "Ett potentiellt telefonbedrägeri" }
                 });
 
             migrationBuilder.CreateIndex(

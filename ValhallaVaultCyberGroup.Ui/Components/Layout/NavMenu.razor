@@ -2,42 +2,28 @@
 
 @inject NavigationManager NavigationManager
 
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">ValhallaVaultCyberGroup.Ui</a>
+<div class="top-row ps-1 navbar navbar-dark" style="background-image: linear-gradient(to right, #6d2687,#FAEBD7)">
+    <div class="container-fluid" >
+        <a class="navbar-brand"  href="">ValhallaVaultCyberGroup</a>
     </div>
 </div>
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+<div class="nav-scrollable" style="background-image: linear-gradient(to bottom, #6d2687,#FAEBD7)" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-
+       
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="auth">
-                <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
+                <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Admin
             </NavLink>
         </div>
-
-
-        <div>
+        <div>          
             <AuthorizeView Roles="Admin">
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Admin">
@@ -45,7 +31,6 @@
                     </NavLink>
                 </div>
             </AuthorizeView>
-        
         <AuthorizeView>
             <Authorized>
                 <div class="nav-item px-3">
