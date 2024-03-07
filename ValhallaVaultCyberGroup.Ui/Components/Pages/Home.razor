@@ -1,10 +1,36 @@
 ﻿@page "/"
 @using ValhallaVaultCyberGroup.App.Managers
 @using ValhallaVaultCyberGroup.Data.Models.Domain
+@using ValhallaVaultCyberGroup.Data.Models.Result
 @using ValhallaVaultCyberGroup.Ui.Components.Reusable_Components
+@using static ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel
 @inject QuestionManager questionManager
 @rendermode InteractiveServer
 
+
+
+<AuthorizeView>
+
+<NotAuthorized>
+
+    <h2>HÄR SKA ISABELLES KOMPONENT LIGGA </h2>
+
+
+
+
+
+
+</NotAuthorized>
+
+
+
+
+
+
+    <Authorized Context="authContext">
+
+
+        <!--Här visas kategorie, segment, subkategori i drow down meny -->
 
 @if(isTestOpen ==false)
 {
@@ -59,6 +85,7 @@
 </div>
 
 }
+<!--Om man trycker på starta test så hamnar man här och ser provet-->
 
 @if (isTestOpen == true)
 {
@@ -69,35 +96,52 @@
        </Header>
 
        <Body>
-            @foreach(var question in selectedSubCategory.Questions)
+                    <EditForm Model="@ResultsSubCateogry" Context="formContext" FormName="QuizForm">
+
+                        @foreach(var question in selectedSubCategory.Questions)
             {
                 <Question>
                     <Text>
                         <p class="font-weight-bold">@question.Text</p>
                     </Text>
                 </Question>
+
+           <InputRadioGroup @bind-Value="ResultsSubCateogry.ResultQuestions">
+
                 @foreach(var response in question.Responses)
                 {
-                    <p class="fst-italic">@response.Text</p>
+
+                    <label>@response.Text</label>
+
+                    <InputRadio Value="@response.IsRightAnswer"></InputRadio>
+                    <br />
 
                 }
+          </InputRadioGroup>
+
             }
 
-
+        </EditForm>
        </Body>
 
    </QuestionForm>
 }
 
-        
-    
+
+</Authorized>
+</AuthorizeView>
 
 
 
 
-
+ 
 @code
 {
+
+    private QuestionModel newQuestion = new();
+    private ResponseModel selectedResponse = new();
+    private List<ResponseModel> responses = new(); 
+    private ResultSubCategoryModel ResultsSubCateogry= new();
     private SubCategoryModel selectedSubCategory = new();
     private bool isTestOpen = false; 
     private List<CategoryModel> Categories = new();

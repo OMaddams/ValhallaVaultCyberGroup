@@ -458,69 +458,7 @@ namespace ValhallaVaultCyberGroup.Data.Data
 
 
             modelBuilder.Entity<ResponseModel>().HasData(
-                new ResponseModel
-                {
-                    Id = 1,
-                    Text = "Oberoende hackare",
-                    IsRightAnswer = false,
-                    QuestionId = 14,
-                },
-                new ResponseModel
-                {
-                    Id = 2,
-                    Text = "Aktivistgrupper",
-                    IsRightAnswer = false,
-                    QuestionId = 14,
-                },
-                new ResponseModel
-                {
-                    Id = 3,
-                    Text = "Statssponsrade hackers",
-                    IsRightAnswer = true,
-                    QuestionId = 14,
-                },
-                new ResponseModel
-                {
-                    Id = 4,
-                    Text = "GDPR",
-                    IsRightAnswer = false,
-                    QuestionId = 13,
-                },
-                new ResponseModel
-                {
-                    Id = 5,
-                    Text = "Säkerhetsskyddslagen",
-                    IsRightAnswer = true,
-                    QuestionId = 13,
-                },
-                new ResponseModel
-                {
-                    Id = 6,
-                    Text = "IT-säkerhetslagen",
-                    IsRightAnswer = false,
-                    QuestionId = 13,
-                },
-                new ResponseModel
-                {
-                    Id = 7,
-                    Text = "Social ingenjörskonst",
-                    IsRightAnswer = false,
-                    QuestionId = 12,
-                },
-                new ResponseModel
-                {
-                    Id = 8,
-                    Text = "Massövervakning",
-                    IsRightAnswer = false,
-                    QuestionId = 12,
-                },
-                new ResponseModel
-                {
-                    Id = 9,
-                    Text = "Riktade cyberattacker",
-                    IsRightAnswer = true,
-                    QuestionId = 12,
-                },
+               
                 new ResponseModel
                 {
                     Id = 10,
@@ -740,17 +678,76 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 },
                 new ResponseModel
                 {
+                    Id = 1,
+                    Text = "Svar fråga 1",
+
                     Id = 41,
                     Text = "En informationsinsamling för en marknadsundersökning",
+
                     IsRightAnswer = false,
                     QuestionId = 1,
                 },
                 new ResponseModel
                 {
+
+                    Id = 2,
+                    Text = "Svar fråga 1",
+                    IsRightAnswer = false,
+                    QuestionId = 1,
+                },
+                new ResponseModel
+                {
+                    Id = 3,
+                    Text = "Svar fråga 1",
+                    IsRightAnswer = true,
+                    QuestionId = 1,
+                },
+                new ResponseModel
+                {
+                    Id = 4,
+                    Text = "Svar fråga 2",
+                    IsRightAnswer = true,
+                    QuestionId = 2,
+                }, new ResponseModel
+                {
+                    Id = 5,
+                    Text = "Svar fråga 2",
+                    IsRightAnswer = false,
+                    QuestionId = 2,
+                },
+                new ResponseModel
+                {
+                    Id = 6,
+                    Text = "Svar fråga 2",
+                    IsRightAnswer = false,
+                    QuestionId = 2,
+                }, new ResponseModel
+                {
+                    Id = 7,
+                    Text = "Svar fråga 3",
+                    IsRightAnswer = true,
+                    QuestionId = 3,
+                },
+                new ResponseModel
+                {
+                    Id = 8,
+                    Text = "Svar fråga 3",
+                    IsRightAnswer = false,
+                    QuestionId = 3,
+                }, new ResponseModel
+                {
+                    Id = 9,
+                    Text = "Svar fråga 3",
+                    IsRightAnswer = false,
+                    QuestionId = 3,
+                }, new ResponseModel
+                {
+                  
                     Id = 42,
                     Text = "Ett potentiellt telefonbedrägeri",
                     IsRightAnswer = true,
                     QuestionId = 1,
+
                 });
         }
 

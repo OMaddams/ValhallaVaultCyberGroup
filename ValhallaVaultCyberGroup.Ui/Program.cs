@@ -8,6 +8,7 @@ using ValhallaVaultCyberGroup.Ui.Components;
 using ValhallaVaultCyberGroup.Ui.Components.Account;
 using ValhallaVaultCyberGroup.Ui.Data;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

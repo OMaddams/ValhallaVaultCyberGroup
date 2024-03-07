@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ValhallaVaultCyberGroup.Data.Data;
 
@@ -11,9 +12,11 @@ using ValhallaVaultCyberGroup.Data.Data;
 namespace ValhallaVaultCyberGroup.Data.Migrations
 {
     [DbContext(typeof(QuizDbContext))]
-    partial class QuizDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240305084516_FirstTry")]
+    partial class FirstTry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,16 +178,21 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Att skydda sig mot bedrägerier"
+                            Name = "Grundläggande IT-säkerhet"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Cybersäkerhet för företag"
+                            Name = "Att skydda sig mot bedrägerier"
                         },
                         new
                         {
                             Id = 3,
+                            Name = "Cybersäkerhet för företag"
+                        },
+                        new
+                        {
+                            Id = 4,
                             Name = "Cyberspionage"
                         });
                 });
@@ -215,85 +223,241 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 1,
                             SubCategoryId = 1,
-                            Text = "Du får ett oväntat telefonsamtal från någon som påstår sig vara från din bank. Personen ber dig bekräfta ditt kontonummer och lösenord för att \"säkerställa din kontos säkerhet\" efter en påstådd säkerhetsincident. Hur bör du tolka denna situation?"
+                            Text = "Fråga 1"
                         },
                         new
                         {
                             Id = 2,
-                            SubCategoryId = 2,
-                            Text = "Efter flera månader av daglig kommunikation med någon du träffade på en datingsida, börjar personen berätta om en plötslig finansiell kris och ber om din hjälp genom att överföra pengar. Vad indikerar detta mest sannolikt?"
+                            SubCategoryId = 1,
+                            Text = "Fråga 2"
                         },
                         new
                         {
                             Id = 3,
-                            SubCategoryId = 3,
-                            Text = "Du får ett e-postmeddelande/samtal om ett exklusivt erbjudande att investera i ett startup-företag som påstås ha en revolutionerande ny teknologi, med garantier om exceptionellt hög avkastning på mycket kort tid. Hur bör du förhålla dig till erbjudandet?"
+                            SubCategoryId = 1,
+                            Text = "Fråga 3"
                         },
                         new
                         {
                             Id = 4,
-                            SubCategoryId = 4,
-                            Text = "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?"
+                            SubCategoryId = 1,
+                            Text = "Fråga 4"
                         },
                         new
                         {
                             Id = 5,
-                            SubCategoryId = 12,
-                            Text = "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?"
+                            SubCategoryId = 1,
+                            Text = "Fråga 5"
                         },
                         new
                         {
                             Id = 6,
-                            SubCategoryId = 13,
-                            Text = "Inom företaget upptäckts det en sårbarhet i vår programvara som kunde möjliggöra obehörig åtkomst till användardata. Företaget har inte omedelbart en lösning. Vilken är den mest lämpliga första åtgärden?"
+                            SubCategoryId = 1,
+                            Text = "Fråga 6"
                         },
                         new
                         {
                             Id = 7,
-                            SubCategoryId = 14,
-                            Text = "Vårt företag blir måltavla för en DDoS-attack som överväldigar våra servers och gör våra tjänster otillgängliga för kunder. Vilken typ av aktör är mest sannolikt ansvarig för denna typ av attack?"
+                            SubCategoryId = 1,
+                            Text = "Fråga 7"
                         },
                         new
                         {
                             Id = 8,
-                            SubCategoryId = 15,
-                            Text = "Med övergången till distansarbete upptäcker vårt företag en ökning av säkerhetsincidenter, inklusive obehörig åtkomst till företagsdata. Vilken åtgärd bör företaget vidta för att adressera denna nya riskmiljö?"
+                            SubCategoryId = 1,
+                            Text = "Fråga 8"
                         },
                         new
                         {
                             Id = 9,
-                            SubCategoryId = 16,
-                            Text = "Hälsovårdsmyndigheten utsätts för ett cyberangrepp som krypterar patientdata och kräver lösen för att återställa åtkomsten. Vilken typ av angrepp har de sannolikt blivit utsatta för?"
+                            SubCategoryId = 1,
+                            Text = "Fråga 9"
                         },
                         new
                         {
                             Id = 10,
-                            SubCategoryId = 17,
-                            Text = "Det globala fraktbolaget Maersk blev offer för ett omfattande cyberangrepp som avsevärt störde deras verksamhet världen över. Vilken typ av malware var primärt ansvarig för denna incident?"
+                            SubCategoryId = 1,
+                            Text = "Fråga 10"
                         },
                         new
                         {
                             Id = 11,
-                            SubCategoryId = 37,
-                            Text = "Regeringen upptäcker att känslig politisk kommunikation har läckt och misstänker elektronisk övervakning. Vilket fenomen beskriver bäst denna situation?"
+                            SubCategoryId = 2,
+                            Text = "Fråga 1"
                         },
                         new
                         {
                             Id = 12,
-                            SubCategoryId = 38,
-                            Text = "Regeringen blir varse om en sofistikerad skadeprogramskampanj som utnyttjar Zero-day sårbarheter för att infiltrera deras nätverk och stjäla oerhört viktig data. Vilken metod för cyberspionage används sannolikt här?"
+                            SubCategoryId = 2,
+                            Text = "Fråga 2"
                         },
                         new
                         {
                             Id = 13,
-                            SubCategoryId = 39,
-                            Text = "Regeringen i Sverige ökar sitt interna säkerhetsprotokoll för att skydda sig mot utländska underrättelsetjänsters infiltration. Vilken lagstiftning ger ramverket för detta skydd?"
+                            SubCategoryId = 2,
+                            Text = "Fråga 3"
                         },
                         new
                         {
                             Id = 14,
-                            SubCategoryId = 40,
-                            Text = "Lunds universitet upptäcker att forskningsdata om ny teknologi har stulits. Undersökningar tyder på en välorganiserad grupp med kopplingar till en utländsk stat. Vilken typ av aktör ligger sannolikt bakom detta?"
+                            SubCategoryId = 2,
+                            Text = "Fråga 4"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            SubCategoryId = 2,
+                            Text = "Fråga 5"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            SubCategoryId = 2,
+                            Text = "Fråga 6"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            SubCategoryId = 2,
+                            Text = "Fråga 7"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            SubCategoryId = 2,
+                            Text = "Fråga 8"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            SubCategoryId = 2,
+                            Text = "Fråga 9"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            SubCategoryId = 2,
+                            Text = "Fråga 10"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            SubCategoryId = 3,
+                            Text = "Fråga 1"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            SubCategoryId = 3,
+                            Text = "Fråga 2"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            SubCategoryId = 3,
+                            Text = "Fråga 3"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            SubCategoryId = 3,
+                            Text = "Fråga 4"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            SubCategoryId = 3,
+                            Text = "Fråga 5"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            SubCategoryId = 3,
+                            Text = "Fråga 6"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            SubCategoryId = 3,
+                            Text = "Fråga 7"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            SubCategoryId = 3,
+                            Text = "Fråga 8"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            SubCategoryId = 3,
+                            Text = "Fråga 9"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            SubCategoryId = 3,
+                            Text = "Fråga 10"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            SubCategoryId = 4,
+                            Text = "Fråga 1"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            SubCategoryId = 4,
+                            Text = "Fråga 2"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            SubCategoryId = 4,
+                            Text = "Fråga 3"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            SubCategoryId = 4,
+                            Text = "Fråga 4"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            SubCategoryId = 4,
+                            Text = "Fråga 5"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            SubCategoryId = 4,
+                            Text = "Fråga 6"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            SubCategoryId = 4,
+                            Text = "Fråga 7"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            SubCategoryId = 4,
+                            Text = "Fråga 8"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            SubCategoryId = 4,
+                            Text = "Fråga 9"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            SubCategoryId = 4,
+                            Text = "Fråga 10"
                         });
                 });
 
@@ -320,353 +484,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("ResponseModels");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsRightAnswer = false,
-                            QuestionId = 14,
-                            Text = "Oberoende hackare"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsRightAnswer = false,
-                            QuestionId = 14,
-                            Text = "Aktivistgrupper"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsRightAnswer = true,
-                            QuestionId = 14,
-                            Text = "Statssponsrade hackers"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            IsRightAnswer = false,
-                            QuestionId = 13,
-                            Text = "GDPR"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            IsRightAnswer = true,
-                            QuestionId = 13,
-                            Text = "Säkerhetsskyddslagen"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            IsRightAnswer = false,
-                            QuestionId = 13,
-                            Text = "IT-säkerhetslagen"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            IsRightAnswer = false,
-                            QuestionId = 12,
-                            Text = "Social ingenjörskonst"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            IsRightAnswer = false,
-                            QuestionId = 12,
-                            Text = "Massövervakning"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            IsRightAnswer = true,
-                            QuestionId = 12,
-                            Text = "Riktade cyberattacker"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            IsRightAnswer = false,
-                            QuestionId = 11,
-                            Text = "Cyberkriminalitet"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            IsRightAnswer = true,
-                            QuestionId = 11,
-                            Text = "Cyberspionage"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            IsRightAnswer = false,
-                            QuestionId = 11,
-                            Text = "Cyberterrorism"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            IsRightAnswer = false,
-                            QuestionId = 10,
-                            Text = "Spyware"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            IsRightAnswer = true,
-                            QuestionId = 10,
-                            Text = "Ransomware"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            IsRightAnswer = false,
-                            QuestionId = 10,
-                            Text = "Adware"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            IsRightAnswer = false,
-                            QuestionId = 9,
-                            Text = "Phishing"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            IsRightAnswer = true,
-                            QuestionId = 9,
-                            Text = "Ransomware"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            IsRightAnswer = false,
-                            QuestionId = 9,
-                            Text = "Spyware"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            IsRightAnswer = false,
-                            QuestionId = 8,
-                            Text = "Återgå till kontorsarbete"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            IsRightAnswer = true,
-                            QuestionId = 8,
-                            Text = "Införa striktare lösenordspolicyer och tvåfaktorsautentisering för fjärråtkomst"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            IsRightAnswer = false,
-                            QuestionId = 8,
-                            Text = "Förbjuda användning av personliga enheter för arbete"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            IsRightAnswer = false,
-                            QuestionId = 7,
-                            Text = "En enskild hackare med ett personligt vendetta"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            IsRightAnswer = false,
-                            QuestionId = 7,
-                            Text = "En konkurrerande företagsentitet"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            IsRightAnswer = true,
-                            QuestionId = 7,
-                            Text = "Organiserade cyberbrottsliga grupper"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            IsRightAnswer = true,
-                            QuestionId = 6,
-                            Text = "Informera alla användare om sårbarheten och rekommendera temporära skyddsåtgärder"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            IsRightAnswer = false,
-                            QuestionId = 6,
-                            Text = "Ignorera problemet tills en patch kan utvecklas"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            IsRightAnswer = false,
-                            QuestionId = 6,
-                            Text = "Stänga ner tjänsten tillfälligt"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            IsRightAnswer = true,
-                            QuestionId = 5,
-                            Text = "Utbildning i digital säkerhet för alla anställda"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            IsRightAnswer = false,
-                            QuestionId = 5,
-                            Text = "Installera en starkare brandvägg"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            IsRightAnswer = false,
-                            QuestionId = 5,
-                            Text = "Byta ut all IT-utrustning"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            IsRightAnswer = false,
-                            QuestionId = 4,
-                            Text = "Ett misstag av kreditkortsföretaget"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            IsRightAnswer = true,
-                            QuestionId = 4,
-                            Text = "Kreditkortsbedrägeri"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            IsRightAnswer = false,
-                            QuestionId = 4,
-                            Text = "Obehöriga köp av en familjemedlem"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            IsRightAnswer = false,
-                            QuestionId = 3,
-                            Text = "Genomföra omedelbar investering för att inte missa möjligheten"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            IsRightAnswer = true,
-                            QuestionId = 3,
-                            Text = "Investeringsbedrägeri"
-                        },
-                        new
-                        {
-                            Id = 36,
-                            IsRightAnswer = false,
-                            QuestionId = 3,
-                            Text = "Begära mer information för att utföra en noggrann due diligence"
-                        },
-                        new
-                        {
-                            Id = 37,
-                            IsRightAnswer = false,
-                            QuestionId = 2,
-                            Text = "En legitim begäran om hjälp från en person i nöd"
-                        },
-                        new
-                        {
-                            Id = 38,
-                            IsRightAnswer = true,
-                            QuestionId = 2,
-                            Text = "Ett romansbedrägeri"
-                        },
-                        new
-                        {
-                            Id = 39,
-                            IsRightAnswer = false,
-                            QuestionId = 2,
-                            Text = "En tillfällig ekonomisk svårighet"
-                        },
-                        new
-                        {
-                            Id = 40,
-                            IsRightAnswer = false,
-                            QuestionId = 1,
-                            Text = "Ett legitimt försök från banken att skydda ditt konto"
-                        },
-                        new
-                        {
-
-                            Id = 1,
-                            IsRightAnswer = false,
-                            QuestionId = 1,
-                            Text = "Svar fråga 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsRightAnswer = false,
-                            QuestionId = 1,
-                            Text = "Svar fråga 1"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsRightAnswer = true,
-                            QuestionId = 1,
-                            Text = "Svar fråga 1"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            IsRightAnswer = true,
-                            QuestionId = 2,
-                            Text = "Svar fråga 2"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            IsRightAnswer = false,
-                            QuestionId = 2,
-                            Text = "Svar fråga 2"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            IsRightAnswer = false,
-                            QuestionId = 2,
-                            Text = "Svar fråga 2"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            IsRightAnswer = true,
-                            QuestionId = 3,
-                            Text = "Svar fråga 3"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            IsRightAnswer = false,
-                            QuestionId = 3,
-                            Text = "Svar fråga 3"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            IsRightAnswer = false,
-                            QuestionId = 3,
-                            Text = "Svar fråga 3"
-
-                        });
                 });
 
             modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Domain.SegmentModel", b =>
@@ -695,61 +512,25 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 1,
                             CategoriesId = 1,
-                            Name = "Del 1"
+                            Name = "Segment 1"
                         },
                         new
                         {
                             Id = 2,
-                            CategoriesId = 1,
-                            Name = "Del 2"
+                            CategoriesId = 2,
+                            Name = "Segment 2"
                         },
                         new
                         {
                             Id = 3,
-                            CategoriesId = 1,
-                            Name = "Del 3"
+                            CategoriesId = 3,
+                            Name = "Segment 3"
                         },
                         new
                         {
                             Id = 4,
-                            CategoriesId = 2,
-                            Name = "Del 1"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CategoriesId = 2,
-                            Name = "Del 2"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CategoriesId = 2,
-                            Name = "Del 3"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CategoriesId = 2,
-                            Name = "Del 4"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoriesId = 3,
-                            Name = "Del 1"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoriesId = 3,
-                            Name = "Del 2"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CategoriesId = 3,
-                            Name = "Del 3"
+                            CategoriesId = 4,
+                            Name = "Segment 4"
                         });
                 });
 
@@ -778,272 +559,98 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Kreditkortsbedrägeri",
+                            Name = "Allmänt om digital säkerhet",
                             SegmentId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Romansbedrägeri",
+                            Name = "Brandväggar och antivirus-program",
                             SegmentId = 1
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Investeringsbedrägeri",
+                            Name = "Håll dina program aktuella",
                             SegmentId = 1
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Telefonbedrägeri",
+                            Name = "N/A, Sub-category for Segment 1",
                             SegmentId = 1
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Bedrägeri i hemmet",
+                            Name = "Skydda din anslutning",
                             SegmentId = 2
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Identitetsstöld",
+                            Name = "Ta hand om dina lösenord",
                             SegmentId = 2
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Nätfiske och bluffmejl",
+                            Name = "Var rädd om dina kortuppgifter",
                             SegmentId = 2
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Investeringsbedrägeri på nätet",
+                            Name = "N/A, Sub-category for Segment 2",
                             SegmentId = 2
                         },
                         new
                         {
                             Id = 9,
-                            Name = "Abonnemangsfällor och falska fakturor",
+                            Name = "N/A, Sub-category for Segment 3",
                             SegmentId = 3
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Ransomware",
+                            Name = "N/A, Sub-category for Segment 3",
                             SegmentId = 3
                         },
                         new
                         {
                             Id = 11,
-                            Name = "Statistik och förhållningssätt",
+                            Name = "N/A, Sub-category for Segment 3",
                             SegmentId = 3
                         },
                         new
                         {
                             Id = 12,
-                            Name = "Digital säkerhet på företag",
-                            SegmentId = 4
+                            Name = "N/A, Sub-category for Segment 3",
+                            SegmentId = 3
                         },
                         new
                         {
                             Id = 13,
-                            Name = "Risker och beredskap",
+                            Name = "N/A, Sub-category for Segment 4",
                             SegmentId = 4
                         },
                         new
                         {
                             Id = 14,
-                            Name = "Aktörer inom cyberbrott",
+                            Name = "N/A, Sub-category for Segment 4",
                             SegmentId = 4
                         },
                         new
                         {
                             Id = 15,
-                            Name = "Ökad digital närvaro och distansarbete",
+                            Name = "N/A, Sub-category for Segment 4",
                             SegmentId = 4
                         },
                         new
                         {
                             Id = 16,
-                            Name = "Cyberangrepp mot känsliga sektorer",
+                            Name = "N/A, Sub-category for Segment 4",
                             SegmentId = 4
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Name = "Cyberrånet mot Mersk Cyberrånet mot Mersk ",
-                            SegmentId = 4
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Name = "Social engineering",
-                            SegmentId = 5
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Name = "Nätfiske och skräppost",
-                            SegmentId = 5
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Name = "Vishing",
-                            SegmentId = 5
-                        },
-                        new
-                        {
-                            Id = 21,
-                            Name = "Varning för vishing",
-                            SegmentId = 5
-                        },
-                        new
-                        {
-                            Id = 22,
-                            Name = "Identifiera VD-mejl",
-                            SegmentId = 5
-                        },
-                        new
-                        {
-                            Id = 23,
-                            Name = "Öneangrepp och presentkortsbluffar",
-                            SegmentId = 5
-                        },
-                        new
-                        {
-                            Id = 25,
-                            Name = "Virus, maskar och trojaner",
-                            SegmentId = 6
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Name = "Så kan det gå till",
-                            SegmentId = 6
-                        },
-                        new
-                        {
-                            Id = 27,
-                            Name = "Nätverksintrång",
-                            SegmentId = 6
-                        },
-                        new
-                        {
-                            Id = 28,
-                            Name = "Dataintrång",
-                            SegmentId = 6
-                        },
-                        new
-                        {
-                            Id = 29,
-                            Name = "Hackad!",
-                            SegmentId = 6
-                        },
-                        new
-                        {
-                            Id = 30,
-                            Name = "Vägarna in",
-                            SegmentId = 6
-                        },
-                        new
-                        {
-                            Id = 31,
-                            Name = "Utpressningsvirus",
-                            SegmentId = 7
-                        },
-                        new
-                        {
-                            Id = 32,
-                            Name = "Attacker mot servrar",
-                            SegmentId = 7
-                        },
-                        new
-                        {
-                            Id = 33,
-                            Name = "Cyberangrepp i Norden",
-                            SegmentId = 7
-                        },
-                        new
-                        {
-                            Id = 34,
-                            Name = "It-brottslingarnas verktyg",
-                            SegmentId = 7
-                        },
-                        new
-                        {
-                            Id = 35,
-                            Name = "Mirai, Wannacry och fallet Düsseldorf",
-                            SegmentId = 7
-                        },
-                        new
-                        {
-                            Id = 36,
-                            Name = "De sårbara molnen",
-                            SegmentId = 7
-                        },
-                        new
-                        {
-                            Id = 37,
-                            Name = "Allmänt om cyberspionage",
-                            SegmentId = 8
-                        },
-                        new
-                        {
-                            Id = 38,
-                            Name = "Metoder för cyberspionage",
-                            SegmentId = 8
-                        },
-                        new
-                        {
-                            Id = 39,
-                            Name = "Säkerhetsskyddslagen",
-                            SegmentId = 8
-                        },
-                        new
-                        {
-                            Id = 40,
-                            Name = "Cyberspionagets aktörer",
-                            SegmentId = 8
-                        },
-                        new
-                        {
-                            Id = 41,
-                            Name = "Värvningsförsök",
-                            SegmentId = 9
-                        },
-                        new
-                        {
-                            Id = 42,
-                            Name = "Affärsspionage",
-                            SegmentId = 9
-                        },
-                        new
-                        {
-                            Id = 43,
-                            Name = "Påverkanskampanjer",
-                            SegmentId = 9
-                        },
-                        new
-                        {
-                            Id = 44,
-                            Name = "Svensk underrättelsetjänst och cyberförsvar",
-                            SegmentId = 10
-                        },
-                        new
-                        {
-                            Id = 45,
-                            Name = "Signalspaning, informationssäkerhet och 5G",
-                            SegmentId = 10
-                        },
-                        new
-                        {
-                            Id = 46,
-                            Name = "Samverkan mot cyberspionage",
-                            SegmentId = 10
                         });
                 });
 
