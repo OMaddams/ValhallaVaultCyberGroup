@@ -12,8 +12,8 @@ using ValhallaVaultCyberGroup.Data.Data;
 namespace ValhallaVaultCyberGroup.Data.Migrations
 {
     [DbContext(typeof(QuizDbContext))]
-    [Migration("20240306133521_realDataSeeded")]
-    partial class realDataSeeded
+    [Migration("20240306194023_initialmigration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
