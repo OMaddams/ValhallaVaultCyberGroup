@@ -5,7 +5,10 @@
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
+@using ValhallaVaultCyberGroup.App.Managers
+@using ValhallaVaultCyberGroup.Data.Models.Result
 @using ValhallaVaultCyberGroup.Ui.Data
+@using ValhallaVaultCyberGroup.Data.Models
 
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserStore<ApplicationUser> UserStore
@@ -14,6 +17,7 @@
 @inject ILogger<Register> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+@inject ResultManager ResultManager
 
 <PageTitle>Register</PageTitle>
 
@@ -98,6 +102,9 @@
         Logger.LogInformation("User created a new account with password.");
 
         var userId = await UserManager.GetUserIdAsync(user);
+
+        await ResultManager.CreateUserResults(userId);
+
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         var callbackUrl = NavigationManager.GetUriWithQueryParameters(
@@ -161,5 +168,12 @@
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = "";
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        
+        return base.OnInitializedAsync();
+        
     }
 }

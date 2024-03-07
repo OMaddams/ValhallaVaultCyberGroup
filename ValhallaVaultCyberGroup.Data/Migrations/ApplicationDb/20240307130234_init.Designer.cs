@@ -9,11 +9,11 @@ using ValhallaVaultCyberGroup.Ui.Data;
 
 #nullable disable
 
-namespace ValhallaVaultCyberGroup.Ui.Migrations
+namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240305074604_try")]
-    partial class @try
+    [Migration("20240307130234_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,105 +158,6 @@ namespace ValhallaVaultCyberGroup.Ui.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ResultId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ResultModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultModelId");
-
-                    b.ToTable("ResultCategories");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultQuestionModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("QuestionNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResultSubCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ResultSubCategoryModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultSubCategoryModelId");
-
-                    b.ToTable("ResultQuestions");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSegmentModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ResultCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ResultCategoryModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultCategoryModelId");
-
-                    b.ToTable("ResultSegments");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSubCategoryModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ResultSegmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ResultSegmentModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultSegmentModelId");
-
-                    b.ToTable("ResultSubCategories");
-                });
-
             modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", b =>
                 {
                     b.Property<int>("Id")
@@ -275,6 +176,82 @@ namespace ValhallaVaultCyberGroup.Ui.Migrations
                         .IsUnique();
 
                     b.ToTable("Results");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultQuestionModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuestionModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResultSubCategoryModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResultSubCategoryModelId");
+
+                    b.ToTable("ResultQuestions");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSegmentModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ResultModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SegmentModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResultModelId");
+
+                    b.ToTable("ResultSegments");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSubCategoryModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ResultSegmentModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubCategoryModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResultSegmentModelId");
+
+                    b.ToTable("ResultSubCategories");
                 });
 
             modelBuilder.Entity("ValhallaVaultCyberGroup.Ui.Data.ApplicationUser", b =>
@@ -393,34 +370,6 @@ namespace ValhallaVaultCyberGroup.Ui.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel", b =>
-                {
-                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", null)
-                        .WithMany("ResultsCategories")
-                        .HasForeignKey("ResultModelId");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultQuestionModel", b =>
-                {
-                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSubCategoryModel", null)
-                        .WithMany("ResultQuestions")
-                        .HasForeignKey("ResultSubCategoryModelId");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSegmentModel", b =>
-                {
-                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel", null)
-                        .WithMany("ResultSegments")
-                        .HasForeignKey("ResultCategoryModelId");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSubCategoryModel", b =>
-                {
-                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSegmentModel", null)
-                        .WithMany("ResultSubCategories")
-                        .HasForeignKey("ResultSegmentModelId");
-                });
-
             modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", b =>
                 {
                     b.HasOne("ValhallaVaultCyberGroup.Ui.Data.ApplicationUser", "User")
@@ -432,24 +381,52 @@ namespace ValhallaVaultCyberGroup.Ui.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel", b =>
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultQuestionModel", b =>
                 {
-                    b.Navigation("ResultSegments");
+                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultSubCategoryModel", "ResultSubCategoryModel")
+                        .WithMany("ResultQuestions")
+                        .HasForeignKey("ResultSubCategoryModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResultSubCategoryModel");
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSegmentModel", b =>
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSegmentModel", b =>
                 {
-                    b.Navigation("ResultSubCategories");
+                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", "ResultModel")
+                        .WithMany("ResultSegments")
+                        .HasForeignKey("ResultModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResultModel");
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSubCategoryModel", b =>
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSubCategoryModel", b =>
                 {
-                    b.Navigation("ResultQuestions");
+                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultSegmentModel", "ResultSegmentModel")
+                        .WithMany("ResultSubCategories")
+                        .HasForeignKey("ResultSegmentModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResultSegmentModel");
                 });
 
             modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", b =>
                 {
-                    b.Navigation("ResultsCategories");
+                    b.Navigation("ResultSegments");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSegmentModel", b =>
+                {
+                    b.Navigation("ResultSubCategories");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSubCategoryModel", b =>
+                {
+                    b.Navigation("ResultQuestions");
                 });
 
             modelBuilder.Entity("ValhallaVaultCyberGroup.Ui.Data.ApplicationUser", b =>
