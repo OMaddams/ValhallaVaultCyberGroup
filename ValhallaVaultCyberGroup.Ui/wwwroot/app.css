@@ -2,8 +2,34 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.bg-lightgrey {
+    background-color: #525252;
+}
+
+.bg-darkgrey {
+    background-color: #414141;
+}
+
+.bg-darkergrey {
+    background-color: #313131;
+}
+
+.bg-purple {
+    background-color: #8F1383;
+}
+
+.text-purple {
+    color: #C147E9;
+}
+
 a, .btn-link {
-    color: #006bb7;
+    color: #8F1383;
+}
+
+.btn-purple {
+    color: #fff;
+    background-color: #C147E9;
+    border-color: #8F1383;
 }
 
 .btn-primary {
@@ -12,8 +38,18 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
+.custom-border:focus {
+    border-color: #C147E9;
+    box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25);
+}
+
+.purple-border-checkbox.form-check-input:checked {
+    background-color: #C147E9;
+    border-color: #8F1383;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 1), 0 0 0 0.25rem rgba(215, 0, 255, 0.8);
 }
 
 .content {
@@ -47,36 +83,34 @@ h1:focus {
     }
 
 .darker-border-checkbox.form-check-input {
-    border-color: #929292;
+    border-color: #8F1383;
 }
 
 
 .categoryBox {
-    width: 100%; 
-    /*min-height: 10vh;*/ 
+    width: 100%;
+    /*min-height: 10vh;*/
     background-color: lightblue;
-    border: 1px solid #ccc; 
-    text-align: left; 
+    border: 1px solid #ccc;
+    text-align: left;
     line-height: 100px;
-    margin: 20px auto; 
+    margin: 20px auto;
     padding: 10px;
 }
 
-.categoryBox button {
-      
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    cursor: pointer;
-}
+    .categoryBox button {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        cursor: pointer;
+    }
 
 .questionForm {
-    background-color: #ffffe0; 
-    padding: 20px; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
+    background-color: #ffffe0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .questionStyle {
-    
 }

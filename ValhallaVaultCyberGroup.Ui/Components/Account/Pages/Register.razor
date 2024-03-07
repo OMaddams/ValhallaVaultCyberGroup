@@ -24,54 +24,32 @@
         <StatusMessage Message="@Message" />
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <h3 style="color:purple ">Create a new account</h3>
+            <h3 class="text-light" >Create a new account</h3>
             <hr />
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
                 <InputText @bind-Value="Input.Email" class="form-control custom-border" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label for="email">Username</label>
                 <ValidationMessage For="() => Input.Email" class="text-danger" />
-                <style>
-                    .custom-border:focus {
-                        border-color: purple; 
-                        box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25); 
-                    }
-                </style>
+                
             </div>
             <div class="form-floating mb-3">
                 <InputText type="password" @bind-Value="Input.Password" class="form-control custom-border" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label for="password">Password</label>
                 <ValidationMessage For="() => Input.Password" class="text-danger" />
-                <style>
-                    .custom-border:focus {
-                        border-color: purple; 
-                        box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25);
-                    }
-                </style>
+                
             </div>
             <div class="form-floating mb-2">
                 <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control custom-border" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label for="confirm-password">Confirm Password</label>
                 <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-                <style>
-                    .custom-border:focus {
-                        border-color: purple; 
-                        box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25); 
-                    }
-                </style>
+                
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-dark custom-border">Register</button>
+            <button type="submit" class="w-100 btn btn-lg btn-purple custom-border">Register</button>
             <style>
                
-                
-                }
-                .custom-border:focus,
-                .custom-border:focus-visible
-                {
-                    border-color: purple;
-                    box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25);
-                    
-                }
+              
+               
             </style>
         </EditForm>
     </div>
