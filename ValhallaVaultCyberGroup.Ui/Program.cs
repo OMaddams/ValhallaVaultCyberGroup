@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using ValhallaVaultCyberGroup.App.Managers;
 using ValhallaVaultCyberGroup.Data.Data;
 using ValhallaVaultCyberGroup.Data.Repositories;
-using ValhallaVaultCyberGroup.Ui.Components;
 using ValhallaVaultCyberGroup.Ui.Components.Account;
 using ValhallaVaultCyberGroup.Ui.Data;
 
@@ -36,8 +35,9 @@ builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 builder.Services.AddScoped<IQuestionsRepo, QuestionsRepo>();
+builder.Services.AddScoped<IResultRepo, ResultRepo>();
 builder.Services.AddScoped<QuestionManager>();
-
+builder.Services.AddScoped<ResultManager>();
 
 
 

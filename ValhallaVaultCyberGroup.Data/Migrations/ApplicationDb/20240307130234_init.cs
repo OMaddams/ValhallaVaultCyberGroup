@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -175,43 +176,24 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResultCategories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ResultId = table.Column<int>(type: "int", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    ResultModelId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ResultCategories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ResultCategories_Results_ResultModelId",
-                        column: x => x.ResultModelId,
-                        principalTable: "Results",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ResultSegments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ResultCategoryId = table.Column<int>(type: "int", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    ResultCategoryModelId = table.Column<int>(type: "int", nullable: true)
+                    ResultModelId = table.Column<int>(type: "int", nullable: false),
+                    SegmentModelId = table.Column<int>(type: "int", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ResultSegments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResultSegments_ResultCategories_ResultCategoryModelId",
-                        column: x => x.ResultCategoryModelId,
-                        principalTable: "ResultCategories",
-                        principalColumn: "Id");
+                        name: "FK_ResultSegments_Results_ResultModelId",
+                        column: x => x.ResultModelId,
+                        principalTable: "Results",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,9 +202,10 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ResultSegmentId = table.Column<int>(type: "int", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    ResultSegmentModelId = table.Column<int>(type: "int", nullable: true)
+                    ResultSegmentModelId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SubCategoryModelId = table.Column<int>(type: "int", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,7 +214,8 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                         name: "FK_ResultSubCategories_ResultSegments_ResultSegmentModelId",
                         column: x => x.ResultSegmentModelId,
                         principalTable: "ResultSegments",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -240,10 +224,9 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    QuestionNumber = table.Column<int>(type: "int", nullable: false),
-                    ResultSubCategoryId = table.Column<int>(type: "int", nullable: false),
-                    IsCorrect = table.Column<bool>(type: "bit", nullable: false),
-                    ResultSubCategoryModelId = table.Column<int>(type: "int", nullable: true)
+                    QuestionModelId = table.Column<int>(type: "int", nullable: false),
+                    ResultSubCategoryModelId = table.Column<int>(type: "int", nullable: false),
+                    IsCorrect = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -252,7 +235,8 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                         name: "FK_ResultQuestions_ResultSubCategories_ResultSubCategoryModelId",
                         column: x => x.ResultSubCategoryModelId,
                         principalTable: "ResultSubCategories",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -295,11 +279,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResultCategories_ResultModelId",
-                table: "ResultCategories",
-                column: "ResultModelId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ResultQuestions_ResultSubCategoryModelId",
                 table: "ResultQuestions",
                 column: "ResultSubCategoryModelId");
@@ -311,9 +290,9 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResultSegments_ResultCategoryModelId",
+                name: "IX_ResultSegments_ResultModelId",
                 table: "ResultSegments",
-                column: "ResultCategoryModelId");
+                column: "ResultModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ResultSubCategories_ResultSegmentModelId",
@@ -350,9 +329,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
 
             migrationBuilder.DropTable(
                 name: "ResultSegments");
-
-            migrationBuilder.DropTable(
-                name: "ResultCategories");
 
             migrationBuilder.DropTable(
                 name: "Results");
