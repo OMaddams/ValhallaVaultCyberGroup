@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ValhallaVaultCyberGroup.Data.Data;
 
@@ -11,9 +12,11 @@ using ValhallaVaultCyberGroup.Data.Data;
 namespace ValhallaVaultCyberGroup.Data.Migrations
 {
     [DbContext(typeof(QuizDbContext))]
-    partial class QuizDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240305084516_FirstTry")]
+    partial class FirstTry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -481,71 +484,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("ResponseModels");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsRightAnswer = false,
-                            QuestionId = 1,
-                            Text = "Svar fråga 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsRightAnswer = false,
-                            QuestionId = 1,
-                            Text = "Svar fråga 1"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsRightAnswer = true,
-                            QuestionId = 1,
-                            Text = "Svar fråga 1"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            IsRightAnswer = true,
-                            QuestionId = 2,
-                            Text = "Svar fråga 2"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            IsRightAnswer = false,
-                            QuestionId = 2,
-                            Text = "Svar fråga 2"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            IsRightAnswer = false,
-                            QuestionId = 2,
-                            Text = "Svar fråga 2"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            IsRightAnswer = true,
-                            QuestionId = 3,
-                            Text = "Svar fråga 3"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            IsRightAnswer = false,
-                            QuestionId = 3,
-                            Text = "Svar fråga 3"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            IsRightAnswer = false,
-                            QuestionId = 3,
-                            Text = "Svar fråga 3"
-                        });
                 });
 
             modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Domain.SegmentModel", b =>
