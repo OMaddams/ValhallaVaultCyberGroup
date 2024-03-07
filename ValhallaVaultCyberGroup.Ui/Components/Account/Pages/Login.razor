@@ -26,8 +26,15 @@
                 <ValidationSummary class="text-danger" role="alert"  />
                 <div class="form-floating mb-3 " >
                     <InputText @bind-Value="Input.Email" class="form-control custom-border" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label for="email" class="form-label ">Username</label>
+                    <label for="email" class="form-label ">Email</label>
                     <ValidationMessage For="() => Input.Email" class="text-danger" />
+                        <p></p>
+                    <div class="form-floating mb-3">
+                        <InputText @bind-Value="Input.UserName" class="form-control custom-border" autocomplete="username" aria-required="true" placeholder="usernamexample" />
+                        <label for="username">Username</label>
+                        <ValidationMessage For="() => Input.UserName" class="text-danger" />
+
+                    </div>
                   
                 </div>
                 <div class="form-floating mb-3 ">
@@ -103,7 +110,7 @@
     {
         // This doesn't count login failures towards account lockout
         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        var result = await SignInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
         if (result.Succeeded)
         {
             Logger.LogInformation("User logged in.");
@@ -130,7 +137,13 @@
     {
         [Required]
         [EmailAddress]
+        [Display(Name = "Email")]
         public string Email { get; set; } = "";
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

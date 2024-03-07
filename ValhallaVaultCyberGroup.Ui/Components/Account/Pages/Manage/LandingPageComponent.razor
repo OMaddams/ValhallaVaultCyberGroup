@@ -10,7 +10,7 @@
 <div class="container ">
 	<div class="row">
 		<div class="col-sm">
-	<button type="submit" class="w-100 btn btn-lg btn-purple custom-border">Register</button>
+	<button type="submit" class="w-100 btn btn-lg btn-purple custom-border" @onclick="NavigateToRegister">Register</button>
 </div>
 	<div class="col-sm">
 	<button type="submit" class="w-100 btn btn-lg btn-purple custom-border" @onclick="NavigateToLogin">Login</button>
@@ -20,8 +20,14 @@
 
 
 @code {
+	private void NavigateToRegister()
+	{
+			NavigationManager.NavigateTo("/Account/Register");
+	}
+
+
 	private void NavigateToLogin()
 	{
-		
+		NavigationManager.NavigateTo("/Account/Login");
 	}
 }
