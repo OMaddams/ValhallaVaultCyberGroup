@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ValhallaVaultCyberGroup.App.Managers;
 using ValhallaVaultCyberGroup.Data.Data;
 using ValhallaVaultCyberGroup.Data.Repositories;
+using ValhallaVaultCyberGroup.Ui.Components;
 using ValhallaVaultCyberGroup.Ui.Components.Account;
 using ValhallaVaultCyberGroup.Ui.Data;
 
