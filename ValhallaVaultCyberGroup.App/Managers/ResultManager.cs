@@ -20,25 +20,34 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         }
 
-        public bool CheckSubcategoryProgress(string userId, int subCategoryId)
+        //public bool CheckSubcategoryProgress(string userId, int subCategoryId)
+        //{
+        //    return _resultRepo.CheckSubcategoryProgress(userId, subCategoryId);
+        //}
+
+        public bool CheckSubcategoryCompletion(string userId, int subCategoryId)
         {
-            return _resultRepo.CheckSubcategoryProgress(userId, subCategoryId);
+            return _resultRepo.CheckSubcategoryCompletion(userId, subCategoryId);
         }
 
-
-        public async Task<bool> CheckPreviousSubcategoriesCompleted(string userId, int currentSubCategoryId)
+        public bool CheckSegmentCompletion(string userId, int segmentId)
         {
-
-            for (int i = 1; i < currentSubCategoryId; i++)
-            {
-                bool isCompleted = _resultRepo.CheckSubcategoryProgress(userId, i);
-                if (!isCompleted)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return _resultRepo.CheckSegmentCompletion(userId, segmentId);
         }
+
+        //public async Task<bool> CheckPreviousSubcategoriesCompleted(string userId, int currentSubCategoryId)
+        //{
+
+        //    for (int i = 1; i < currentSubCategoryId; i++)
+        //    {
+        //        bool isCompleted = _resultRepo.CheckSubcategoryCompletion(userId, i);
+        //        if (!isCompleted)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
         //public async Task<ResultModel?> GetResultByIdAsync(int resultId)
         //{
