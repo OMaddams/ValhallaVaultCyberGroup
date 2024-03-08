@@ -15,34 +15,35 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             _context = context;
         }
 
-        public bool CheckSubcategoryProgress(string userId, int subCategoryId)
-        {
-            //var userResults = _context.Results
-            //    .Where(r => r.ApplicationUserId == userId)
-            //    .ToList();
+        //public bool CheckSubcategoryProgress(string userId, int subCategoryId)
+        //{
+        //    return _context.ResultSubCategories
+        //            .Include(rsc => rsc.ResultQuestions)
+        //            .Any(rsc => rsc.ApplicationUserId == userId && rsc.SubCategoryModelId == subCategoryId &&
+        //                        rsc.ResultQuestions.Any(q => q.IsCorrect) &&
+        //                        rsc.ResultQuestions.Count * 100 / rsc.ResultQuestions.Count(q => q.IsCorrect) >= 80);
+        //}
 
-            //foreach (var result in userResults)
-            //{
-            //    foreach (var category in result.ResultsCategories)
-            //    {
-            //        foreach (var segment in category.ResultSegments)
-            //        {
-            //            foreach (var subCategory in segment.ResultSubCategories)
-            //            {
-            //                if (subCategory.Id == subCategoryId)
-            //                {
-            //                    int totalQuestions = subCategory.ResultQuestions.Count;
-            //                    int correctAnswers = subCategory.ResultQuestions.Count(q => q.IsCorrect);
-            //                    if (totalQuestions > 0 && correctAnswers * 100 / totalQuestions >= 80)
-            //                    {
-            //                        return true;
-            //                    }
-            //                    return false;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+        public bool CheckSubcategoryCompletion(string userId, int subCategoryId)
+        {
+            var subcategory = _context.ResultSubCategories
+                .Include(rsc => rsc.ResultQuestions)
+                .FirstOrDefault(rsc => rsc.ApplicationUserId == userId && rsc.SubCategoryModelId == subCategoryId);
+
+            if (subcategory != null)
+            {
+                int totalQuestions = subcategory.ResultQuestions.Count;
+                int correctAnswers = subcategory.ResultQuestions.Count(q => q.IsCorrect);
+                bool isCompleted = totalQuestions > 0 && correctAnswers * 100 / totalQuestions >= 80;
+
+                if (isCompleted && !subcategory.IsCompleted)
+                {
+                    subcategory.IsCompleted = true;
+                    _context.SaveChanges();
+                }
+
+                return isCompleted;
+            }
 
             return false;
         }
