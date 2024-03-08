@@ -16,7 +16,7 @@
 
 <h1 class="container col-md-4 text-light">Log in</h1>
 <div class="row">
-    <div class=" container col-md-4">
+    <div class=" container col-md-5">
         <section>
             <StatusMessage Message="@errorMessage" />
             <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
@@ -25,9 +25,7 @@
                 <hr />
                 <ValidationSummary class="text-danger" role="alert"  />
                 <div class="form-floating mb-3 " >
-                   @*  <InputText @bind-Value="Input.Email" class="form-control custom-border" autocomplete="email" aria-required="true" placeholder="name@example.com" />
-                    <label for="email" class="form-label ">Email</label>
-                    <ValidationMessage For="() => Input.Email" class="text-danger" /> *@
+                
                         <p></p>
                     <div class="form-floating mb-3">
                         <InputText @bind-Value="Input.UserName" class="form-control custom-border" autocomplete="username" aria-required="true" placeholder="usernamexample" />
@@ -44,7 +42,7 @@
                   
                 </div>
                 <div class="checkbox mb-3">
-                    <label class="form-label">
+                    <label class="form-label custom-remember-me-label">
                         <InputCheckbox @bind-Value="Input.RememberMe" class="purple-border-checkbox form-check-input" />
                         Remember me
                     </label>
@@ -52,9 +50,12 @@
                 <div>
                     <button type="submit" class="w-100 btn btn-lg btn-purple">Log in</button>
                     <br />
+                    <br />
                 </div>
                 <div class="container text-center">
                  <div class="row">
+                     <br />
+                     <br />
                         <div class="col">
 
                             <a href="Account/ForgotPassword" class="text-light">Forgot your password?</a>
@@ -76,13 +77,7 @@
 			</EditForm>
         </section>
     </div>
- @*    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            <ExternalLoginPicker />
-        </section>
-    </div> *@
+
 </div>
 
 @code {
@@ -135,10 +130,7 @@
 
     private sealed class InputModel
     {
-        // [Required]
-        // [EmailAddress]
-        // [Display(Name = "Email")]
-        // public string Email { get; set; } = "";
+     
 
         [Required]
         [DataType(DataType.Text)]
