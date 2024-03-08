@@ -211,13 +211,12 @@
         }
 
 
-        await resultManager.SubmitUserSubCategoryResults(userIdString, selectedSubCategory.Id, resultquestions);
+        await ResultManager.SubmitUserSubCategoryResults(_userId, selectedSubCategory.Id, resultquestions);
 
         isTestOpen =false;
 
         }
-        }
- 
+
 
     private void SetPreviousSeg(int segId)
     {
@@ -229,3 +228,6 @@
         previousSubcatComplete = userSavedResults.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == segId).ResultSubCategories.FirstOrDefault(rsc => rsc.SubCategoryModelId == subId).IsCompleted;
     }
 }
+
+ 
+

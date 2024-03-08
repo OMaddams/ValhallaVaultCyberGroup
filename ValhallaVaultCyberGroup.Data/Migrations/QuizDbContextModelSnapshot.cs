@@ -8,7 +8,7 @@ using ValhallaVaultCyberGroup.Data.Data;
 
 #nullable disable
 
-namespace ValhallaVaultCyberGroup.Data.Migrations.QuizDb
+namespace ValhallaVaultCyberGroup.Data.Migrations
 {
     [DbContext(typeof(QuizDbContext))]
     partial class QuizDbContextModelSnapshot : ModelSnapshot
@@ -1018,6 +1018,10 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.QuizDb
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId")
@@ -1082,10 +1086,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.QuizDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
@@ -1094,6 +1094,10 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.QuizDb
 
                     b.Property<int>("SubCategoryModelId")
                         .HasColumnType("int");
+
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
