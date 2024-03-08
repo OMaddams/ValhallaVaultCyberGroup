@@ -11,5 +11,6 @@ namespace ValhallaVaultCyberGroup.Data.Models.Domain
         public SegmentModel Segment { get; set; }
         public List<QuestionModel> Questions { get; set; }
 
+        public int? PreviousSubCategoryId { get; set; }
     }
 }

@@ -41,18 +41,21 @@ namespace ValhallaVaultCyberGroup.Data.Data
                     Id = 1,
                     Name = "Del 1",
                     CategoriesId = 1,
+
                 },
                 new SegmentModel
                 {
                     Id = 2,
                     Name = "Del 2",
-                    CategoriesId = 1
+                    CategoriesId = 1,
+                    PreviousSegmentId = 1,
                 },
                 new SegmentModel
                 {
                     Id = 3,
                     Name = "Del 3",
-                    CategoriesId = 1
+                    CategoriesId = 1,
+                    PreviousSegmentId = 2,
                 },
                 new SegmentModel
                 {
@@ -64,37 +67,44 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 5,
                     Name = "Del 2",
-                    CategoriesId = 2
+                    CategoriesId = 2,
+                    PreviousSegmentId = 4
+
                 },
                 new SegmentModel
                 {
                     Id = 6,
                     Name = "Del 3",
-                    CategoriesId = 2
+                    CategoriesId = 2,
+                    PreviousSegmentId = 5
                 },
                 new SegmentModel
                 {
                     Id = 7,
                     Name = "Del 4",
-                    CategoriesId = 2
+                    CategoriesId = 2,
+                    PreviousSegmentId = 6
                 },
                 new SegmentModel
                 {
                     Id = 8,
                     Name = "Del 1",
-                    CategoriesId = 3
+                    CategoriesId = 3,
+
                 },
                 new SegmentModel
                 {
                     Id = 9,
                     Name = "Del 2",
-                    CategoriesId = 3
+                    CategoriesId = 3,
+                    PreviousSegmentId = 8
                 },
                 new SegmentModel
                 {
                     Id = 10,
                     Name = "Del 3",
-                    CategoriesId = 3
+                    CategoriesId = 3,
+                    PreviousSegmentId = 9
                 });
 
             modelBuilder.Entity<SubCategoryModel>().HasData(
@@ -108,19 +118,22 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 2,
                     Name = "Romansbedrägeri",
-                    SegmentId = 1
+                    SegmentId = 1,
+                    PreviousSubCategoryId = 1
                 },
                 new SubCategoryModel
                 {
                     Id = 3,
                     Name = "Investeringsbedrägeri",
-                    SegmentId = 1
+                    SegmentId = 1,
+                    PreviousSubCategoryId = 2
                 },
                 new SubCategoryModel
                 {
                     Id = 4,
                     Name = "Telefonbedrägeri",
-                    SegmentId = 1
+                    SegmentId = 1,
+                    PreviousSubCategoryId = 3
                 },
                 new SubCategoryModel
                 {
@@ -132,19 +145,22 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 6,
                     Name = "Identitetsstöld",
-                    SegmentId = 2
+                    SegmentId = 2,
+                    PreviousSubCategoryId = 5
                 },
                 new SubCategoryModel
                 {
                     Id = 7,
                     Name = "Nätfiske och bluffmejl",
-                    SegmentId = 2
+                    SegmentId = 2,
+                    PreviousSubCategoryId = 6
                 },
                 new SubCategoryModel
                 {
                     Id = 8,
                     Name = "Investeringsbedrägeri på nätet",
-                    SegmentId = 2
+                    SegmentId = 2,
+                    PreviousSubCategoryId = 7
                 },
                 new SubCategoryModel
                 {
@@ -156,13 +172,15 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 10,
                     Name = "Ransomware",
-                    SegmentId = 3
+                    SegmentId = 3,
+                    PreviousSubCategoryId = 9
                 },
                 new SubCategoryModel
                 {
                     Id = 11,
                     Name = "Statistik och förhållningssätt",
-                    SegmentId = 3
+                    SegmentId = 3,
+                    PreviousSubCategoryId = 10
                 },
                 new SubCategoryModel
                 {
@@ -174,31 +192,36 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 13,
                     Name = "Risker och beredskap",
-                    SegmentId = 4
+                    SegmentId = 4,
+                    PreviousSubCategoryId = 12
                 },
                 new SubCategoryModel
                 {
                     Id = 14,
                     Name = "Aktörer inom cyberbrott",
-                    SegmentId = 4
+                    SegmentId = 4,
+                    PreviousSubCategoryId = 13
                 },
                 new SubCategoryModel
                 {
                     Id = 15,
                     Name = "Ökad digital närvaro och distansarbete",
-                    SegmentId = 4
+                    SegmentId = 4,
+                    PreviousSubCategoryId = 14
                 },
                 new SubCategoryModel
                 {
                     Id = 16,
                     Name = "Cyberangrepp mot känsliga sektorer",
-                    SegmentId = 4
+                    SegmentId = 4,
+                    PreviousSubCategoryId = 15
                 },
                 new SubCategoryModel
                 {
                     Id = 17,
                     Name = "Cyberrånet mot Mersk Cyberrånet mot Mersk ",
-                    SegmentId = 4
+                    SegmentId = 4,
+                    PreviousSubCategoryId = 16
                 },
                 new SubCategoryModel
                 {
@@ -210,31 +233,36 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 19,
                     Name = "Nätfiske och skräppost",
-                    SegmentId = 5
+                    SegmentId = 5,
+                    PreviousSubCategoryId = 18
                 },
                 new SubCategoryModel
                 {
                     Id = 20,
                     Name = "Vishing",
-                    SegmentId = 5
+                    SegmentId = 5,
+                    PreviousSubCategoryId = 19
                 },
                 new SubCategoryModel
                 {
                     Id = 21,
                     Name = "Varning för vishing",
-                    SegmentId = 5
+                    SegmentId = 5,
+                    PreviousSubCategoryId = 20
                 },
                 new SubCategoryModel
                 {
                     Id = 22,
                     Name = "Identifiera VD-mejl",
-                    SegmentId = 5
+                    SegmentId = 5,
+                    PreviousSubCategoryId = 21
                 },
                 new SubCategoryModel
                 {
                     Id = 23,
                     Name = "Öneangrepp och presentkortsbluffar",
-                    SegmentId = 5
+                    SegmentId = 5,
+                    PreviousSubCategoryId = 22
                 },
                 new SubCategoryModel
                 {
@@ -246,31 +274,36 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 26,
                     Name = "Så kan det gå till",
-                    SegmentId = 6
+                    SegmentId = 6,
+                    PreviousSubCategoryId = 25
                 },
                 new SubCategoryModel
                 {
                     Id = 27,
                     Name = "Nätverksintrång",
-                    SegmentId = 6
+                    SegmentId = 6,
+                    PreviousSubCategoryId = 26
                 },
                 new SubCategoryModel
                 {
                     Id = 28,
                     Name = "Dataintrång",
-                    SegmentId = 6
+                    SegmentId = 6,
+                    PreviousSubCategoryId = 27
                 },
                 new SubCategoryModel
                 {
                     Id = 29,
                     Name = "Hackad!",
-                    SegmentId = 6
+                    SegmentId = 6,
+                    PreviousSubCategoryId = 28
                 },
                 new SubCategoryModel
                 {
                     Id = 30,
                     Name = "Vägarna in",
-                    SegmentId = 6
+                    SegmentId = 6,
+                    PreviousSubCategoryId = 29
                 },
                 new SubCategoryModel
                 {
@@ -282,31 +315,36 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 32,
                     Name = "Attacker mot servrar",
-                    SegmentId = 7
+                    SegmentId = 7,
+                    PreviousSubCategoryId = 31
                 },
                 new SubCategoryModel
                 {
                     Id = 33,
                     Name = "Cyberangrepp i Norden",
-                    SegmentId = 7
+                    SegmentId = 7,
+                    PreviousSubCategoryId = 32
                 },
                 new SubCategoryModel
                 {
                     Id = 34,
                     Name = "It-brottslingarnas verktyg",
-                    SegmentId = 7
+                    SegmentId = 7,
+                    PreviousSubCategoryId = 33
                 },
                 new SubCategoryModel
                 {
                     Id = 35,
                     Name = "Mirai, Wannacry och fallet Düsseldorf",
-                    SegmentId = 7
+                    SegmentId = 7,
+                    PreviousSubCategoryId = 34
                 },
                 new SubCategoryModel
                 {
                     Id = 36,
                     Name = "De sårbara molnen",
-                    SegmentId = 7
+                    SegmentId = 7,
+                    PreviousSubCategoryId = 35
                 },
                 new SubCategoryModel
                 {
@@ -318,19 +356,22 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 38,
                     Name = "Metoder för cyberspionage",
-                    SegmentId = 8
+                    SegmentId = 8,
+                    PreviousSubCategoryId = 37
                 },
                 new SubCategoryModel
                 {
                     Id = 39,
                     Name = "Säkerhetsskyddslagen",
-                    SegmentId = 8
+                    SegmentId = 8,
+                    PreviousSubCategoryId = 38
                 },
                 new SubCategoryModel
                 {
                     Id = 40,
                     Name = "Cyberspionagets aktörer",
-                    SegmentId = 8
+                    SegmentId = 8,
+                    PreviousSubCategoryId = 39
                 },
                 new SubCategoryModel
                 {
@@ -342,13 +383,15 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 42,
                     Name = "Affärsspionage",
-                    SegmentId = 9
+                    SegmentId = 9,
+                    PreviousSubCategoryId = 41
                 },
                 new SubCategoryModel
                 {
                     Id = 43,
                     Name = "Påverkanskampanjer",
-                    SegmentId = 9
+                    SegmentId = 9,
+                    PreviousSubCategoryId = 42
                 },
                 new SubCategoryModel
                 {
@@ -360,13 +403,15 @@ namespace ValhallaVaultCyberGroup.Data.Data
                 {
                     Id = 45,
                     Name = "Signalspaning, informationssäkerhet och 5G",
-                    SegmentId = 10
+                    SegmentId = 10,
+                    PreviousSubCategoryId = 44
                 },
                 new SubCategoryModel
                 {
                     Id = 46,
                     Name = "Samverkan mot cyberspionage",
-                    SegmentId = 10
+                    SegmentId = 10,
+                    PreviousSubCategoryId = 45
                 });
 
 
