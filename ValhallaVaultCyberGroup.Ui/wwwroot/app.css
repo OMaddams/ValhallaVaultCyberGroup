@@ -1,5 +1,14 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #414141;
 }
 
 .bg-lightgrey {
@@ -14,12 +23,20 @@ html, body {
     background-color: #313131;
 }
 
+.bg-darkestgrey {
+ background-color:   #212121
+}
+
 .bg-purple {
     background-color: #C147E9;
 }
 
 .text-purple {
     color: #C147E9;
+}
+
+.text-lightgrey {
+    color: #d6d6d6;
 }
 
 a, .btn-link {
