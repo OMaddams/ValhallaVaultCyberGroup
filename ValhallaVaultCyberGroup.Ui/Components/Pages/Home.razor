@@ -1,12 +1,15 @@
 ﻿@page "/"
+@using System.Security.Claims
 @using ValhallaVaultCyberGroup.App.Managers
 @using ValhallaVaultCyberGroup.Data.Models.Domain
 @using ValhallaVaultCyberGroup.Data.Models.Result
 @using ValhallaVaultCyberGroup.Ui.Components.Account.Pages.Manage
 @using ValhallaVaultCyberGroup.Ui.Components.Reusable_Components
+@using ValhallaVaultCyberGroup.Ui.Data
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 @inject QuestionManager questionManager
-@inject ResultManager ResultManager
+@inject ResultManager resultManager
 @rendermode InteractiveServer
 
 
@@ -87,45 +90,42 @@
 <!--Om man trycker på starta test så hamnar man här och ser provet-->
 
 @if (isTestOpen == true)
+
+
 {
-   <QuestionForm>
+  <QuestionForm>
 
        <Header>
            <h2>@selectedSubCategory.Name</h2>
+
        </Header>
 
        <Body>
-                    <EditForm Model="@ResultsSubCateogry" Context="formContext" FormName="QuizForm">
+                   <EditForm Model="@selectedSubCategory" Context="formContext" FormName="QuizForm" OnSubmit="HandleSubmit">
+                        @foreach(QuestionModel question in selectedSubCategory.Questions)
+                        {
+                            <label>@question.Text</label>
 
-                        @foreach(var question in selectedSubCategory.Questions)
-            {
-                <Question>
-                    <Text>
-                        <p class="font-weight-bold">@question.Text</p>
-                    </Text>
-                </Question>
-
-           <InputRadioGroup @bind-Value="ResultsSubCateogry.ResultQuestions">
-
-                @foreach(var response in question.Responses)
-                {
-
-                    <label>@response.Text</label>
-
-                    <InputRadio Value="@response.IsRightAnswer"></InputRadio>
-                    <br />
-
-                }
-          </InputRadioGroup>
-
-            }
+                            @foreach(ResponseModel response in question.Responses)
+                            {
+                               <InputRadioGroup @bind-Value=question.selectedResponseModelId>
+                                   
+                                   <InputRadio Value="response.Id">
+                                       
+                                      
+                                   </InputRadio>
+                                    <label>@response.Text</label>
+                                    <br />
+                               </InputRadioGroup>
+                            }
+                        }
+                        <button type="submit"> Finish Test</button>
 
         </EditForm>
        </Body>
 
    </QuestionForm>
-}
-
+} 
 
 </Authorized>
 </AuthorizeView>
@@ -136,23 +136,23 @@
  
 @code
 {
-
-    private QuestionModel newQuestion = new();
-    private ResponseModel selectedResponse = new();
-    private List<ResponseModel> responses = new(); 
-    private ResultSubCategoryModel ResultsSubCateogry= new();
     private SubCategoryModel selectedSubCategory = new();
     private bool isTestOpen = false; 
     private List<CategoryModel> Categories = new();
-
+    private ClaimsPrincipal user;
+    private string userIdString; 
 
     protected override async Task OnInitializedAsync()
     {
         Categories = await questionManager.GetAllCategoriesAsync();
 
-        
-
-
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user=authState.User;
+        var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId != null)
+        {
+            userIdString= userId.ToString();
+        }
     }
 
 
@@ -161,4 +161,45 @@
         isTestOpen = true;
         selectedSubCategory = subCategory;
     }
-}
+
+    public async Task HandleSubmit()
+    {
+
+        List<ResultQuestionModel> resultquestions = new();
+
+        foreach(QuestionModel question in selectedSubCategory.Questions)
+        {
+            ResponseModel selectedResponse = question.Responses.FirstOrDefault(r => r.Id == question.selectedResponseModelId);
+
+            if (selectedResponse.IsRightAnswer)
+            {
+                ResultQuestionModel resultQuestionModel = new()
+                    {
+                        QuestionModelId = question.Id,
+                        IsCorrect = true
+                    };
+                resultquestions.Add(resultQuestionModel);
+
+            }
+
+            else if (selectedResponse.IsRightAnswer != true)
+            {
+                ResultQuestionModel resultQuestionModel = new()
+                    {
+                        QuestionModelId = question.Id,
+                        IsCorrect = false
+                    };
+                resultquestions.Add(resultQuestionModel);
+            }
+
+
+        }
+
+
+        await resultManager.SubmitUserSubCategoryResults(userIdString, selectedSubCategory.Id, resultquestions);
+
+        isTestOpen =false;
+
+        }
+        }
+ 

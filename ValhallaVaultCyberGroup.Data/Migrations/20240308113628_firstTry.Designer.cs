@@ -9,11 +9,11 @@ using ValhallaVaultCyberGroup.Ui.Data;
 
 #nullable disable
 
-namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
+namespace ValhallaVaultCyberGroup.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240307130234_init")]
-    partial class init
+    [Migration("20240308113628_firstTry")]
+    partial class firstTry
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

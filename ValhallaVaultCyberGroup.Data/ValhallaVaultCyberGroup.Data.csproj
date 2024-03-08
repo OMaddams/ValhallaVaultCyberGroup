@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\**" />
     <Compile Remove="Models\NewFolder\**" />
+    <EmbeddedResource Remove="Data\Migrations\**" />
     <EmbeddedResource Remove="Models\NewFolder\**" />
+    <None Remove="Data\Migrations\**" />
     <None Remove="Models\NewFolder\**" />
   </ItemGroup>
 
@@ -25,11 +28,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Migrations\" />
-    <Folder Include="Migrations\ApplicationDb\" />
   </ItemGroup>
 
 </Project>

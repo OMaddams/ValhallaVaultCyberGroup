@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ValhallaVaultCyberGroup.Data.Data;
 
 #nullable disable
 
-namespace ValhallaVaultCyberGroup.Data.Migrations
+namespace ValhallaVaultCyberGroup.Data.Migrations.QuizDb
 {
     [DbContext(typeof(QuizDbContext))]
-    partial class QuizDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240308114337_haha")]
+    partial class haha
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,6 +207,9 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("selectedResponseModelId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SubCategoryId");
@@ -215,85 +221,99 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 1,
                             SubCategoryId = 1,
-                            Text = "Du får ett oväntat telefonsamtal från någon som påstår sig vara från din bank. Personen ber dig bekräfta ditt kontonummer och lösenord för att \"säkerställa din kontos säkerhet\" efter en påstådd säkerhetsincident. Hur bör du tolka denna situation?"
+                            Text = "Du får ett oväntat telefonsamtal från någon som påstår sig vara från din bank. Personen ber dig bekräfta ditt kontonummer och lösenord för att \"säkerställa din kontos säkerhet\" efter en påstådd säkerhetsincident. Hur bör du tolka denna situation?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 2,
                             SubCategoryId = 2,
-                            Text = "Efter flera månader av daglig kommunikation med någon du träffade på en datingsida, börjar personen berätta om en plötslig finansiell kris och ber om din hjälp genom att överföra pengar. Vad indikerar detta mest sannolikt?"
+                            Text = "Efter flera månader av daglig kommunikation med någon du träffade på en datingsida, börjar personen berätta om en plötslig finansiell kris och ber om din hjälp genom att överföra pengar. Vad indikerar detta mest sannolikt?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 3,
                             SubCategoryId = 3,
-                            Text = "Du får ett e-postmeddelande/samtal om ett exklusivt erbjudande att investera i ett startup-företag som påstås ha en revolutionerande ny teknologi, med garantier om exceptionellt hög avkastning på mycket kort tid. Hur bör du förhålla dig till erbjudandet?"
+                            Text = "Du får ett e-postmeddelande/samtal om ett exklusivt erbjudande att investera i ett startup-företag som påstås ha en revolutionerande ny teknologi, med garantier om exceptionellt hög avkastning på mycket kort tid. Hur bör du förhålla dig till erbjudandet?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 4,
                             SubCategoryId = 4,
-                            Text = "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?"
+                            Text = "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 5,
                             SubCategoryId = 12,
-                            Text = "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?"
+                            Text = "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 6,
                             SubCategoryId = 13,
-                            Text = "Inom företaget upptäckts det en sårbarhet i vår programvara som kunde möjliggöra obehörig åtkomst till användardata. Företaget har inte omedelbart en lösning. Vilken är den mest lämpliga första åtgärden?"
+                            Text = "Inom företaget upptäckts det en sårbarhet i vår programvara som kunde möjliggöra obehörig åtkomst till användardata. Företaget har inte omedelbart en lösning. Vilken är den mest lämpliga första åtgärden?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 7,
                             SubCategoryId = 14,
-                            Text = "Vårt företag blir måltavla för en DDoS-attack som överväldigar våra servers och gör våra tjänster otillgängliga för kunder. Vilken typ av aktör är mest sannolikt ansvarig för denna typ av attack?"
+                            Text = "Vårt företag blir måltavla för en DDoS-attack som överväldigar våra servers och gör våra tjänster otillgängliga för kunder. Vilken typ av aktör är mest sannolikt ansvarig för denna typ av attack?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 8,
                             SubCategoryId = 15,
-                            Text = "Med övergången till distansarbete upptäcker vårt företag en ökning av säkerhetsincidenter, inklusive obehörig åtkomst till företagsdata. Vilken åtgärd bör företaget vidta för att adressera denna nya riskmiljö?"
+                            Text = "Med övergången till distansarbete upptäcker vårt företag en ökning av säkerhetsincidenter, inklusive obehörig åtkomst till företagsdata. Vilken åtgärd bör företaget vidta för att adressera denna nya riskmiljö?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 9,
                             SubCategoryId = 16,
-                            Text = "Hälsovårdsmyndigheten utsätts för ett cyberangrepp som krypterar patientdata och kräver lösen för att återställa åtkomsten. Vilken typ av angrepp har de sannolikt blivit utsatta för?"
+                            Text = "Hälsovårdsmyndigheten utsätts för ett cyberangrepp som krypterar patientdata och kräver lösen för att återställa åtkomsten. Vilken typ av angrepp har de sannolikt blivit utsatta för?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 10,
                             SubCategoryId = 17,
-                            Text = "Det globala fraktbolaget Maersk blev offer för ett omfattande cyberangrepp som avsevärt störde deras verksamhet världen över. Vilken typ av malware var primärt ansvarig för denna incident?"
+                            Text = "Det globala fraktbolaget Maersk blev offer för ett omfattande cyberangrepp som avsevärt störde deras verksamhet världen över. Vilken typ av malware var primärt ansvarig för denna incident?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 11,
                             SubCategoryId = 37,
-                            Text = "Regeringen upptäcker att känslig politisk kommunikation har läckt och misstänker elektronisk övervakning. Vilket fenomen beskriver bäst denna situation?"
+                            Text = "Regeringen upptäcker att känslig politisk kommunikation har läckt och misstänker elektronisk övervakning. Vilket fenomen beskriver bäst denna situation?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 12,
                             SubCategoryId = 38,
-                            Text = "Regeringen blir varse om en sofistikerad skadeprogramskampanj som utnyttjar Zero-day sårbarheter för att infiltrera deras nätverk och stjäla oerhört viktig data. Vilken metod för cyberspionage används sannolikt här?"
+                            Text = "Regeringen blir varse om en sofistikerad skadeprogramskampanj som utnyttjar Zero-day sårbarheter för att infiltrera deras nätverk och stjäla oerhört viktig data. Vilken metod för cyberspionage används sannolikt här?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 13,
                             SubCategoryId = 39,
-                            Text = "Regeringen i Sverige ökar sitt interna säkerhetsprotokoll för att skydda sig mot utländska underrättelsetjänsters infiltration. Vilken lagstiftning ger ramverket för detta skydd?"
+                            Text = "Regeringen i Sverige ökar sitt interna säkerhetsprotokoll för att skydda sig mot utländska underrättelsetjänsters infiltration. Vilken lagstiftning ger ramverket för detta skydd?",
+                            selectedResponseModelId = 0
                         },
                         new
                         {
                             Id = 14,
                             SubCategoryId = 40,
-                            Text = "Lunds universitet upptäcker att forskningsdata om ny teknologi har stulits. Undersökningar tyder på en välorganiserad grupp med kopplingar till en utländsk stat. Vilken typ av aktör ligger sannolikt bakom detta?"
+                            Text = "Lunds universitet upptäcker att forskningsdata om ny teknologi har stulits. Undersökningar tyder på en välorganiserad grupp med kopplingar till en utländsk stat. Vilken typ av aktör ligger sannolikt bakom detta?",
+                            selectedResponseModelId = 0
                         });
                 });
 
@@ -322,69 +342,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                     b.ToTable("ResponseModels");
 
                     b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsRightAnswer = false,
-                            QuestionId = 14,
-                            Text = "Oberoende hackare"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsRightAnswer = false,
-                            QuestionId = 14,
-                            Text = "Aktivistgrupper"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsRightAnswer = true,
-                            QuestionId = 14,
-                            Text = "Statssponsrade hackers"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            IsRightAnswer = false,
-                            QuestionId = 13,
-                            Text = "GDPR"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            IsRightAnswer = true,
-                            QuestionId = 13,
-                            Text = "Säkerhetsskyddslagen"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            IsRightAnswer = false,
-                            QuestionId = 13,
-                            Text = "IT-säkerhetslagen"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            IsRightAnswer = false,
-                            QuestionId = 12,
-                            Text = "Social ingenjörskonst"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            IsRightAnswer = false,
-                            QuestionId = 12,
-                            Text = "Massövervakning"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            IsRightAnswer = true,
-                            QuestionId = 12,
-                            Text = "Riktade cyberattacker"
-                        },
                         new
                         {
                             Id = 10,
@@ -604,11 +561,10 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         },
                         new
                         {
-
-                            Id = 1,
+                            Id = 41,
                             IsRightAnswer = false,
                             QuestionId = 1,
-                            Text = "Svar fråga 1"
+                            Text = "En informationsinsamling för en marknadsundersökning"
                         },
                         new
                         {
@@ -665,7 +621,13 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                             IsRightAnswer = false,
                             QuestionId = 3,
                             Text = "Svar fråga 3"
-
+                        },
+                        new
+                        {
+                            Id = 42,
+                            IsRightAnswer = true,
+                            QuestionId = 1,
+                            Text = "Ett potentiellt telefonbedrägeri"
                         });
                 });
 
@@ -1047,105 +1009,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ResultId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ResultModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultModelId");
-
-                    b.ToTable("ResultCategoryModel");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultQuestionModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("QuestionNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResultSubCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ResultSubCategoryModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultSubCategoryModelId");
-
-                    b.ToTable("ResultQuestionModel");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSegmentModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ResultCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ResultCategoryModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultCategoryModelId");
-
-                    b.ToTable("ResultSegmentModel");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSubCategoryModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ResultSegmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ResultSegmentModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultSegmentModelId");
-
-                    b.ToTable("ResultSubCategoryModel");
-                });
-
             modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", b =>
                 {
                     b.Property<int>("Id")
@@ -1164,6 +1027,82 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("ResultModel");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultQuestionModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuestionModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResultSubCategoryModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResultSubCategoryModelId");
+
+                    b.ToTable("ResultQuestionModel");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSegmentModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ResultModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SegmentModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResultModelId");
+
+                    b.ToTable("ResultSegmentModel");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSubCategoryModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ResultSegmentModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubCategoryModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResultSegmentModelId");
+
+                    b.ToTable("ResultSubCategoryModel");
                 });
 
             modelBuilder.Entity("ValhallaVaultCyberGroup.Ui.Data.ApplicationUser", b =>
@@ -1326,34 +1265,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                     b.Navigation("Segment");
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel", b =>
-                {
-                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", null)
-                        .WithMany("ResultsCategories")
-                        .HasForeignKey("ResultModelId");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultQuestionModel", b =>
-                {
-                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSubCategoryModel", null)
-                        .WithMany("ResultQuestions")
-                        .HasForeignKey("ResultSubCategoryModelId");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSegmentModel", b =>
-                {
-                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel", null)
-                        .WithMany("ResultSegments")
-                        .HasForeignKey("ResultCategoryModelId");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSubCategoryModel", b =>
-                {
-                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSegmentModel", null)
-                        .WithMany("ResultSubCategories")
-                        .HasForeignKey("ResultSegmentModelId");
-                });
-
             modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", b =>
                 {
                     b.HasOne("ValhallaVaultCyberGroup.Ui.Data.ApplicationUser", "User")
@@ -1363,6 +1274,39 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultQuestionModel", b =>
+                {
+                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultSubCategoryModel", "ResultSubCategoryModel")
+                        .WithMany("ResultQuestions")
+                        .HasForeignKey("ResultSubCategoryModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResultSubCategoryModel");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSegmentModel", b =>
+                {
+                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", "ResultModel")
+                        .WithMany("ResultSegments")
+                        .HasForeignKey("ResultModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResultModel");
+                });
+
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSubCategoryModel", b =>
+                {
+                    b.HasOne("ValhallaVaultCyberGroup.Data.Models.Result.ResultSegmentModel", "ResultSegmentModel")
+                        .WithMany("ResultSubCategories")
+                        .HasForeignKey("ResultSegmentModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResultSegmentModel");
                 });
 
             modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Domain.CategoryModel", b =>
@@ -1385,24 +1329,19 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                     b.Navigation("Questions");
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel", b =>
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", b =>
                 {
                     b.Navigation("ResultSegments");
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSegmentModel", b =>
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSegmentModel", b =>
                 {
                     b.Navigation("ResultSubCategories");
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultCategoryModel+ResultSubCategoryModel", b =>
+            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultSubCategoryModel", b =>
                 {
                     b.Navigation("ResultQuestions");
-                });
-
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", b =>
-                {
-                    b.Navigation("ResultsCategories");
                 });
 
             modelBuilder.Entity("ValhallaVaultCyberGroup.Ui.Data.ApplicationUser", b =>
