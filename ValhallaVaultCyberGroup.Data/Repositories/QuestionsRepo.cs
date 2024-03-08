@@ -116,7 +116,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
 
         public async Task<SubCategoryModel?> GetSubCategoryAsync(int id)
         {
-            return await context.SubCategoryModels.FirstOrDefaultAsync(s => s.Id == id);
+            return await context.SubCategoryModels.Include(s=>s.Questions).ThenInclude(q=>q.Responses).FirstOrDefaultAsync(s => s.Id == id);
         }
         /// <summary>
         /// Gets the Sub category by name 

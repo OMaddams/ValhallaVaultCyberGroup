@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
+namespace ValhallaVaultCyberGroup.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class firstTry : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

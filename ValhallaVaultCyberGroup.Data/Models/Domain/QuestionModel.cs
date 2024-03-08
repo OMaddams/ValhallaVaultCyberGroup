@@ -9,6 +9,8 @@ namespace ValhallaVaultCyberGroup.Data.Models.Domain
         public int Id { get; set; }
         public string Text { get; set; }
         public List<ResponseModel> Responses { get; set; }
+       
+        public int selectedResponseModelId { get; set; }
 
         [ForeignKey("SubCategory")]
         public int SubCategoryId { get; set; }

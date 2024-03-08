@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace ValhallaVaultCyberGroup.Data.Migrations
+namespace ValhallaVaultCyberGroup.Data.Migrations.QuizDb
 {
     /// <inheritdoc />
-    public partial class initialmigration : Migration
+    public partial class haha : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -211,23 +211,24 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResultCategoryModel",
+                name: "ResultSegmentModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ResultId = table.Column<int>(type: "int", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    ResultModelId = table.Column<int>(type: "int", nullable: true)
+                    ResultModelId = table.Column<int>(type: "int", nullable: false),
+                    SegmentModelId = table.Column<int>(type: "int", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResultCategoryModel", x => x.Id);
+                    table.PrimaryKey("PK_ResultSegmentModel", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResultCategoryModel_ResultModel_ResultModelId",
+                        name: "FK_ResultSegmentModel_ResultModel_ResultModelId",
                         column: x => x.ResultModelId,
                         principalTable: "ResultModel",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -251,23 +252,25 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResultSegmentModel",
+                name: "ResultSubCategoryModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ResultCategoryId = table.Column<int>(type: "int", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    ResultCategoryModelId = table.Column<int>(type: "int", nullable: true)
+                    ResultSegmentModelId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SubCategoryModelId = table.Column<int>(type: "int", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResultSegmentModel", x => x.Id);
+                    table.PrimaryKey("PK_ResultSubCategoryModel", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResultSegmentModel_ResultCategoryModel_ResultCategoryModelId",
-                        column: x => x.ResultCategoryModelId,
-                        principalTable: "ResultCategoryModel",
-                        principalColumn: "Id");
+                        name: "FK_ResultSubCategoryModel_ResultSegmentModel_ResultSegmentModelId",
+                        column: x => x.ResultSegmentModelId,
+                        principalTable: "ResultSegmentModel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -277,6 +280,7 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    selectedResponseModelId = table.Column<int>(type: "int", nullable: false),
                     SubCategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -291,23 +295,24 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResultSubCategoryModel",
+                name: "ResultQuestionModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ResultSegmentId = table.Column<int>(type: "int", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    ResultSegmentModelId = table.Column<int>(type: "int", nullable: true)
+                    QuestionModelId = table.Column<int>(type: "int", nullable: false),
+                    ResultSubCategoryModelId = table.Column<int>(type: "int", nullable: false),
+                    IsCorrect = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResultSubCategoryModel", x => x.Id);
+                    table.PrimaryKey("PK_ResultQuestionModel", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResultSubCategoryModel_ResultSegmentModel_ResultSegmentModelId",
-                        column: x => x.ResultSegmentModelId,
-                        principalTable: "ResultSegmentModel",
-                        principalColumn: "Id");
+                        name: "FK_ResultQuestionModel_ResultSubCategoryModel_ResultSubCategoryModelId",
+                        column: x => x.ResultSubCategoryModelId,
+                        principalTable: "ResultSubCategoryModel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -329,27 +334,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         principalTable: "QuestionModels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ResultQuestionModel",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    QuestionNumber = table.Column<int>(type: "int", nullable: false),
-                    ResultSubCategoryId = table.Column<int>(type: "int", nullable: false),
-                    IsCorrect = table.Column<bool>(type: "bit", nullable: false),
-                    ResultSubCategoryModelId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ResultQuestionModel", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ResultQuestionModel_ResultSubCategoryModel_ResultSubCategoryModelId",
-                        column: x => x.ResultSubCategoryModelId,
-                        principalTable: "ResultSubCategoryModel",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -433,23 +417,23 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "QuestionModels",
-                columns: new[] { "Id", "SubCategoryId", "Text" },
+                columns: new[] { "Id", "SubCategoryId", "Text", "selectedResponseModelId" },
                 values: new object[,]
                 {
-                    { 1, 1, "Du får ett oväntat telefonsamtal från någon som påstår sig vara från din bank. Personen ber dig bekräfta ditt kontonummer och lösenord för att \"säkerställa din kontos säkerhet\" efter en påstådd säkerhetsincident. Hur bör du tolka denna situation?" },
-                    { 2, 2, "Efter flera månader av daglig kommunikation med någon du träffade på en datingsida, börjar personen berätta om en plötslig finansiell kris och ber om din hjälp genom att överföra pengar. Vad indikerar detta mest sannolikt?" },
-                    { 3, 3, "Du får ett e-postmeddelande/samtal om ett exklusivt erbjudande att investera i ett startup-företag som påstås ha en revolutionerande ny teknologi, med garantier om exceptionellt hög avkastning på mycket kort tid. Hur bör du förhålla dig till erbjudandet?" },
-                    { 4, 4, "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?" },
-                    { 5, 12, "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?" },
-                    { 6, 13, "Inom företaget upptäckts det en sårbarhet i vår programvara som kunde möjliggöra obehörig åtkomst till användardata. Företaget har inte omedelbart en lösning. Vilken är den mest lämpliga första åtgärden?" },
-                    { 7, 14, "Vårt företag blir måltavla för en DDoS-attack som överväldigar våra servers och gör våra tjänster otillgängliga för kunder. Vilken typ av aktör är mest sannolikt ansvarig för denna typ av attack?" },
-                    { 8, 15, "Med övergången till distansarbete upptäcker vårt företag en ökning av säkerhetsincidenter, inklusive obehörig åtkomst till företagsdata. Vilken åtgärd bör företaget vidta för att adressera denna nya riskmiljö?" },
-                    { 9, 16, "Hälsovårdsmyndigheten utsätts för ett cyberangrepp som krypterar patientdata och kräver lösen för att återställa åtkomsten. Vilken typ av angrepp har de sannolikt blivit utsatta för?" },
-                    { 10, 17, "Det globala fraktbolaget Maersk blev offer för ett omfattande cyberangrepp som avsevärt störde deras verksamhet världen över. Vilken typ av malware var primärt ansvarig för denna incident?" },
-                    { 11, 37, "Regeringen upptäcker att känslig politisk kommunikation har läckt och misstänker elektronisk övervakning. Vilket fenomen beskriver bäst denna situation?" },
-                    { 12, 38, "Regeringen blir varse om en sofistikerad skadeprogramskampanj som utnyttjar Zero-day sårbarheter för att infiltrera deras nätverk och stjäla oerhört viktig data. Vilken metod för cyberspionage används sannolikt här?" },
-                    { 13, 39, "Regeringen i Sverige ökar sitt interna säkerhetsprotokoll för att skydda sig mot utländska underrättelsetjänsters infiltration. Vilken lagstiftning ger ramverket för detta skydd?" },
-                    { 14, 40, "Lunds universitet upptäcker att forskningsdata om ny teknologi har stulits. Undersökningar tyder på en välorganiserad grupp med kopplingar till en utländsk stat. Vilken typ av aktör ligger sannolikt bakom detta?" }
+                    { 1, 1, "Du får ett oväntat telefonsamtal från någon som påstår sig vara från din bank. Personen ber dig bekräfta ditt kontonummer och lösenord för att \"säkerställa din kontos säkerhet\" efter en påstådd säkerhetsincident. Hur bör du tolka denna situation?", 0 },
+                    { 2, 2, "Efter flera månader av daglig kommunikation med någon du träffade på en datingsida, börjar personen berätta om en plötslig finansiell kris och ber om din hjälp genom att överföra pengar. Vad indikerar detta mest sannolikt?", 0 },
+                    { 3, 3, "Du får ett e-postmeddelande/samtal om ett exklusivt erbjudande att investera i ett startup-företag som påstås ha en revolutionerande ny teknologi, med garantier om exceptionellt hög avkastning på mycket kort tid. Hur bör du förhålla dig till erbjudandet?", 0 },
+                    { 4, 4, "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?", 0 },
+                    { 5, 12, "Efter en online-shoppingrunda märker du oidentifierade transaktioner på ditt kreditkortsutdrag från företag du aldrig handlat från. Vad indikerar detta mest sannolikt?", 0 },
+                    { 6, 13, "Inom företaget upptäckts det en sårbarhet i vår programvara som kunde möjliggöra obehörig åtkomst till användardata. Företaget har inte omedelbart en lösning. Vilken är den mest lämpliga första åtgärden?", 0 },
+                    { 7, 14, "Vårt företag blir måltavla för en DDoS-attack som överväldigar våra servers och gör våra tjänster otillgängliga för kunder. Vilken typ av aktör är mest sannolikt ansvarig för denna typ av attack?", 0 },
+                    { 8, 15, "Med övergången till distansarbete upptäcker vårt företag en ökning av säkerhetsincidenter, inklusive obehörig åtkomst till företagsdata. Vilken åtgärd bör företaget vidta för att adressera denna nya riskmiljö?", 0 },
+                    { 9, 16, "Hälsovårdsmyndigheten utsätts för ett cyberangrepp som krypterar patientdata och kräver lösen för att återställa åtkomsten. Vilken typ av angrepp har de sannolikt blivit utsatta för?", 0 },
+                    { 10, 17, "Det globala fraktbolaget Maersk blev offer för ett omfattande cyberangrepp som avsevärt störde deras verksamhet världen över. Vilken typ av malware var primärt ansvarig för denna incident?", 0 },
+                    { 11, 37, "Regeringen upptäcker att känslig politisk kommunikation har läckt och misstänker elektronisk övervakning. Vilket fenomen beskriver bäst denna situation?", 0 },
+                    { 12, 38, "Regeringen blir varse om en sofistikerad skadeprogramskampanj som utnyttjar Zero-day sårbarheter för att infiltrera deras nätverk och stjäla oerhört viktig data. Vilken metod för cyberspionage används sannolikt här?", 0 },
+                    { 13, 39, "Regeringen i Sverige ökar sitt interna säkerhetsprotokoll för att skydda sig mot utländska underrättelsetjänsters infiltration. Vilken lagstiftning ger ramverket för detta skydd?", 0 },
+                    { 14, 40, "Lunds universitet upptäcker att forskningsdata om ny teknologi har stulits. Undersökningar tyder på en välorganiserad grupp med kopplingar till en utländsk stat. Vilken typ av aktör ligger sannolikt bakom detta?", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -457,15 +441,14 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 columns: new[] { "Id", "IsRightAnswer", "QuestionId", "Text" },
                 values: new object[,]
                 {
-                    { 1, false, 14, "Oberoende hackare" },
-                    { 2, false, 14, "Aktivistgrupper" },
-                    { 3, true, 14, "Statssponsrade hackers" },
-                    { 4, false, 13, "GDPR" },
-                    { 5, true, 13, "Säkerhetsskyddslagen" },
-                    { 6, false, 13, "IT-säkerhetslagen" },
-                    { 7, false, 12, "Social ingenjörskonst" },
-                    { 8, false, 12, "Massövervakning" },
-                    { 9, true, 12, "Riktade cyberattacker" },
+                    { 2, false, 1, "Svar fråga 1" },
+                    { 3, true, 1, "Svar fråga 1" },
+                    { 4, true, 2, "Svar fråga 2" },
+                    { 5, false, 2, "Svar fråga 2" },
+                    { 6, false, 2, "Svar fråga 2" },
+                    { 7, true, 3, "Svar fråga 3" },
+                    { 8, false, 3, "Svar fråga 3" },
+                    { 9, false, 3, "Svar fråga 3" },
                     { 10, false, 11, "Cyberkriminalitet" },
                     { 11, true, 11, "Cyberspionage" },
                     { 12, false, 11, "Cyberterrorism" },
@@ -551,11 +534,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResultCategoryModel_ResultModelId",
-                table: "ResultCategoryModel",
-                column: "ResultModelId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ResultModel_ApplicationUserId",
                 table: "ResultModel",
                 column: "ApplicationUserId",
@@ -567,9 +545,9 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 column: "ResultSubCategoryModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResultSegmentModel_ResultCategoryModelId",
+                name: "IX_ResultSegmentModel_ResultModelId",
                 table: "ResultSegmentModel",
-                column: "ResultCategoryModelId");
+                column: "ResultModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ResultSubCategoryModel_ResultSegmentModelId",
@@ -630,13 +608,10 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                 name: "SegmentModels");
 
             migrationBuilder.DropTable(
-                name: "ResultCategoryModel");
+                name: "ResultModel");
 
             migrationBuilder.DropTable(
                 name: "CategoryModels");
-
-            migrationBuilder.DropTable(
-                name: "ResultModel");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
