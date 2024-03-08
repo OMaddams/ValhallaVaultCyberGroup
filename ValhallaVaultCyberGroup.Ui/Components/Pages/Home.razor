@@ -39,30 +39,30 @@
 {
     @foreach(var category in Categories)
     {
-          <Category>
+          <Category PreviousComplete=true>
         <Title>
-            <h2>@category.Name</h2>
+            <h1>@category.Name</h1>
         </Title>
 
            <Body>
               
                 @foreach(var segment in category.Segments)
                 {
-                    <Category>
+                    <Category IsSegment=true>
                         <Title>
-                            <h1>@segment.Name</h1>
+                            <h2>@segment.Name</h2>
                         </Title>
 
                         <Body>
                            
                                 @foreach(var subCategory in segment.SubCategories)
                                 {
-                                <Category>
+                                <Category IsSubcategory=true>
                                     
                                     <Title>
-                                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                                    <h1 style="margin: 0;">@subCategory.Name</h1>
-                                                    <button style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
+                                                <div style="display: flex; justify-content: space-between; align-items: center; width:100%; padding:0px 10px">
+                                                    <h3 style="margin: 0;">@subCategory.Name</h3>
+                                                    <button class="btn btn-outline-light" style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
                                                 </div>
                                        
                                     </Title>
