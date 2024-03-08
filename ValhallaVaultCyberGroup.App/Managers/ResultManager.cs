@@ -30,6 +30,11 @@ namespace ValhallaVaultCyberGroup.App.Managers
             return _resultRepo.CheckSubcategoryCompletion(userId, subCategoryId);
         }
 
+        public bool CheckSegmentCompletion(string userId, int segmentId)
+        {
+            return _resultRepo.CheckSegmentCompletion(userId, segmentId);
+        }
+
         //public async Task<bool> CheckPreviousSubcategoriesCompleted(string userId, int currentSubCategoryId)
         //{
 

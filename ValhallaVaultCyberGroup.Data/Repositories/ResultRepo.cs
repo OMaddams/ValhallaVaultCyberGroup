@@ -48,6 +48,29 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             return false;
         }
 
+        public bool CheckSegmentCompletion(string userId, int segmentId)
+        {
+            var segment = _context.ResultSegments
+                .Include(rs => rs.ResultSubCategories)
+                .ThenInclude(rsc => rsc.ResultQuestions)
+                .FirstOrDefault(rs => rs.ResultModel.User.Id == userId && rs.Id == segmentId);
+
+            if (segment != null)
+            {
+                bool allSubCategoriesCompleted = segment.ResultSubCategories.All(rsc => rsc.IsCompleted);
+
+                if (allSubCategoriesCompleted && !segment.IsCompleted)
+                {
+                    segment.IsCompleted = true;
+                    _context.SaveChanges();
+                }
+
+                return allSubCategoriesCompleted;
+            }
+
+            return false;
+        }
+
         //public async Task<ResultModel?> GetResultByIdAsync(int resultId)
         //{
         //    return await _context.Results
