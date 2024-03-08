@@ -25,9 +25,9 @@
                 <hr />
                 <ValidationSummary class="text-danger" role="alert"  />
                 <div class="form-floating mb-3 " >
-                    <InputText @bind-Value="Input.Email" class="form-control custom-border" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                   @*  <InputText @bind-Value="Input.Email" class="form-control custom-border" autocomplete="email" aria-required="true" placeholder="name@example.com" />
                     <label for="email" class="form-label ">Email</label>
-                    <ValidationMessage For="() => Input.Email" class="text-danger" />
+                    <ValidationMessage For="() => Input.Email" class="text-danger" /> *@
                         <p></p>
                     <div class="form-floating mb-3">
                         <InputText @bind-Value="Input.UserName" class="form-control custom-border" autocomplete="username" aria-required="true" placeholder="usernamexample" />
@@ -135,10 +135,10 @@
 
     private sealed class InputModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; } = "";
+        // [Required]
+        // [EmailAddress]
+        // [Display(Name = "Email")]
+        // public string Email { get; set; } = "";
 
         [Required]
         [DataType(DataType.Text)]
