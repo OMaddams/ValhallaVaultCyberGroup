@@ -15,7 +15,7 @@ html, body {
 }
 
 .bg-purple {
-    background-color: #8F1383;
+    background-color: #C147E9;
 }
 
 .text-purple {
@@ -29,14 +29,15 @@ a, .btn-link {
 .btn-purple {
     color: #fff;
     background-color: #C147E9;
-    border-color: #8F1383;
+    border-color: #C147E9;
 }
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #C147E9;
+    border-color: #C147E9;
 }
+
 
 .custom-border:focus {
     border-color: #C147E9;
@@ -45,7 +46,7 @@ a, .btn-link {
 
 .purple-border-checkbox.form-check-input:checked {
     background-color: #C147E9;
-    border-color: #8F1383;
+    border-color: #C147E9;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -88,22 +89,62 @@ h1:focus {
 
 
 .categoryBox {
+    color: #fff;
     width: 100%;
-    /*min-height: 10vh;*/
-    background-color: lightblue;
-    border: 1px solid #ccc;
+    min-height: 10vh;
+    border-bottom: 2px solid #8F1383;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     line-height: 100px;
-    margin: 20px auto;
-    padding: 10px;
+    border-radius: 15px;
+    padding: 20px 10px 10px 10px;
+    margin-bottom: 10px;
+    transition: transform 1s linear;
 }
 
-    .categoryBox button {
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        background-color: #fff;
-        cursor: pointer;
-    }
+.segmentBox {
+    color: #fff;
+    width: 100%;
+    min-height: 5vh;
+    /*border-bottom: 1px solid #8F1383;*/
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 100px;
+    border-radius: 15px;
+    padding: 25px 0px 0px 10px;
+    margin-right:10px;
+    margin-bottom: 10px;
+    transition: transform 1s linear;
+}
+
+.subcategoryBox{
+    justify-self:center;
+    margin-left:10px;
+    min-height:5vh;
+    display:flex;
+    justify-content:space-between;
+    /*width:95%;*/
+    margin:5px 0px 0px 10px;
+    
+/*    margin-bottom:5px;
+    margin-right:10px;*/
+    padding:5px;
+    padding-bottom:0px;
+    border-radius:15px;
+    align-items:center;
+    text-align:center;
+}
+
+.categoryBox-button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+}
 
 .questionForm {
     background-color: #ffffe0;

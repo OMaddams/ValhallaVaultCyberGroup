@@ -6,6 +6,7 @@ namespace ValhallaVaultCyberGroup.Data.Models.Result
     {
         public int Id { get; set; }
         public ApplicationUser User { get; set; } = null!;
+        public string username { get; set; } = null!;
         public string ApplicationUserId { get; set; }
         public List<ResultSegmentModel> ResultSegments { get; set; }
     }
@@ -24,7 +25,7 @@ namespace ValhallaVaultCyberGroup.Data.Models.Result
     {
         public int Id { get; set; }
         public int ResultSegmentModelId { get; set; }
-        public string ApplicationUserId { get; set; }
+        public string username { get; set; } = null!;
         public ResultSegmentModel ResultSegmentModel { get; set; }
         public List<ResultQuestionModel> ResultQuestions { get; set; }
 

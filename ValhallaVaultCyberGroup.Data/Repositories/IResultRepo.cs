@@ -6,7 +6,11 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
 {
     public interface IResultRepo
     {
-        bool CheckSubcategoryProgress(string userId, int subCategoryId);
+        //bool CheckSubcategoryProgress(string userId, int subCategoryId);
+
+        bool CheckSubcategoryCompletion(string userId, int subCategoryId);
+        bool CheckSegmentCompletion(string userId, int segmentId);
+
 
         //Task<ResultModel?> GetResultByIdAsync(int resultId);
         Task AddResultAsync(ResultModel result);
@@ -18,6 +22,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         Task AddResultQuestionAsync(ResultQuestionModel resultQuestion);
         Task<ResultSubCategoryModel?> GetSubCatByUserId(string userId, int subCatId);
 
+        Task<ResultModel?> GetByUserIdAsync(string userId);
         Task SaveChanges();
     }
 }
