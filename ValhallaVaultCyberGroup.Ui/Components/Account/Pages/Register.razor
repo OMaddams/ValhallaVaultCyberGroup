@@ -53,8 +53,8 @@
             <div class="form-floating mb-2">
                 <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control custom-border" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label for="confirm-password">Confirm Password</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-                
+                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />  
+                <br />
             </div>
             <button type="submit" class="w-100 btn btn-lg btn-purple custom-border">Register</button>
             <style>
