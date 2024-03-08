@@ -72,20 +72,31 @@
                                     
                             </Category>
                             <span style="display:none">
-                            @(() => SetPreviousSub(subCategory.Id, segment.Id))
+                                @{
+                                    SetPreviousSub(subCategory.Id, segment.Id);
+                                }
                             </span>
                             }
                         </Body>
 
                     </Category>
-                 <span style="display:none">
-                @(() => SetPreviousSeg(segment.Id))
+                <span style="display:none">
+                    @{SetPreviousSeg(segment.Id);}
                 </span>
                 }
                
            </Body>
+           
         </Category>
-    }
+
+            <span style="display:none">
+                @{
+                    ResetPrev();
+                }
+            </span>
+                         
+
+            }
   
     
     
@@ -164,12 +175,18 @@
         if(_userId != null)
         {
             userSavedResults = await ResultManager.GetByUserIdAsync(_userId);
+            UpdateUserCompletionStatus(_userId);
         }
-
+        
 
 
     }
 
+    private void ResetPrev()
+    {
+        previousSubcatComplete = true;
+        previousSegmentComplete = true;
+    }
 
     private void StartTest(SubCategoryModel subCategory)
     {
@@ -212,21 +229,45 @@
 
 
         await ResultManager.SubmitUserSubCategoryResults(_userId, selectedSubCategory.Id, resultquestions);
+        ResultManager.CheckSubcategoryCompletion(_userId, selectedSubCategory.Id);
+        ResultManager.CheckSegmentCompletion(_userId, selectedSubCategory.SegmentId);
+
 
         isTestOpen =false;
-
-        }
+        StateHasChanged();
+    }
 
 
     private void SetPreviousSeg(int segId)
     {
         previousSegmentComplete = userSavedResults.ResultSegments.Where(rs => rs.SegmentModelId == segId).First().IsCompleted;
+
     }
 
     private void SetPreviousSub(int subId, int segId)
     {
         previousSubcatComplete = userSavedResults.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == segId).ResultSubCategories.FirstOrDefault(rsc => rsc.SubCategoryModelId == subId).IsCompleted;
     }
+
+    private void UpdateUserCompletionStatus(string userId)
+    {
+
+        foreach(var category in Categories)
+        {
+            foreach(var segment in category.Segments)
+            {
+                ResultManager.CheckSegmentCompletion(_userId, segment.Id);
+
+                foreach (var subCat in segment.SubCategories)
+                {
+                    ResultManager.CheckSegmentCompletion(_userId, subCat.Id);
+                }
+            }
+        }
+
+       
+    }
+
 }
 
  
