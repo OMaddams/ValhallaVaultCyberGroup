@@ -15,7 +15,7 @@ html, body {
 }
 
 .bg-purple {
-    background-color: #8F1383;
+    background-color: #C147E9;
 }
 
 .text-purple {
@@ -29,14 +29,15 @@ a, .btn-link {
 .btn-purple {
     color: #fff;
     background-color: #C147E9;
-    border-color: #8F1383;
+    border-color: #C147E9;
 }
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #C147E9;
+    border-color: #C147E9;
 }
+
 
 .custom-border:focus {
     border-color: #C147E9;
@@ -45,7 +46,7 @@ a, .btn-link {
 
 .purple-border-checkbox.form-check-input:checked {
     background-color: #C147E9;
-    border-color: #8F1383;
+    border-color: #C147E9;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {

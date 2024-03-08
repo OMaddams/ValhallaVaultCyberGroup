@@ -20,25 +20,40 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         }
 
-        public bool CheckSubcategoryProgress(string userId, int subCategoryId)
+        public async Task<ResultModel?> GetByUserIdAsync(string userId)
         {
-            return _resultRepo.CheckSubcategoryProgress(userId, subCategoryId);
+            return await _resultRepo.GetByUserIdAsync(userId);
         }
 
 
-        public async Task<bool> CheckPreviousSubcategoriesCompleted(string userId, int currentSubCategoryId)
-        {
+        //public bool CheckSubcategoryProgress(string userId, int subCategoryId)
+        //{
+        //    return _resultRepo.CheckSubcategoryProgress(userId, subCategoryId);
+        //}
 
-            for (int i = 1; i < currentSubCategoryId; i++)
-            {
-                bool isCompleted = _resultRepo.CheckSubcategoryProgress(userId, i);
-                if (!isCompleted)
-                {
-                    return false;
-                }
-            }
-            return true;
+        public bool CheckSubcategoryCompletion(string userId, int subCategoryId)
+        {
+            return _resultRepo.CheckSubcategoryCompletion(userId, subCategoryId);
         }
+
+        public bool CheckSegmentCompletion(string userId, int segmentId)
+        {
+            return _resultRepo.CheckSegmentCompletion(userId, segmentId);
+        }
+
+        //public async Task<bool> CheckPreviousSubcategoriesCompleted(string userId, int currentSubCategoryId)
+        //{
+
+        //    for (int i = 1; i < currentSubCategoryId; i++)
+        //    {
+        //        bool isCompleted = _resultRepo.CheckSubcategoryCompletion(userId, i);
+        //        if (!isCompleted)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
         //public async Task<ResultModel?> GetResultByIdAsync(int resultId)
         //{
@@ -55,7 +70,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
             await _resultRepo.UpdateResultAsync(result);
         }
 
-        public async Task CreateUserResults(string applicationUserId)
+        public async Task CreateUserResults(string applicationUserId, string userName)
         {
             CategoriesTree = await questionManager.GetAllCategoriesAsync();
 
@@ -63,6 +78,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
             ResultModel resultModelToAdd = new()
             {
                 ApplicationUserId = applicationUserId,
+                username = userName
             };
             await AddResultAsync(resultModelToAdd);
 
@@ -87,7 +103,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
                         {
                             ResultSegmentModelId = resultSegToAdd.Id,
                             IsCompleted = false,
-                            ApplicationUserId = applicationUserId,
+                            username = userName,
                             SubCategoryModelId = subcat.Id,
                         };
 
@@ -104,6 +120,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
                             };
 
                             await _resultRepo.AddResultQuestionAsync(resultQuestionToAdd);
+                            await _resultRepo.SaveChanges();
                         }
 
                     }

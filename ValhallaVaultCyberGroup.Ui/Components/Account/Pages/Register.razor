@@ -103,7 +103,7 @@
 
         var userId = await UserManager.GetUserIdAsync(user);
 
-        await ResultManager.CreateUserResults(userId);
+        await ResultManager.CreateUserResults(userId, Input.UserName);
 
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

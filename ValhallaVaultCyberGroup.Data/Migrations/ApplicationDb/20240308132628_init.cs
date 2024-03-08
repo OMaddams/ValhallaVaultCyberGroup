@@ -162,6 +162,7 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -203,7 +204,7 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ResultSegmentModelId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SubCategoryModelId = table.Column<int>(type: "int", nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false)
                 },
