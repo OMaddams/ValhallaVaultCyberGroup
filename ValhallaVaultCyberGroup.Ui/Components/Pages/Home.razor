@@ -1,12 +1,16 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Identity
 @using ValhallaVaultCyberGroup.App.Managers
 @using ValhallaVaultCyberGroup.Data.Models.Domain
 @using ValhallaVaultCyberGroup.Data.Models.Result
 @using ValhallaVaultCyberGroup.Ui.Components.Account.Pages.Manage
 @using ValhallaVaultCyberGroup.Ui.Components.Reusable_Components
+@using ValhallaVaultCyberGroup.Ui.Data
+
 
 @inject QuestionManager questionManager
 @inject ResultManager ResultManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 
 
@@ -39,39 +43,44 @@
 {
     @foreach(var category in Categories)
     {
-          <Category>
+          <Category PreviousComplete=true>
         <Title>
-            <h2>@category.Name</h2>
+            <h1>@category.Name</h1>
         </Title>
 
            <Body>
               
                 @foreach(var segment in category.Segments)
                 {
-                    <Category>
+                        <Category IsSegment=true PreviousComplete=@previousSegmentComplete>
                         <Title>
-                            <h1>@segment.Name</h1>
+                            <h2>@segment.Name</h2>
                         </Title>
 
                         <Body>
                            
-                                @foreach(var subCategory in segment.SubCategories)
-                                {
-                                <Category>
+                            @foreach(var subCategory in segment.SubCategories)
+                            {
+                                <Category IsSubcategory=true PreviousComplete=previousSubcatComplete>
                                     
-                                    <Title>
-                                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                                    <h1 style="margin: 0;">@subCategory.Name</h1>
-                                                    <button style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
-                                                </div>
-                                       
-                                    </Title>
+                                <Title>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; width:100%; padding:0px 10px">
+                                        <h3 style="margin: 0;">@subCategory.Name</h3>
+                                        <button class="btn btn-outline-light" style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
+                                    </div>
+                                </Title>
                                     
-                                </Category>
-                                }
-                            </Body>
+                            </Category>
+                            <span style="display:none">
+                            @(() => SetPreviousSub(subCategory.Id, segment.Id))
+                            </span>
+                            }
+                        </Body>
 
                     </Category>
+                 <span style="display:none">
+                @(() => SetPreviousSeg(segment.Id))
+                </span>
                 }
                
            </Body>
@@ -144,13 +153,27 @@
     private SubCategoryModel selectedSubCategory = new();
     private bool isTestOpen = false; 
     private List<CategoryModel> Categories = new();
+    private bool previousSegmentComplete = true;
+    private bool previousSubcatComplete = true;
 
+    private ResultModel? userSavedResults;
+    private string _userId;
 
     protected override async Task OnInitializedAsync()
     {
+
         Categories = await questionManager.GetAllCategoriesAsync();
 
-        
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        _userId = user.Identity.Name;
+
+        if(_userId != null)
+        {
+            userSavedResults = await ResultManager.GetByUserIdAsync(_userId);
+        }
+
 
 
     }
@@ -160,5 +183,15 @@
     {
         isTestOpen = true;
         selectedSubCategory = subCategory;
+    }
+
+    private void SetPreviousSeg(int segId)
+    {
+        previousSegmentComplete = userSavedResults.ResultSegments.Where(rs => rs.SegmentModelId == segId).First().IsCompleted;
+    }
+
+    private void SetPreviousSub(int subId, int segId)
+    {
+        previousSubcatComplete = userSavedResults.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == segId).ResultSubCategories.FirstOrDefault(rsc => rsc.SubCategoryModelId == subId).IsCompleted;
     }
 }

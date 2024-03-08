@@ -22,6 +22,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         Task AddResultQuestionAsync(ResultQuestionModel resultQuestion);
         Task<ResultSubCategoryModel?> GetSubCatByUserId(string userId, int subCatId);
 
+        Task<ResultModel?> GetByUserIdAsync(string userId);
         Task SaveChanges();
     }
 }

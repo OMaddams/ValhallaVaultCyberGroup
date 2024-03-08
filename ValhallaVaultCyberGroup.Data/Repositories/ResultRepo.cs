@@ -15,6 +15,11 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             _context = context;
         }
 
+        public async Task<ResultModel?> GetByUserIdAsync(string userId)
+        {
+            return await _context.Results.Include(r => r.ResultSegments).ThenInclude(rs => rs.ResultSubCategories).FirstOrDefaultAsync(r => r.username == userId);
+        }
+
         //public bool CheckSubcategoryProgress(string userId, int subCategoryId)
         //{
         //    return _context.ResultSubCategories
@@ -28,7 +33,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         {
             var subcategory = _context.ResultSubCategories
                 .Include(rsc => rsc.ResultQuestions)
-                .FirstOrDefault(rsc => rsc.ApplicationUserId == userId && rsc.SubCategoryModelId == subCategoryId);
+                .FirstOrDefault(rsc => rsc.username == userId && rsc.SubCategoryModelId == subCategoryId);
 
             if (subcategory != null)
             {
@@ -84,24 +89,24 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         public async Task AddResultAsync(ResultModel result)
         {
             await _context.Results.AddAsync(result);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task AddResultSegmentAsync(ResultSegmentModel resultSegment)
         {
             await _context.ResultSegments.AddAsync(resultSegment);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task AddResultSubCategoryAsync(ResultSubCategoryModel resultSubCategory)
         {
             await _context.ResultSubCategories.AddAsync(resultSubCategory);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
         public async Task AddResultQuestionAsync(ResultQuestionModel resultQuestion)
         {
             await _context.ResultQuestions.AddAsync(resultQuestion);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateResultAsync(ResultModel result)
@@ -113,7 +118,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
 
         public async Task<ResultSubCategoryModel?> GetSubCatByUserId(string userId, int subCatId)
         {
-            return await _context.ResultSubCategories.Include(rsc => rsc.ResultQuestions).FirstOrDefaultAsync(rsc => rsc.SubCategoryModelId == subCatId && rsc.ApplicationUserId == userId);
+            return await _context.ResultSubCategories.Include(rsc => rsc.ResultQuestions).FirstOrDefaultAsync(rsc => rsc.SubCategoryModelId == subCatId && rsc.username == userId);
 
         }
         public async Task SaveChanges()

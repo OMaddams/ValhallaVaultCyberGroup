@@ -6,20 +6,20 @@
 
 
 
-   
-        <div class="categoryBox card" >
 
-            <div @onclick="Expand">
-                    @Title
-            </div>
-           
-            @if (IsExpanded == true)
-            {
-                @Body
+<div class="@cssStyling @(IsExpanded ? "bg-darkergrey" : "bg-darkgrey") " >
+
+    <div style="width:100%;" @onclick="Expand">
+            @Title
+    </div>
+    <div class="@(IsSegment ? "p-1" : "" )" style="@(IsExpanded && IsSegment ? "border-left:2px solid #8F1383" : "")">
+    @if (IsExpanded == true)
+    {
+        @Body
                
-            }
-
-        </div>
+    }
+    </div>
+</div>
 
     
 
@@ -32,21 +32,48 @@
 
 
 @code {
-    
+
+    [Parameter]
+    public bool IsSubcategory { get; set; } = false;
+
+    [Parameter]
+    public bool IsSegment { get; set; } = false;
+
+    private string cssStyling = "categoryBox";
+
+    [Parameter]
+    public bool PreviousComplete { get; set; } = false;
+
     private bool IsExpanded = false;
     [Parameter]
 
     public RenderFragment Title{ get; set; }
 
     [Parameter]
-
     public RenderFragment Body {get ;set;}
 
 
     private void Expand()
     {
-        IsExpanded= !IsExpanded;
+        if (!IsSubcategory && PreviousComplete)
+        {
+            IsExpanded = !IsExpanded;
+        }
+
     }
 
-  
+    protected override void OnInitialized()
+    {
+        if (IsSubcategory)
+        {
+            cssStyling = "subcategoryBox";
+        }
+        else if (IsSegment)
+        {
+            cssStyling = "segmentBox";
+        }
+        base.OnInitialized();
+    }
+
+
 }

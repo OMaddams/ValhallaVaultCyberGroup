@@ -12,7 +12,7 @@ using ValhallaVaultCyberGroup.Ui.Data;
 namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240307130234_init")]
+    [Migration("20240308132628_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -170,6 +170,10 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId")
@@ -234,10 +238,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
@@ -246,6 +246,10 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
 
                     b.Property<int>("SubCategoryModelId")
                         .HasColumnType("int");
+
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
