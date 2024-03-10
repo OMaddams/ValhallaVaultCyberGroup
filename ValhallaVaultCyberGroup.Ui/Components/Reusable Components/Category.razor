@@ -47,6 +47,9 @@
     [Parameter]
     public bool PreviousComplete { get; set; } = false;
 
+    [Parameter]
+    public bool IsAdmin { get; set; } = false;
+
     private bool IsExpanded = false;
     [Parameter]
 
@@ -60,7 +63,7 @@
 
     private void Expand()
     {
-        if ( PreviousComplete)
+        if ( PreviousComplete ||IsAdmin)
         {
             IsExpanded = !IsExpanded;
         }

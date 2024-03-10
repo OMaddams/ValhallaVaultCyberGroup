@@ -10,7 +10,7 @@
 
 
 <div class="container">
-    <div class="card">
+    <div class="card bg-darkgrey categoryBox" >
         <div class="card-header">
             <h5>Admin control panel</h5>
         </div>
@@ -36,7 +36,7 @@
                     
            }
            <div></div>
-           <button class="btn btn-primary " style="justify-self:flex-end; width:36px" @onclick=AddButtonClick>@(isAdding || isEditing? "-" : "+")</button>
+           <button class="btn btn-primary" style="justify-self:flex-end; width:36px; height:36px;" @onclick=AddButtonClick>@(isAdding || isEditing? "-" : "+")</button>
 
            </div>
 
@@ -182,7 +182,7 @@
                                 <InputText id="response-text" class="form-control" @bind-Value=ResponseToEdit.Text></InputText>
                             }
                         </div>
-                        <div>
+                        <div class="d-flex text-center">
                             <label for="response-isCorrect">Is correct answer:</label>
 
                             @if (isAdding)
@@ -206,7 +206,7 @@
         </div>
     </div>
     @*Display the existing quiz trees*@
-    <div class="card">
+    <div class="border-lightgray">
         @if(Categories == null || !Categories.Any())
         {
             <h1>Loading...</h1>
@@ -215,7 +215,7 @@
         {
             @foreach(var category in Categories)
             {
-                <Category >
+                <Category IsAdmin=true>
                     <Title>
                         <div class="d-flex  justify-content-between">
                             <h4>@category.Name</h4>
@@ -228,7 +228,7 @@
                     <Body>
                         @foreach(var segment in category.Segments)
                         {
-                            <Category>
+                            <Category IsAdmin=true IsSegment=true>
                                 <Title>
                                     <div class="d-flex  justify-content-between">
                                         <h4>@segment.Name</h4>
@@ -241,7 +241,7 @@
                                 <Body>
                                     @foreach(var subcategory in segment.SubCategories)
                                     {
-                                        <Category>
+                                        <Category IsAdmin=true >
                                             <Title>
                                                 <div class="d-flex  justify-content-between">
                                                     <h4>@subcategory.Name</h4>
@@ -254,7 +254,7 @@
                                             <Body>
                                                 @foreach(var question in subcategory.Questions)
                                                 {
-                                                    <Category>
+                                                    <Category IsAdmin=true>
                                                         <Title>
                                                             <h4>@question.Text</h4>
 
@@ -263,7 +263,7 @@
                                                         <Body>
                                                             @foreach(var response in question.Responses)
                                                             {
-                                                                <Category>
+                                                                <Category IsAdmin=true>
                                                                     <Title>
                                                                         <p>@response.Text</p>
 
