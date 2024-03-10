@@ -1,5 +1,14 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #414141;
 }
 
 .bg-lightgrey {
@@ -14,12 +23,20 @@ html, body {
     background-color: #313131;
 }
 
+.bg-darkestgrey {
+ background-color:   #212121
+}
+
 .bg-purple {
     background-color: #C147E9;
 }
 
 .text-purple {
     color: #C147E9;
+}
+
+.text-lightgrey {
+    color: #d6d6d6;
 }
 
 a, .btn-link {
@@ -38,6 +55,9 @@ a, .btn-link {
     border-color: #C147E9;
 }
 
+.custom-remember-me-label {
+    color: whitesmoke
+}
 
 .custom-border:focus {
     border-color: #C147E9;
@@ -116,27 +136,26 @@ h1:focus {
     line-height: 100px;
     border-radius: 15px;
     padding: 25px 0px 0px 10px;
-    margin-right:10px;
+    margin-right: 10px;
     margin-bottom: 10px;
     transition: transform 1s linear;
 }
 
-.subcategoryBox{
-    justify-self:center;
-    margin-left:10px;
-    min-height:5vh;
-    display:flex;
-    justify-content:space-between;
+.subcategoryBox {
+    justify-self: center;
+    margin-left: 10px;
+    min-height: 5vh;
+    display: flex;
+    justify-content: space-between;
     /*width:95%;*/
-    margin:5px 0px 0px 10px;
-    
-/*    margin-bottom:5px;
+    margin: 5px 0px 0px 10px;
+    /*    margin-bottom:5px;
     margin-right:10px;*/
-    padding:5px;
-    padding-bottom:0px;
-    border-radius:15px;
-    align-items:center;
-    text-align:center;
+    padding: 5px;
+    padding-bottom: 0px;
+    border-radius: 15px;
+    align-items: center;
+    text-align: center;
 }
 
 .categoryBox-button {
