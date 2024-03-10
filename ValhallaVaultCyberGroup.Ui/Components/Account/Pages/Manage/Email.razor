@@ -14,9 +14,9 @@
 
 <PageTitle>Manage email</PageTitle>
 
-<h3>Manage email</h3>
-
-<StatusMessage Message="@message"/>
+@* <h3>Manage email</h3>
+ *@
+<StatusMessage Message="@message" />
 <div class="row">
     <div class="col-md-6">
         <form @onsubmit="OnSendEmailVerificationAsync" @formname="send-verification" id="send-verification-form" method="post">
@@ -48,7 +48,8 @@
                 <label for="new-email" class="form-label">New email</label>
                 <ValidationMessage For="() => Input.NewEmail" class="text-danger" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Change email</button>
+            <button type="submit" class="w-100 btn btn-lg btn-purple">Update Email</button>
+
         </EditForm>
     </div>
 </div>
@@ -121,3 +122,4 @@
         public string? NewEmail { get; set; }
     }
 }
+

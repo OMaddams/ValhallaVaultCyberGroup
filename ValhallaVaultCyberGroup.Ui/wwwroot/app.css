@@ -155,3 +155,22 @@ h1:focus {
 
 .questionStyle {
 }
+
+.nav-item-purple {
+    background-color: #C147E9;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
+    .nav-item-purple .nav-link {
+        color: inherit;
+    }
+
+        .nav-item-purple .nav-link.active {
+            background-color: #C147E9;
+            color: #FFFFFF;
+        }
+
+.center-text {
+    text-align: center;
+}
