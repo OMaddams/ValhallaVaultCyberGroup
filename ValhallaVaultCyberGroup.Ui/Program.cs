@@ -75,29 +75,30 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
     var context = serviceprovider.GetRequiredService<ApplicationDbContext>();
     var signInManager = serviceprovider.GetRequiredService<SignInManager<ApplicationUser>>();
     var roleManager = serviceprovider.GetRequiredService<RoleManager<IdentityRole>>();
+    var resultManager = serviceprovider.GetRequiredService<ResultManager>();
 
-    //context.Database.Migrate();
+    context.Database.Migrate();
 
     ApplicationUser newUser = new()
     {
-        UserName = "user@gmail.com",
-        Email = "user@gmail.com",
+        UserName = "user",
         EmailConfirmed = true,
     };
     ApplicationUser newAdmin = new()
     {
-        UserName = "admin@gmail.com",
-        Email = "admin@gmail.com",
+        UserName = "admin",
         EmailConfirmed = true,
     };
 
 
-    var user = signInManager.UserManager.FindByEmailAsync(newUser.Email).GetAwaiter().GetResult();
-    var admin = signInManager.UserManager.FindByEmailAsync(newAdmin.Email).GetAwaiter().GetResult();
+    var user = signInManager.UserManager.FindByNameAsync(newUser.UserName).GetAwaiter().GetResult();
+    var admin = signInManager.UserManager.FindByNameAsync(newAdmin.UserName).GetAwaiter().GetResult();
 
     if (user == null)
     {
         signInManager.UserManager.CreateAsync(newUser, "Password1234!").GetAwaiter().GetResult();
+        var userId = signInManager.UserManager.GetUserIdAsync(newUser).GetAwaiter().GetResult();
+        resultManager.CreateUserResults(userId, newUser.UserName).GetAwaiter().GetResult();
 
 
     }
@@ -117,6 +118,8 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
         }
 
         signInManager.UserManager.AddToRoleAsync(newAdmin, "Admin").GetAwaiter().GetResult();
+        var userId = signInManager.UserManager.GetUserIdAsync(newAdmin).GetAwaiter().GetResult();
+        resultManager.CreateUserResults(userId, newAdmin.UserName).GetAwaiter().GetResult();
     }
 }
 
