@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ValhallaVaultCyberGroup.Data.Data;
 
@@ -11,9 +12,11 @@ using ValhallaVaultCyberGroup.Data.Data;
 namespace ValhallaVaultCyberGroup.Data.Migrations
 {
     [DbContext(typeof(QuizDbContext))]
-    partial class QuizDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240308202020_previousTrackerAdded")]
+    partial class previousTrackerAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -663,15 +666,13 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 2,
                             CategoriesId = 1,
-                            Name = "Del 2",
-                            PreviousSegmentId = 1
+                            Name = "Del 2"
                         },
                         new
                         {
                             Id = 3,
                             CategoriesId = 1,
-                            Name = "Del 3",
-                            PreviousSegmentId = 2
+                            Name = "Del 3"
                         },
                         new
                         {
@@ -683,22 +684,19 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 5,
                             CategoriesId = 2,
-                            Name = "Del 2",
-                            PreviousSegmentId = 4
+                            Name = "Del 2"
                         },
                         new
                         {
                             Id = 6,
                             CategoriesId = 2,
-                            Name = "Del 3",
-                            PreviousSegmentId = 5
+                            Name = "Del 3"
                         },
                         new
                         {
                             Id = 7,
                             CategoriesId = 2,
-                            Name = "Del 4",
-                            PreviousSegmentId = 6
+                            Name = "Del 4"
                         },
                         new
                         {
@@ -710,15 +708,13 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 9,
                             CategoriesId = 3,
-                            Name = "Del 2",
-                            PreviousSegmentId = 8
+                            Name = "Del 2"
                         },
                         new
                         {
                             Id = 10,
                             CategoriesId = 3,
-                            Name = "Del 3",
-                            PreviousSegmentId = 9
+                            Name = "Del 3"
                         });
                 });
 
@@ -757,21 +753,18 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 2,
                             Name = "Romansbedrägeri",
-                            PreviousSubCategoryId = 1,
                             SegmentId = 1
                         },
                         new
                         {
                             Id = 3,
                             Name = "Investeringsbedrägeri",
-                            PreviousSubCategoryId = 2,
                             SegmentId = 1
                         },
                         new
                         {
                             Id = 4,
                             Name = "Telefonbedrägeri",
-                            PreviousSubCategoryId = 3,
                             SegmentId = 1
                         },
                         new
@@ -784,21 +777,18 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 6,
                             Name = "Identitetsstöld",
-                            PreviousSubCategoryId = 5,
                             SegmentId = 2
                         },
                         new
                         {
                             Id = 7,
                             Name = "Nätfiske och bluffmejl",
-                            PreviousSubCategoryId = 6,
                             SegmentId = 2
                         },
                         new
                         {
                             Id = 8,
                             Name = "Investeringsbedrägeri på nätet",
-                            PreviousSubCategoryId = 7,
                             SegmentId = 2
                         },
                         new
@@ -811,14 +801,12 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 10,
                             Name = "Ransomware",
-                            PreviousSubCategoryId = 9,
                             SegmentId = 3
                         },
                         new
                         {
                             Id = 11,
                             Name = "Statistik och förhållningssätt",
-                            PreviousSubCategoryId = 10,
                             SegmentId = 3
                         },
                         new
@@ -831,35 +819,30 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 13,
                             Name = "Risker och beredskap",
-                            PreviousSubCategoryId = 12,
                             SegmentId = 4
                         },
                         new
                         {
                             Id = 14,
                             Name = "Aktörer inom cyberbrott",
-                            PreviousSubCategoryId = 13,
                             SegmentId = 4
                         },
                         new
                         {
                             Id = 15,
                             Name = "Ökad digital närvaro och distansarbete",
-                            PreviousSubCategoryId = 14,
                             SegmentId = 4
                         },
                         new
                         {
                             Id = 16,
                             Name = "Cyberangrepp mot känsliga sektorer",
-                            PreviousSubCategoryId = 15,
                             SegmentId = 4
                         },
                         new
                         {
                             Id = 17,
                             Name = "Cyberrånet mot Mersk Cyberrånet mot Mersk ",
-                            PreviousSubCategoryId = 16,
                             SegmentId = 4
                         },
                         new
@@ -872,35 +855,30 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 19,
                             Name = "Nätfiske och skräppost",
-                            PreviousSubCategoryId = 18,
                             SegmentId = 5
                         },
                         new
                         {
                             Id = 20,
                             Name = "Vishing",
-                            PreviousSubCategoryId = 19,
                             SegmentId = 5
                         },
                         new
                         {
                             Id = 21,
                             Name = "Varning för vishing",
-                            PreviousSubCategoryId = 20,
                             SegmentId = 5
                         },
                         new
                         {
                             Id = 22,
                             Name = "Identifiera VD-mejl",
-                            PreviousSubCategoryId = 21,
                             SegmentId = 5
                         },
                         new
                         {
                             Id = 23,
                             Name = "Öneangrepp och presentkortsbluffar",
-                            PreviousSubCategoryId = 22,
                             SegmentId = 5
                         },
                         new
@@ -913,35 +891,30 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 26,
                             Name = "Så kan det gå till",
-                            PreviousSubCategoryId = 25,
                             SegmentId = 6
                         },
                         new
                         {
                             Id = 27,
                             Name = "Nätverksintrång",
-                            PreviousSubCategoryId = 26,
                             SegmentId = 6
                         },
                         new
                         {
                             Id = 28,
                             Name = "Dataintrång",
-                            PreviousSubCategoryId = 27,
                             SegmentId = 6
                         },
                         new
                         {
                             Id = 29,
                             Name = "Hackad!",
-                            PreviousSubCategoryId = 28,
                             SegmentId = 6
                         },
                         new
                         {
                             Id = 30,
                             Name = "Vägarna in",
-                            PreviousSubCategoryId = 29,
                             SegmentId = 6
                         },
                         new
@@ -954,35 +927,30 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 32,
                             Name = "Attacker mot servrar",
-                            PreviousSubCategoryId = 31,
                             SegmentId = 7
                         },
                         new
                         {
                             Id = 33,
                             Name = "Cyberangrepp i Norden",
-                            PreviousSubCategoryId = 32,
                             SegmentId = 7
                         },
                         new
                         {
                             Id = 34,
                             Name = "It-brottslingarnas verktyg",
-                            PreviousSubCategoryId = 33,
                             SegmentId = 7
                         },
                         new
                         {
                             Id = 35,
                             Name = "Mirai, Wannacry och fallet Düsseldorf",
-                            PreviousSubCategoryId = 34,
                             SegmentId = 7
                         },
                         new
                         {
                             Id = 36,
                             Name = "De sårbara molnen",
-                            PreviousSubCategoryId = 35,
                             SegmentId = 7
                         },
                         new
@@ -995,21 +963,18 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 38,
                             Name = "Metoder för cyberspionage",
-                            PreviousSubCategoryId = 37,
                             SegmentId = 8
                         },
                         new
                         {
                             Id = 39,
                             Name = "Säkerhetsskyddslagen",
-                            PreviousSubCategoryId = 38,
                             SegmentId = 8
                         },
                         new
                         {
                             Id = 40,
                             Name = "Cyberspionagets aktörer",
-                            PreviousSubCategoryId = 39,
                             SegmentId = 8
                         },
                         new
@@ -1022,14 +987,12 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 42,
                             Name = "Affärsspionage",
-                            PreviousSubCategoryId = 41,
                             SegmentId = 9
                         },
                         new
                         {
                             Id = 43,
                             Name = "Påverkanskampanjer",
-                            PreviousSubCategoryId = 42,
                             SegmentId = 9
                         },
                         new
@@ -1042,14 +1005,12 @@ namespace ValhallaVaultCyberGroup.Data.Migrations
                         {
                             Id = 45,
                             Name = "Signalspaning, informationssäkerhet och 5G",
-                            PreviousSubCategoryId = 44,
                             SegmentId = 10
                         },
                         new
                         {
                             Id = 46,
                             Name = "Samverkan mot cyberspionage",
-                            PreviousSubCategoryId = 45,
                             SegmentId = 10
                         });
                 });

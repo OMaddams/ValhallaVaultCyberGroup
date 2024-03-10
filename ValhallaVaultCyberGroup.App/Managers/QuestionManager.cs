@@ -180,6 +180,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
             SubCategoryModel model = new SubCategoryModel();
             model.SegmentId = id;
             model.Name = name;
+            model.PreviousSubCategoryId = await _repo.GetLastSubcatId(id);
             var addedModel = await _repo.AddSubCategoryAsync(model);
             await _repo.SaveChangesAsync();
             return addedModel;
@@ -223,7 +224,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
             {
                 responseToUpdate.IsRightAnswer = isRightAnswer;
-               responseToUpdate.QuestionId = questionId;
+                responseToUpdate.QuestionId = questionId;
                 responseToUpdate.Text = text;
                 await _repo.UpdateResponseAsync(responseToUpdate);
                 await _repo.SaveChangesAsync();
@@ -235,7 +236,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
 
         //Add
-         
+
         public async Task<ResponseModel> AddResponseAsync(string text, int id, bool isRightAnswer)
         {
             ResponseModel model = new ResponseModel();
@@ -302,6 +303,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
             SegmentModel model = new SegmentModel();
             model.CategoriesId = id;
             model.Name = name;
+            model.PreviousSegmentId = await _repo.GetLastSegmentId(id);
             var addedModel = await _repo.AddSegmentAsync(model);
             await _repo.SaveChangesAsync();
             return addedModel;

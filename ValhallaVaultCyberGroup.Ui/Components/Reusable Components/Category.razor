@@ -34,6 +34,9 @@
 @code {
 
     [Parameter]
+    public int? currentId { get; set; }
+
+    [Parameter]
     public bool IsSubcategory { get; set; } = false;
 
     [Parameter]
@@ -52,10 +55,12 @@
     [Parameter]
     public RenderFragment Body {get ;set;}
 
+    [Parameter]
+    public Action? previous { get; set; }
 
     private void Expand()
     {
-        if (!IsSubcategory && PreviousComplete)
+        if ( PreviousComplete)
         {
             IsExpanded = !IsExpanded;
         }
@@ -64,6 +69,11 @@
 
     protected override void OnInitialized()
     {
+        if (IsSubcategory)
+        {
+            
+        }
+
         if (IsSubcategory)
         {
             cssStyling = "subcategoryBox";
