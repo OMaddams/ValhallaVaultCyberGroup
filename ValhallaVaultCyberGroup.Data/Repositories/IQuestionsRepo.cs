@@ -39,6 +39,8 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         public Task<ResponseModel?> UpdateResponseAsync(ResponseModel responseToUpdate);
         public void RemoveResponseAsync(ResponseModel responseToRemove);
 
+        public Task<int?> GetLastSegmentId(int categoryId);
+        public Task<int?> GetLastSubcatId(int segmentId);
         public Task SaveChangesAsync();
     }
 }
