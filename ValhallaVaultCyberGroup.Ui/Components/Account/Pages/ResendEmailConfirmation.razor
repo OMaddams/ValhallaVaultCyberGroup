@@ -13,12 +13,12 @@
 @inject IdentityRedirectManager RedirectManager
 
 <PageTitle>Resend email confirmation</PageTitle>
-
+<br />
 <h1>Resend email confirmation</h1>
 <h2>Enter your email.</h2>
 <hr />
 <StatusMessage Message="@message" />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <EditForm Model="Input" FormName="resend-email-confirmation" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
@@ -28,7 +28,7 @@
                 <label for="email" class="form-label">Email</label>
                 <ValidationMessage For="() => Input.Email" class="text-danger" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-purple">Resend</button>
+            <button type="submit" class="w-100 btn btn-lg btn-dark custom-border text-white">Resend</button>
         </EditForm>
     </div>
 </div>

@@ -14,7 +14,7 @@
 
 <PageTitle>Log in</PageTitle>
 <br />
-<h1 class=" container col-md-4 text-light">Log in</h1>
+<h1 class=" container col-md-4 text-dark">Log in</h1>
 <div class="row">
     <div class=" container col-md-5">
         <section>
@@ -42,13 +42,13 @@
                   
                 </div>
                 <div class="checkbox mb-3">
-                    <label class="form-label custom-remember-me-label">
-                        <InputCheckbox @bind-Value="Input.RememberMe" class="purple-border-checkbox form-check-input" />
+                    <label class="form-label dark-remember-me-label text-dark">
+                        <InputCheckbox @bind-Value="Input.RememberMe" class="dark-border-checkbox form-check-input" />
                         Remember me
                     </label>
                 </div>
                 <div>
-                    <button type="submit" class="w-100 btn btn-lg btn-purple">Log in</button>
+                    <button type="submit" class="w-100 btn btn-lg btn-dark custom-border text-white">Log in</button>
                     <br />
                     <br />
                 </div>
@@ -58,17 +58,17 @@
                      <br />
                         <div class="col">
 
-                            <a href="Account/ForgotPassword" class="text-light">Forgot your password?</a>
+                            <a href="Account/ForgotPassword" class="text-dark">Forgot your password?</a>
 						
 						</div>   
                             <div class="col">
 
-                            <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" class="text-light">Register as a new user</a>
+                            <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" class="text-dark">Register as a new user</a>
                           
                         </div>
                         <div class="col">
 
-                            <a href="Account/ResendEmailConfirmation" class="text-light" >Resend email confirmation</a>
+                            <a href="Account/ResendEmailConfirmation" class="text-dark" >Resend email confirmation</a>
                         
                         </div>
 					

@@ -25,6 +25,11 @@
 
 </NotAuthorized>
 
+
+
+
+
+
     <Authorized Context="authContext">
 
 
@@ -38,7 +43,7 @@
 {
     @foreach(var category in Categories)
     {
-        <Category PreviousComplete=true>
+          <Category PreviousComplete=true>
         <Title>
             <h1>@category.Name</h1>
         </Title>
@@ -47,20 +52,18 @@
               
                 @foreach(var segment in category.Segments)
                 {
-                        <Category IsSegment=true PreviousComplete=@(segment.PreviousSegmentId == null ? true : GetPreviousSeg(segment.PreviousSegmentId))>
+                        <Category IsSegment=true PreviousComplete=@previousSegmentComplete>
                         <Title>
                             <h2>@segment.Name</h2>
-                            <h1>@segment.Id</h1>
                         </Title>
 
                         <Body>
                            
                             @foreach(var subCategory in segment.SubCategories)
                             {
-                                <Category IsSubcategory=true PreviousComplete=@(subCategory.PreviousSubCategoryId == null ? true : GetPreviousSub(subCategory.PreviousSubCategoryId, segment.Id))>
+                                <Category IsSubcategory=true PreviousComplete=previousSubcatComplete>
                                     
                                 <Title>
-                                    <h1>@subCategory.Id</h1>
                                     <div style="display: flex; justify-content: space-between; align-items: center; width:100%; padding:0px 10px">
                                         <h3 style="margin: 0;">@subCategory.Name</h3>
                                         <button class="btn btn-outline-light" style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
@@ -68,26 +71,21 @@
                                 </Title>
                                     
                             </Category>
-                            
+                            <span style="display:none">
+                            @(() => SetPreviousSub(subCategory.Id, segment.Id))
+                            </span>
                             }
                         </Body>
 
                     </Category>
-                
+                 <span style="display:none">
+                @(() => SetPreviousSeg(segment.Id))
+                </span>
                 }
                
            </Body>
-           
         </Category>
-
-            <span style="display:none">
-                @{
-                    ResetPrev();
-                }
-            </span>
-                         
-
-            }
+    }
   
     
     
@@ -166,18 +164,12 @@
         if(_userId != null)
         {
             userSavedResults = await ResultManager.GetByUserIdAsync(_userId);
-            UpdateUserCompletionStatus(_userId);
         }
 
 
 
     }
 
-    private void ResetPrev()
-    {
-        previousSubcatComplete = true;
-        previousSegmentComplete = true;
-    }
 
     private void StartTest(SubCategoryModel subCategory)
     {
@@ -220,46 +212,21 @@
 
 
         await ResultManager.SubmitUserSubCategoryResults(_userId, selectedSubCategory.Id, resultquestions);
-        ResultManager.CheckSubcategoryCompletion(_userId, selectedSubCategory.Id);
-        ResultManager.CheckSegmentCompletion(_userId, selectedSubCategory.SegmentId);
 
-        selectedSubCategory = null;
-        isTestOpen = false;
-        StateHasChanged();
-    }
+        isTestOpen =false;
 
-
-    private bool GetPreviousSeg(int? segId)
-    {
-        return userSavedResults.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == segId).IsCompleted;
-
-
-    }
-
-    private bool GetPreviousSub(int? subId, int? segId)
-    {
-        return userSavedResults.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == segId).ResultSubCategories.FirstOrDefault(rsc => rsc.SubCategoryModelId == subId).IsCompleted;
-    }
-
-    private void UpdateUserCompletionStatus(string userId)
-    {
-
-        foreach(var category in Categories)
-        {
-            foreach(var segment in category.Segments)
-            {
-                ResultManager.CheckSegmentCompletion(_userId, segment.Id);
-
-                foreach (var subCat in segment.SubCategories)
-                {
-                    ResultManager.CheckSegmentCompletion(_userId, subCat.Id);
-                }
-            }
         }
 
-       
+
+    private void SetPreviousSeg(int segId)
+    {
+        previousSegmentComplete = userSavedResults.ResultSegments.Where(rs => rs.SegmentModelId == segId).First().IsCompleted;
     }
 
+    private void SetPreviousSub(int subId, int segId)
+    {
+        previousSubcatComplete = userSavedResults.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == segId).ResultSubCategories.FirstOrDefault(rsc => rsc.SubCategoryModelId == subId).IsCompleted;
+    }
 }
 
  

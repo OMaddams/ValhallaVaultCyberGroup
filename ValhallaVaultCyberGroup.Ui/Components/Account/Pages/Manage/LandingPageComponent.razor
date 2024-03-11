@@ -1,22 +1,46 @@
 ﻿@inject NavigationManager NavigationManager
 
 
-<div class="container-fluid text-center">
+@* <div class="container-fluid text-center">
 	<img src="/images/ValhallaVCA-logo.png" alt="Logo" width="500" height="500" />
 	<p class =" text-lightgrey">Expanding cyber security knowledge!</p>
+</div> *@
+
+
+
+<div class="container-fluid bg-darkestgrey py-4">
+	<div class="container text-center">
+		<a href="/">
+			<img src="/images/VV-3_vector.png" alt="Logo" class="img-fluid" style="max-width: 300px;" />
+		</a>
+	</div>
+
+	<div style="color: white; text-align: center; padding-top: 20px; width: 100vw;">
+		<p>
+			Empower your organization's cyber resilience with our expert-led training. In today's digital era, safeguarding your assets is essential.
+		</p>
+		<p>
+			Our courses equip your team with practical skills and theoretical knowledge to identify and mitigate cyber threats effectively. With personalized guidance from industry experts, your team will be prepared to tackle any digital challenge.
+		</p>
+		<p>
+			Join us to fortify your company's defenses and stay ahead in the ever-evolving landscape of cybersecurity.
+		</p>
+	</div>
 </div>
 
-<div class="container ">
-	<div class="row">
+<br />
+<div class="container">
+	<div class="row justify-content-center">
 		<div class="col-sm">
-	<button type="submit" class="w-100 btn btn-lg btn-purple custom-border" @onclick="NavigateToRegister">Register</button>
+			<h3> Join us now to ensure your safety! </h3>
+			<button type="submit" class="btn btn-lg btn-dark custom-border mx-auto" @onclick="NavigateToRegister">Register</button>
 </div>
 	<div class="col-sm">
-	<button type="submit" class="w-100 btn btn-lg btn-purple custom-border" @onclick="NavigateToLogin">Login</button>
+			<h3> Login to do the course! </h3>
+			<button type="submit" class="btn btn-lg btn-dark custom-border mx-auto" @onclick="NavigateToLogin">Login</button>
 		</div>
 	</div>
-	<br />
-	<br />
+
 </div>
 
 

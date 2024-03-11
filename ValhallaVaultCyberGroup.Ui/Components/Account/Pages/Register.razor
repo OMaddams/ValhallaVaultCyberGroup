@@ -28,7 +28,7 @@
         <StatusMessage Message="@Message" />
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <h3 class="text-light" >Create a new account</h3>
+            <h3 class="text-dark" >Create a new account</h3>
             <hr />
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
@@ -56,7 +56,7 @@
                 <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />  
                 <br />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-purple custom-border">Register</button>
+            <button type="submit" class="w-100 btn btn-lg btn-dark custom-border text-white">Register</button>
             <style>
                
               
