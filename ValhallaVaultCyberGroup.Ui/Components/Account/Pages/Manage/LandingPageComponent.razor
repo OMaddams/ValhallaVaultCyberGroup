@@ -8,7 +8,7 @@
 
 
 
-<div class="container-fluid bg-darkestgrey py-4">
+<div class="container-fluid bg-darkestgrey">
 	<div class="container text-center">
 		<a href="/">
 			<img src="/images/VV-3_vector.png" alt="Logo" class="img-fluid" style="max-width: 300px;" />
@@ -28,19 +28,24 @@
 	</div>
 </div>
 
+@* <style>
+	.page  {
+		padding: 0 !important
+	}
+</style> *@
+
 <br />
-<div class="container">
-	<div class="row justify-content-center">
+<div class="d-flex justify-content-around ">
+	<div class="row">
 		<div class="col-sm">
 			<h3> Join us now to ensure your safety! </h3>
 			<button type="submit" class="btn btn-lg btn-dark custom-border mx-auto" @onclick="NavigateToRegister">Register</button>
-</div>
+		</div>
 	<div class="col-sm">
 			<h3> Login to do the course! </h3>
 			<button type="submit" class="btn btn-lg btn-dark custom-border mx-auto" @onclick="NavigateToLogin">Login</button>
 		</div>
 	</div>
-
 </div>
 
 

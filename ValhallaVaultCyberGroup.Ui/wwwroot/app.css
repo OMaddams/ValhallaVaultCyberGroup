@@ -4,6 +4,10 @@ html, body {
     margin: 0;
 }
 
+article {
+    padding: 0px !important;
+}
+
 .page {
     display: flex;
     flex-direction: column;
