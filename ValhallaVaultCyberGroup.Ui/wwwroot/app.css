@@ -202,12 +202,13 @@ h1:focus {
     margin-left: 1px;
     margin-right: 1px;
     border: 1px solid white;
+    margin-top:5px;
 }
 
-.subcat-button-invert{
-        background-color: white;
-        border: 1px solid black;
-        color: black;
+.subcat-button-invert:hover{
+        background-color: black;
+        border: 1px solid white;
+        color: white;
 }
 .delete-button:hover {
     background-color: #DC4C64;
