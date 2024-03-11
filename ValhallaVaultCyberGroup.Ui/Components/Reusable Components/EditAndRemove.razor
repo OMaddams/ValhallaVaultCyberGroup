@@ -1,6 +1,6 @@
-﻿<div>
-    <button class="btn btn-warning h-auto" @onclick='() => EditOrRemove("edit", Type, ItemId, false)'>Edit</button>
-    <button class="btn btn-danger h-auto text-black" @onclick='() => EditOrRemove("remove", Type, ItemId, false)'>X</button>
+﻿<div class="d-flex">
+    <button class="subcat-button h-auto" @onclick='() => EditOrRemove("edit", Type, ItemId, false)'>Edit</button>
+    <button class="subcat-button h-auto delete-button" @onclick='() => EditOrRemove("remove", Type, ItemId, false)'><span class="glyphicon glyphicon-trash"></span></button>
 </div>
 
 @code {
