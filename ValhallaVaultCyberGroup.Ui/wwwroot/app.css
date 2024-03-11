@@ -164,11 +164,19 @@ h1:focus {
     border-bottom: 1px solid black;
 }
 
-.categoryBox-button {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
+.subcat-button{
+    background-color: black;
     cursor: pointer;
+    color: #fff;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    border:none;
+
 }
 
 .questionForm {
