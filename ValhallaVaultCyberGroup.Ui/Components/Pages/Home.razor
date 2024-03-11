@@ -157,7 +157,7 @@
                                 {
                                 @if(question.selectedResponseModelId == response.Id && response.IsRightAnswer==true)
                                 {
-                                    <i class="bi bi-check text-success"></i>
+                                    <i class="glyphicon glyphicon-ok"></i>
                                     <input type="radio" checked disabled />
                                     <label>@response.Text</label>
                                     <span style="margin-left: 10px; color: green">You guessed the right answer!</span>
@@ -165,17 +165,19 @@
                                 }
                                 @if(question.selectedResponseModelId ==response.Id && response.IsRightAnswer ==false)
                                 {
+                                    <i class="glyphicon glyphicon-remove"></i>
                                     <input type="radio" checked disabled/>
                                     <label>@response.Text</label>
-                                    <label>You guessed wrong</label>
+                                    <span style="margin-left: 10px; color: red">Wrong answer</span>
                                     <br />
                                 }
                                 @if(!(question.selectedResponseModelId == response.Id) && response.IsRightAnswer == true)
 
                                     {
+                                    <i class="glyphicon glyphicon-ok"></i>
                                     <input type="radio" checked disabled />
                                         <label>@response.Text</label>
-                                        <label> This is the right answer</label>
+                                    <span style="margin-left: 10px; color: green">Right answer</span>
                                     <br />
                                     }
                                 @if(!(question.selectedResponseModelId==response.Id)&& response.IsRightAnswer == false)
@@ -195,7 +197,7 @@
                               
                                 }
                             }
-                            <button class="btn btn-primary">Go back</button>
+                            <button class="btn btn-primary" @onclick="GoBack">Go back</button>
 
                     </Body>
                 </QuestionForm>
@@ -337,7 +339,7 @@
         }
 
         isTestFinished = true;
-      
+
     }
 
 
@@ -372,7 +374,7 @@
 
     }
 
-  
+
 
     private bool CalculateTestResult()
     {
@@ -409,7 +411,11 @@
 
     }
 
-  
+    private void GoBack()
+    {
+        isTestOpen = false;
+        isTestFinished = false;
+    }
 
 }
 
