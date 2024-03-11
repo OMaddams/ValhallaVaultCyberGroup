@@ -730,60 +730,8 @@ namespace ValhallaVaultCyberGroup.Data.Data
                     IsRightAnswer = false,
                     QuestionId = 1,
                 },
+     
                 new ResponseModel
-                {
-
-                    Id = 2,
-                    Text = "Svar fråga 1",
-                    IsRightAnswer = false,
-                    QuestionId = 1,
-                },
-                new ResponseModel
-                {
-                    Id = 3,
-                    Text = "Svar fråga 1",
-                    IsRightAnswer = true,
-                    QuestionId = 1,
-                },
-                new ResponseModel
-                {
-                    Id = 4,
-                    Text = "Svar fråga 2",
-                    IsRightAnswer = true,
-                    QuestionId = 2,
-                }, new ResponseModel
-                {
-                    Id = 5,
-                    Text = "Svar fråga 2",
-                    IsRightAnswer = false,
-                    QuestionId = 2,
-                },
-                new ResponseModel
-                {
-                    Id = 6,
-                    Text = "Svar fråga 2",
-                    IsRightAnswer = false,
-                    QuestionId = 2,
-                }, new ResponseModel
-                {
-                    Id = 7,
-                    Text = "Svar fråga 3",
-                    IsRightAnswer = true,
-                    QuestionId = 3,
-                },
-                new ResponseModel
-                {
-                    Id = 8,
-                    Text = "Svar fråga 3",
-                    IsRightAnswer = false,
-                    QuestionId = 3,
-                }, new ResponseModel
-                {
-                    Id = 9,
-                    Text = "Svar fråga 3",
-                    IsRightAnswer = false,
-                    QuestionId = 3,
-                }, new ResponseModel
                 {
 
                     Id = 42,

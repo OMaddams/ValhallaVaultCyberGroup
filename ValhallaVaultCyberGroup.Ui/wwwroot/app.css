@@ -193,3 +193,9 @@ h1:focus {
 .center-text {
     text-align: center;
 }
+
+
+input[type=radio]#Red {
+    accent-color: #FF0000;
+    background-color: red;
+}
