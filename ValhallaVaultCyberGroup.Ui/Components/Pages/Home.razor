@@ -118,7 +118,7 @@
 
                             @foreach(ResponseModel response in question.Responses)
                             {
-                               <InputRadioGroup @bind-Value=question.selectedResponseModelId>
+                               <InputRadioGroup @bind-Value=question.selectedResponseModelId >
                                    
                                    <InputRadio Value="response.Id">
                                        
@@ -129,9 +129,16 @@
                                </InputRadioGroup>
                             }
                         }
+                        <p style="color:red">@Validation</p>
+                        
                         <button type="submit"> Finish Test</button>
 
+                           
+
         </EditForm>
+                        <div style="flex: 1; display: flex; align-items: flex-end;">
+                            <button style="margin-left: auto;" @onclick="GoBack">Quit test</button>
+                        </div>
        </Body>
             </QuestionForm>
   }
@@ -243,6 +250,7 @@
 
 @code
 {
+    private string? Validation;
     bool isTestFinished = false;
     bool isTestPassed;
     private Modal PassedTestModal = new();
@@ -298,6 +306,11 @@
         {
             ResponseModel selectedResponse = question.Responses.FirstOrDefault(r => r.Id == question.selectedResponseModelId);
 
+            if(selectedResponse == null)
+            {
+                Validation = "You have to select one option!";
+                return;
+            }
             if (selectedResponse.IsRightAnswer)
             {
                 ResultQuestionModel resultQuestionModel = new()
@@ -415,8 +428,14 @@
     {
         isTestOpen = false;
         isTestFinished = false;
+        foreach (var question in selectedSubCategory.Questions)
+        {
+            question.selectedResponseModelId = 0; 
+        }
         selectedSubCategory = new SubCategoryModel();
         resultquestions.Clear();
+        Validation  =null; 
+       
     }
 
 }
