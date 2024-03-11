@@ -58,7 +58,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             var segment = _context.ResultSegments
                 .Include(rs => rs.ResultSubCategories)
                 .ThenInclude(rsc => rsc.ResultQuestions)
-                .FirstOrDefault(rs => rs.ResultModel.User.Id == userId && rs.Id == segmentId);
+                .FirstOrDefault(rs => rs.ResultModel.username == userId && rs.Id == segmentId);
 
             if (segment != null)
             {

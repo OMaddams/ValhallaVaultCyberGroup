@@ -7,6 +7,6 @@
         public int CategoriesId { get; set; }
         public CategoryModel Categories { get; set; }
         public List<SubCategoryModel> SubCategories { get; set; }
-
+        public int? PreviousSegmentId { get; set; }
     }
 }

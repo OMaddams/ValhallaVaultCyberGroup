@@ -116,7 +116,7 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
 
         public async Task<SubCategoryModel?> GetSubCategoryAsync(int id)
         {
-            return await context.SubCategoryModels.Include(s=>s.Questions).ThenInclude(q=>q.Responses).FirstOrDefaultAsync(s => s.Id == id);
+            return await context.SubCategoryModels.Include(s => s.Questions).ThenInclude(q => q.Responses).FirstOrDefaultAsync(s => s.Id == id);
         }
         /// <summary>
         /// Gets the Sub category by name 
@@ -243,6 +243,17 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         public void RemoveResponseAsync(ResponseModel responseToRemove)
         {
             context.ResponseModels.Remove(responseToRemove);
+        }
+
+        public async Task<int?> GetLastSegmentId(int categoryId)
+        {
+            var category = await context.CategoryModels.Include(c => c.Segments).FirstOrDefaultAsync(c => c.Id == categoryId);
+            return category.Segments.Last().Id;
+        }
+        public async Task<int?> GetLastSubcatId(int segmentId)
+        {
+            var segment = await context.SegmentModels.Include(s => s.SubCategories).FirstOrDefaultAsync(s => s.Id == segmentId);
+            return segment.SubCategories.Last().Id;
         }
     }
 }
