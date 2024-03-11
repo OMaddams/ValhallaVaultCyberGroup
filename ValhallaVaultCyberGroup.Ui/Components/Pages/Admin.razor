@@ -10,11 +10,12 @@
 
 
 <div class="container">
-    <div class="card bg-darkgrey categoryBox" >
-        <div class="card-header">
+    <div class="card-body bg-black text-white" style="border:1px black solid">
+        <div class="bg-black text-white d-flex w-100 justify-content-between">
             <h5>Admin control panel</h5>
+            <button class="subcat-button-invert" style="justify-self:flex-end; width:36px; height:36px;" @onclick=AddButtonClick>@(isAdding || isEditing ? "-" : "+")</button>
         </div>
-        <div class="card-body w-100 d-flex flex-column">
+        <div class="w-100 d-flex flex-column">
            
            <div class="w-100 d-flex justify-content-between">
            @if (isAdding)
@@ -22,7 +23,7 @@
                 <div>
 
                 <label for="addOption-id">What do you wish to add:</label>
-                <InputSelect id="addOption-id" TValue="string" @bind-Value=addOption>
+                <InputSelect class="text-black" id="addOption-id" TValue="string" @bind-Value=addOption>
                     <option value="Category"> Category</option>
                     <option value="Segment"> Segment</option>
                     <option value="SubCategory"> Sub Category</option>
@@ -36,7 +37,7 @@
                     
            }
            <div></div>
-           <button class="btn btn-primary" style="justify-self:flex-end; width:36px; height:36px;" @onclick=AddButtonClick>@(isAdding || isEditing? "-" : "+")</button>
+           
 
            </div>
 
@@ -58,7 +59,7 @@
                             <InputText class="form-control" @bind-Value=CategoryToEdit.Name></InputText>
                             }
 
-                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit" )</button>
+                        <button class="subcat-button-invert" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
                     @if ((isAdding || isEditing) && addOption == "Segment")
@@ -88,7 +89,7 @@
                                 }
                             </div>
 
-                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
+                        <button class="subcat-button-invert" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
                     @if ((isAdding || isEditing) && addOption == "SubCategory")
@@ -119,7 +120,7 @@
                                 }
                             </div>
 
-                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
+                        <button class="subcat-button-invert" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
                     @if ((isAdding || isEditing) && addOption == "Question")
@@ -151,7 +152,7 @@
                           
                             </div>
 
-                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
+                        <button class="subcat-button-invert" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
                     @if ((isAdding || isEditing) && addOption == "Answer")
@@ -195,7 +196,7 @@
                             }
                         </div>
 
-                        <button class="btn btn-primary" type="submit">@(isAdding ? "Add" : "Edit")</button>
+                        <button class="subcat-button-invert" type="submit">@(isAdding ? "Add" : "Edit")</button>
                         </EditForm>
                     }
                     @foreach(string error in errorMessages)
@@ -217,7 +218,7 @@
             {
                 <Category IsAdmin=true>
                     <Title>
-                        <div class="d-flex  justify-content-between">
+                        <div class="d-flex  justify-content-between align-items-center w-95">
                             <h4>@category.Name</h4>
                             
                             <EditAndRemove ItemId="@category.Id" Type="Category" EditOrRemove="@EditOrRemove"/>
@@ -230,7 +231,7 @@
                         {
                             <Category IsAdmin=true IsSegment=true>
                                 <Title>
-                                    <div class="d-flex  justify-content-between">
+                                    <div class="d-flex  justify-content-between align-items-center w-95">
                                         <h4>@segment.Name</h4>
 
                                         <EditAndRemove ItemId="@segment.Id" Type="Segment" EditOrRemove="@EditOrRemove" />
@@ -243,7 +244,7 @@
                                     {
                                         <Category IsAdmin=true >
                                             <Title>
-                                                <div class="d-flex  justify-content-between">
+                                                <div class="d-flex  justify-content-between align-items-center w-95">
                                                     <h4>@subcategory.Name</h4>
 
                                                     <EditAndRemove ItemId="@subcategory.Id" Type="SubCat" EditOrRemove="@EditOrRemove" />
@@ -256,16 +257,19 @@
                                                 {
                                                     <Category IsAdmin=true>
                                                         <Title>
-                                                            <h4>@question.Text</h4>
+                                                            <div class="d-flex  justify-content-between align-items-center w-95">
+                                                                <h4>@question.Text</h4>
 
-                                                            <EditAndRemove ItemId="@question.Id" Type="Question" EditOrRemove="@EditOrRemove" />
+                                                                <EditAndRemove ItemId="@question.Id" Type="Question" EditOrRemove="@EditOrRemove" />
+                                                            </div>
+                                                            
                                                         </Title>
                                                         <Body>
                                                             @foreach(var response in question.Responses)
                                                             {
                                                                 <Category IsAdmin=true>
                                                                     <Title>
-                                                                        <p>@response.Text</p>
+                                                                        <p class="w-75">@response.Text</p>
 
                                                                         <EditAndRemove ItemId="@response.Id" Type="Answer" EditOrRemove="@EditOrRemove" />
                                                                     </Title>
@@ -306,8 +310,8 @@
             
         </Body>
         <Footer>
-            <button class="btn btn-primary" @onclick=@(() => EditOrRemove("remove", modalInfo.type, modalInfo.id, true))>Delete</button>
-            <button class="btn btn-primary" @onclick=CancelModal>Cancel</button>
+            <button class="subcat-button" @onclick=@(() => EditOrRemove("remove", modalInfo.type, modalInfo.id, true))>Delete</button>
+            <button class="subcat-button" @onclick=CancelModal>Cancel</button>
         </Footer>
     </Modal>
 

@@ -111,7 +111,7 @@ h1:focus {
 }
 
 
-.categoryBox {
+.categoryBox{
     color: #fff;
     width: 100%;
     min-height: 10vh;
@@ -163,8 +163,10 @@ h1:focus {
     text-align: center;
     border-bottom: 1px solid black;
 }
-
-.subcat-button{
+.w-95{
+    width:95%;
+}
+.subcat-button {
     background-color: black;
     cursor: pointer;
     color: #fff;
@@ -175,11 +177,47 @@ h1:focus {
     font-weight: 400;
     line-height: 1.42857143;
     text-align: center;
-    border:none;
-
+    border: none;
+    margin-left: 1px;
+    margin-right: 1px;
+    border: 1px solid black;
+}
+.subcat-button:hover {
+    background-color:white;
+    border:1px solid black;
+    color:black;
+}
+.subcat-button-invert {
+    background-color: white;
+    cursor: pointer;
+    color: black;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    border: none;
+    margin-left: 1px;
+    margin-right: 1px;
+    border: 1px solid white;
 }
 
-.questionForm {
+.subcat-button-invert{
+        background-color: white;
+        border: 1px solid black;
+        color: black;
+}
+.delete-button:hover {
+    background-color: #DC4C64;
+    border: 1px solid #DC4C64;
+    color: black;
+}
+
+
+
+    .questionForm {
     background-color: #ffffe0;
     padding: 20px;
     border: 1px solid #ccc;
