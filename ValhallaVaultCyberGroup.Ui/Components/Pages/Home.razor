@@ -25,11 +25,6 @@
 
 </NotAuthorized>
 
-
-
-
-
-
     <Authorized Context="authContext">
 
 
@@ -38,12 +33,12 @@
 @if(isTestOpen ==false)
 {
 
-<div class="d-flex flex-column" style = "width:70vw;">
+<div class="d-flex flex-column" style = "align-self:center;">
 @if (Categories != null)
 {
     @foreach(var category in Categories)
     {
-          <Category PreviousComplete=true>
+        <Category PreviousComplete=true>
         <Title>
             <h1>@category.Name</h1>
         </Title>
@@ -52,40 +47,46 @@
               
                 @foreach(var segment in category.Segments)
                 {
-                        <Category IsSegment=true PreviousComplete=@previousSegmentComplete>
+                        <Category IsSegment=true PreviousComplete=@(segment.PreviousSegmentId == null ? true : GetPreviousSeg(segment.PreviousSegmentId))>
                         <Title>
                             <h2>@segment.Name</h2>
+                            
                         </Title>
 
                         <Body>
                            
                             @foreach(var subCategory in segment.SubCategories)
                             {
-                                <Category IsSubcategory=true PreviousComplete=previousSubcatComplete>
-                                    
+                                <Category IsSubcategory=true PreviousComplete=@(subCategory.PreviousSubCategoryId == null ? true : GetPreviousSub(subCategory.PreviousSubCategoryId, segment.Id))>
                                 <Title>
+                                    
                                     <div style="display: flex; justify-content: space-between; align-items: center; width:100%; padding:0px 10px">
                                         <h3 style="margin: 0;">@subCategory.Name</h3>
-                                        <button class="btn btn-outline-light" style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
+                                        <button class="subcat-button" style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
                                     </div>
                                 </Title>
                                     
                             </Category>
-                            <span style="display:none">
-                            @(() => SetPreviousSub(subCategory.Id, segment.Id))
-                            </span>
+                            
                             }
                         </Body>
 
                     </Category>
-                 <span style="display:none">
-                @(() => SetPreviousSeg(segment.Id))
-                </span>
+                
                 }
                
            </Body>
+           
         </Category>
-    }
+
+            <span style="display:none">
+                @{
+                    ResetPrev();
+                }
+            </span>
+                         
+
+            }
   
     
     
@@ -164,12 +165,18 @@
         if(_userId != null)
         {
             userSavedResults = await ResultManager.GetByUserIdAsync(_userId);
+            UpdateUserCompletionStatus(_userId);
         }
 
 
 
     }
 
+    private void ResetPrev()
+    {
+        previousSubcatComplete = true;
+        previousSegmentComplete = true;
+    }
 
     private void StartTest(SubCategoryModel subCategory)
     {
@@ -212,21 +219,46 @@
 
 
         await ResultManager.SubmitUserSubCategoryResults(_userId, selectedSubCategory.Id, resultquestions);
+        ResultManager.CheckSubcategoryCompletion(_userId, selectedSubCategory.Id);
+        ResultManager.CheckSegmentCompletion(_userId, selectedSubCategory.SegmentId);
 
-        isTestOpen =false;
+        selectedSubCategory = null;
+        isTestOpen = false;
+        StateHasChanged();
+    }
 
+
+    private bool GetPreviousSeg(int? segId)
+    {
+        return userSavedResults.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == segId).IsCompleted;
+
+
+    }
+
+    private bool GetPreviousSub(int? subId, int? segId)
+    {
+        return userSavedResults.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == segId).ResultSubCategories.FirstOrDefault(rsc => rsc.SubCategoryModelId == subId).IsCompleted;
+    }
+
+    private void UpdateUserCompletionStatus(string userId)
+    {
+
+        foreach(var category in Categories)
+        {
+            foreach(var segment in category.Segments)
+            {
+                ResultManager.CheckSegmentCompletion(_userId, segment.Id);
+
+                foreach (var subCat in segment.SubCategories)
+                {
+                    ResultManager.CheckSegmentCompletion(_userId, subCat.Id);
+                }
+            }
         }
 
-
-    private void SetPreviousSeg(int segId)
-    {
-        previousSegmentComplete = userSavedResults.ResultSegments.Where(rs => rs.SegmentModelId == segId).First().IsCompleted;
+       
     }
 
-    private void SetPreviousSub(int subId, int segId)
-    {
-        previousSubcatComplete = userSavedResults.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == segId).ResultSubCategories.FirstOrDefault(rsc => rsc.SubCategoryModelId == subId).IsCompleted;
-    }
 }
 
  

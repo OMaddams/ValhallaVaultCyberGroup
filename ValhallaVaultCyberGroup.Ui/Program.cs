@@ -82,11 +82,13 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
     ApplicationUser newUser = new()
     {
         UserName = "user",
+
         EmailConfirmed = true,
     };
     ApplicationUser newAdmin = new()
     {
         UserName = "admin",
+
         EmailConfirmed = true,
     };
 
