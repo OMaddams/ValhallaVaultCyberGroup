@@ -80,13 +80,13 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
 
     ApplicationUser newUser = new()
     {
-        UserName = "user@gmail.com",
+        UserName = "user",
         Email = "user@gmail.com",
         EmailConfirmed = true,
     };
     ApplicationUser newAdmin = new()
     {
-        UserName = "admin@gmail.com",
+        UserName = "admin",
         Email = "admin@gmail.com",
         EmailConfirmed = true,
     };
