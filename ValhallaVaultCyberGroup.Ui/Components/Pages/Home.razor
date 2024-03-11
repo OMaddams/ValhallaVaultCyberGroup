@@ -33,7 +33,7 @@
 @if(isTestOpen ==false)
 {
 
-<div class="d-flex flex-column" style = "width:70vw;">
+<div class="d-flex flex-column" style = "align-self:center;">
 @if (Categories != null)
 {
     @foreach(var category in Categories)
@@ -50,7 +50,7 @@
                         <Category IsSegment=true PreviousComplete=@(segment.PreviousSegmentId == null ? true : GetPreviousSeg(segment.PreviousSegmentId))>
                         <Title>
                             <h2>@segment.Name</h2>
-                            <h1>@segment.Id</h1>
+                            
                         </Title>
 
                         <Body>
@@ -60,7 +60,7 @@
                                 <Category IsSubcategory=true PreviousComplete=@(subCategory.PreviousSubCategoryId == null ? true : GetPreviousSub(subCategory.PreviousSubCategoryId, segment.Id))>
                                     
                                 <Title>
-                                    <h1>@subCategory.Id</h1>
+                                    
                                     <div style="display: flex; justify-content: space-between; align-items: center; width:100%; padding:0px 10px">
                                         <h3 style="margin: 0;">@subCategory.Name</h3>
                                         <button class="btn btn-outline-light" style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
