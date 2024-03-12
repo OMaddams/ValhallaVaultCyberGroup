@@ -47,7 +47,6 @@
 
                                 @foreach (var segment in category.Segments)
                                 {
-
                                     // Beräkna antalet avklarade subkategorier i segmentet
                                     var completedSubcategories = CountCompletedSubcategoriesInSegment(category.Id, segment.Id);
 
@@ -55,9 +54,16 @@
                                         <Title>
                                             <h1>@segment.Name</h1>
 
-                                            <progress max="@segment.SubCategories.Count" value="@completedSubcategories">
-                                            </progress>
+                                            @if (!IsSegmentCompleted(category.Id, segment.Id))
+                                            {
+                                                <progress max="@segment.SubCategories.Count" value="@completedSubcategories">
+                                                </progress>
+                                            }
 
+                                            @if (IsSegmentCompleted(category.Id, segment.Id))
+                                            {
+                                                <i class="glyphicon glyphicon-ok"></i>
+                                            }
                                         </Title>
 
                         <Body>
@@ -180,6 +186,7 @@
 
                                 @foreach (ResponseModel response in question.Responses)
                                 {
+                              
                                 @if(question.selectedResponseModelId == response.Id && response.IsRightAnswer==true)
                                 {
                                     <i class="glyphicon glyphicon-ok"></i>
@@ -493,11 +500,10 @@
         int completedSegments = 0;
         int totalSegments = 0;
 
-        // Hämta kategorin med categoryId
         var category = Categories.FirstOrDefault(c => c.Id == categoryId);
+
         if (category != null)
         {
-            // Loopa igenom segmenten i kategorin för att räkna de klarade segmenten
             foreach (var segment in category.Segments)
             {
                 totalSegments++;
@@ -549,7 +555,27 @@
 
 
 
- 
+    private bool IsSegmentCompleted(int categoryId, int segmentId)
+    {
+        var category = Categories.FirstOrDefault(c => c.Id == categoryId);
+        if (category != null)
+        {
+            var segment = category.Segments.FirstOrDefault(s => s.Id == segmentId);
+            if (segment != null)
+            {
+                foreach (var subCategory in segment.SubCategories)
+                {
+                    if (!GetPreviousSub(subCategory.Id, segmentId))
+                    {
+                        return false; 
+                    }
+                }
+                return true; 
+            }
+        }
+        return false;
+    }
+
 
 }
 
