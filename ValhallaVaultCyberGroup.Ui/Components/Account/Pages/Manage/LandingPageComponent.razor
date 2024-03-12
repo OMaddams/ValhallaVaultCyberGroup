@@ -1,24 +1,69 @@
-﻿@inject NavigationManager NavigationManager
+﻿@using Microsoft.JSInterop
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
-<br />
-<br />
-<div class="container-fluid text-center">
-	<img src="/images/ValhallaVCA-logo.png" alt="Logo" width="500" height="500" />
-	<p class =" text-lightgrey">Expanding cyber security knowledge!</p>
-</div>
 
-<div class="container ">
-	<div class="row">
-		<div class="col-sm">
-	<button type="submit" class="w-100 btn btn-lg btn-purple custom-border" @onclick="NavigateToRegister">Register</button>
-</div>
-	<div class="col-sm">
-	<button type="submit" class="w-100 btn btn-lg btn-purple custom-border" @onclick="NavigateToLogin">Login</button>
-		</div>
+
+<div class="container-fluid bg-darkestgrey" style="width: 100%;">
+	<div class="container-fluid text-center">
+		<a href="/">
+			<img src="/images/VV-3_vectorV2.png" alt="Logo" class="img-fluid" style="max-width: 300px;" />
+		</a>
 	</div>
-	<br />
-	<br />
+
+	<div class="container-fluid text-center text-white">
+		<p style="font-weight:bold; font-size:20px" id="paragraph1">
+			Strengthen your organization's cybersecurity with our expert-led training.
+		</p>
+		<p style="font-weight:bold; font-size:20px; display:none;" id="paragraph2">
+			Receive personalized guidance from industry experts to tackle any digital challenge
+		</p>
+		<p style="font-weight:bold; font-size:20px; display:none;" id="paragraph3">
+			Join us to fortify your company's defenses and stay ahead in cybersecurity.
+		</p>
+
+	</div>
 </div>
+
+<br />
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-sm text-center">
+			<div>
+				<h3> Join us now to ensure your safety! </h3>
+				<button type="submit" class="btn btn-lg btn-dark custom-border mx-auto" @onclick="NavigateToRegister">Register</button>
+			</div>
+		</div>
+		<div class="col-sm text-center">
+			<div>
+				<h3> Login to do the course! </h3>
+				<button type="submit" class="btn btn-lg btn-dark custom-border mx-auto" @onclick="NavigateToLogin">Login</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<style>
+	.container-fluid {
+		padding-right: 0;
+		padding-left: 0;
+	}
+
+	.navbar {
+		margin-bottom: 0px !important;
+	}
+
+	.align-items-center {
+		align-items: normal !important;
+	}
+
+	article.w-50 {
+		width: auto !important;
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+</style>
 
 
 @code {
@@ -32,4 +77,27 @@
 	{
 		NavigationManager.NavigateTo("/Account/Login");
 	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JSRuntime.InvokeVoidAsync("showParagraph", "paragraph1");
+
+			await Task.Delay(2000); // Wait for 2 seconds before showing the next paragraph
+			await JSRuntime.InvokeVoidAsync("showParagraph", "paragraph2");
+
+			await Task.Delay(2000); // Wait for 2 seconds before showing the next paragraph
+			await JSRuntime.InvokeVoidAsync("showParagraph", "paragraph3");
+		}
+	}
 }
+
+<script>
+	window.showParagraph = function (id) {
+		var paragraph = document.getElementById(id);
+		if (paragraph) {
+			paragraph.style.display = "block";
+		}
+	};
+</script>

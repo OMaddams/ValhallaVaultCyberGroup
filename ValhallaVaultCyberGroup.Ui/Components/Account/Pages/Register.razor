@@ -23,15 +23,15 @@
 
 
 <br />
-<div class="row">
-    <div class="container col-md-5">
+<div class="row justify-content-center text-center">
+    <div class="container col-md-9" style="min-width: 500px">
         <StatusMessage Message="@Message" />
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <h3 class="text-light" >Create a new account</h3>
+            <h3 class="text-dark text-center" >Create a new account</h3>
             <hr />
             <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3 text-center">
                 <InputText @bind-Value="Input.Email" class="form-control custom-border" autocomplete="name@example" aria-required="true" placeholder="name@example.com" />
                 <label for="email">Email</label>
                 <ValidationMessage For="() => Input.Email" class="text-danger" />
@@ -56,7 +56,7 @@
                 <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />  
                 <br />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-purple custom-border">Register</button>
+            <button type="submit" class="w-100 btn btn-lg btn-dark custom-border text-white">Register</button>
             <style>
                
               

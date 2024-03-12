@@ -2,35 +2,37 @@
 
 @inject NavigationManager NavigationManager
 
-<div class="navbar navbar-expand-lg navbar-dark bg-darkestgrey justify-content-center">
+<div class="navbar navbar-expand-lg navbar-dark bg-darkestgrey d-flex justify-content-center">
     <a href="\">
-		<img src="/images/ValhallaVCA-small.png" alt="Logo" width="40" height="40" />
+		<img src="/images/VV-3_vectorV2.png" alt="Logo" width="105" height="90" />
 	</a>
-    <div class="navbar navbar-expand-lg navbar-dark bg-darkestgrey ">
-		<div>  <a class="navbar-brand " href=""> VALHALLA VAULT CYBER AWARENESS</a></div>
-	</div>
     <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-   >
-    
-	<div class=" bg-darkestgrey " onclick="document.querySelector('.navbar-toggler').click()">
+    <div class=" bg-darkestgrey " onclick="document.querySelector('.navbar-toggler').click()">
         <nav class="">
             <ul class="navbar-nav ">
-            <li class="nav-item">
-                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-                </NavLink>
-				</li>
-               
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                    </NavLink>
+                </li>
 
-            
+
+
+                <li class="nav-item ">
+                    <NavLink class="nav-link" href="auth">
+                        <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Admin
+                    </NavLink>
+                </li>
+
+
                 <AuthorizeView Roles="Admin">
-                    
+
                     <li class="nav-item ">
                         <NavLink class="nav-link" href="Admin">
                             <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Admin
                         </NavLink>
                     </li>
-                
+
                 </AuthorizeView>
                        
                 <li class="nav-item">
@@ -41,12 +43,12 @@
 
                 <AuthorizeView>
                     <Authorized>
-                       
+
                         <li class="nav-item ">
                             <NavLink class="nav-link" href="Account/Manage">
                                 <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
                             </NavLink>
-                            
+
                         </li>
 
 
@@ -77,9 +79,9 @@
                         </li>
                     </NotAuthorized>
                 </AuthorizeView>
-                 
-          
-			</ul>
+
+
+            </ul>
         </nav>
     </div>
 </div>
