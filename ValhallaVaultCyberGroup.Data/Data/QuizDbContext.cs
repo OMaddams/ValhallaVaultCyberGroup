@@ -499,6 +499,60 @@ namespace ValhallaVaultCyberGroup.Data.Data
                     Id = 14,
                     Text = "Lunds universitet upptäcker att forskningsdata om ny teknologi har stulits. Undersökningar tyder på en välorganiserad grupp med kopplingar till en utländsk stat. Vilken typ av aktör ligger sannolikt bakom detta?",
                     SubCategoryId = 40,
+                },
+                new QuestionModel
+                {
+                    Id = 15,
+                    Text = "Vad bör du göra omedelbart efter att ha mottagit ett misstänkt telefonsamtal där någon frågar efter personlig finansiell information?",
+                    SubCategoryId = 1,
+                },
+                new QuestionModel
+                {
+                    Id = 16,
+                    Text = "Vilket av följande påståenden är sant angående hur finansiella institutioner kommunicerar med sina kunder?",
+                    SubCategoryId = 1,
+                },
+                new QuestionModel
+                {
+                    Id = 17,
+                    Text = "Hur kan du bäst skydda dig mot telefonbedrägerier?",
+                    SubCategoryId = 1,
+                },
+                new QuestionModel
+                {
+                    Id = 18,
+                    Text = "Vilken åtgärd är mest effektiv för att säkerställa att anställda regelbundet uppdaterar sina lösenord till starkare och mer komplexa versioner?",
+                    SubCategoryId = 12,
+                },
+                new QuestionModel
+                {
+                    Id = 19,
+                    Text = "Hur kan företaget effektivt minska risken för att anställda oavsiktligt exponerar företagsdata via otrygga Wi-Fi-nätverk?",
+                    SubCategoryId = 12,
+                },
+                new QuestionModel
+                {
+                    Id = 20,
+                    Text = "Vilken åtgärd bör ett företag ta för att skydda sig mot intrång via e-postbaserade hot som phishing?",
+                    SubCategoryId = 12,
+                },
+                new QuestionModel
+                {
+                    Id = 21,
+                    Text = "Vilken försvarsstrategi är mest effektiv mot cyberspionage som riktar sig mot känslig kommunikation?",
+                    SubCategoryId = 37,
+                },
+                new QuestionModel
+                {
+                    Id = 22,
+                    Text = "Hur kan organisationer bäst upptäcka och motverka insiderhot som bidrar till cyberspionage?",
+                    SubCategoryId = 37,
+                },
+                new QuestionModel
+                {
+                    Id = 23,
+                    Text = "Vilken åtgärd är viktigast för att skydda sig mot cyberspionage genom utnyttjande av mjukvarusårbarheter?",
+                    SubCategoryId = 37,
                 });
 
 
@@ -730,7 +784,6 @@ namespace ValhallaVaultCyberGroup.Data.Data
                     IsRightAnswer = false,
                     QuestionId = 1,
                 },
-     
                 new ResponseModel
                 {
 
@@ -738,8 +791,198 @@ namespace ValhallaVaultCyberGroup.Data.Data
                     Text = "Ett potentiellt telefonbedrägeri",
                     IsRightAnswer = true,
                     QuestionId = 1,
-
+                },
+                new ResponseModel
+                {
+                    Id = 43,
+                    Text = "Ge dem informationen de ber om, för säkerhets skull",
+                    IsRightAnswer = false,
+                    QuestionId = 15,
+                },
+                new ResponseModel
+                {
+                    Id = 44,
+                    Text = "Avsluta samtalet och kontakta din bank direkt via ett officiellt nummer du vet är korrekt",
+                    IsRightAnswer = true,
+                    QuestionId = 15,
+                },
+                new ResponseModel
+                {
+                    Id = 45,
+                    Text = "Vänta på att de ska ringa tillbaka för att bekräfta deras legitimitet",
+                    IsRightAnswer = false,
+                    QuestionId = 15,
+                },
+                new ResponseModel
+                {
+                    Id = 46,
+                    Text = "Banker skickar ofta e-postmeddelanden som ber kunder att direkt ange lösenord och kontonummer för verifiering.",
+                    IsRightAnswer = false,
+                    QuestionId = 16,
+                },
+                new ResponseModel
+                {
+                    Id = 47,
+                    Text = "Banker ringer regelbundet sina kunder för att be dem upprepa sina kontouppgifter för säkerhetsuppdateringar.",
+                    IsRightAnswer = false,
+                    QuestionId = 16,
+                },
+                new ResponseModel
+                {
+                    Id = 48,
+                    Text = "Banker och finansiella institutioner kommer aldrig att be dig om ditt lösenord eller kontonummer via telefon eller e-post.",
+                    IsRightAnswer = true,
+                    QuestionId = 16,
+                },
+                new ResponseModel
+                {
+                    Id = 49,
+                    Text = "Installera en app som blockerar misstänkta samtal",
+                    IsRightAnswer = false,
+                    QuestionId = 17,
+                },
+                new ResponseModel
+                {
+                    Id = 50,
+                    Text = "Aldrig svara på samtal från okända nummer",
+                    IsRightAnswer = false,
+                    QuestionId = 17,
+                },
+                new ResponseModel
+                {
+                    Id = 51,
+                    Text = "Upprätta starka säkerhetsfrågor med din bank som krävs för att identifiera dig över telefon",
+                    IsRightAnswer = true,
+                    QuestionId = 17,
+                },
+                new ResponseModel
+                {
+                    Id = 52,
+                    Text = "Manuellt kontrollera varje anställds lösenord en gång per år",
+                    IsRightAnswer = false,
+                    QuestionId = 18,
+                },
+                new ResponseModel
+                {
+                    Id = 53,
+                    Text = "Implementera en policy för lösenordskomplexitet som kräver automatiska lösenordsändringar var 90:e dag",
+                    IsRightAnswer = true,
+                    QuestionId = 18,
+                },
+                new ResponseModel
+                {
+                    Id = 54,
+                    Text = "Uppmana anställda att välja lättihågda lösenord för att undvika att skriva ner dem",
+                    IsRightAnswer = false,
+                    QuestionId = 18,
+                },
+                new ResponseModel
+                {
+                    Id = 55,
+                    Text = "Förbjuda användning av offentliga Wi-Fi-nätverk helt och hållet",
+                    IsRightAnswer = false,
+                    QuestionId = 19,
+                },
+                new ResponseModel
+                {
+                    Id = 56,
+                    Text = "Utrusta alla anställdas enheter med VPN (Virtual Private Network)-tjänster",
+                    IsRightAnswer = true,
+                    QuestionId = 19,
+                },
+                new ResponseModel
+                {
+                    Id = 57,
+                    Text = "Endast tillåta anställda att arbeta offline när de inte är på kontoret",
+                    IsRightAnswer = false,
+                    QuestionId = 19,
+                },
+                new ResponseModel
+                {
+                    Id = 58,
+                    Text = "Blockera all inkommande e-post från externa källor",
+                    IsRightAnswer = false,
+                    QuestionId = 20,
+                },
+                new ResponseModel
+                {
+                    Id = 59,
+                    Text = "Installera och uppdatera regelbundet e-postsäkerhetslösningar som filtrerar bort skadlig programvara och misstänkta länkar",
+                    IsRightAnswer = true,
+                    QuestionId = 20,
+                },
+                new ResponseModel
+                {
+                    Id = 60,
+                    Text = "Låta anställda använda personliga e-postkonton för arbete för att minska risken för företagets e-postservers säkerhet",
+                    IsRightAnswer = false,
+                    QuestionId = 20,
+                },
+                new ResponseModel
+                {
+                    Id = 61,
+                    Text = "Öka användningen av kryptering för all intern och extern kommunikation",
+                    IsRightAnswer = true,
+                    QuestionId = 21,
+                },
+                new ResponseModel
+                {
+                    Id = 62,
+                    Text = "Förbjuda all användning av e-post och återgå till fysisk korrespondens",
+                    IsRightAnswer = false,
+                    QuestionId = 21,
+                },
+                new ResponseModel
+                {
+                    Id = 63,
+                    Text = "Installera antivirusprogram på alla datorer",
+                    IsRightAnswer = false,
+                    QuestionId = 21,
+                },
+                new ResponseModel
+                {
+                    Id = 64,
+                    Text = "Genomföra strikta bakgrundskontroller av alla anställda",
+                    IsRightAnswer = false,
+                    QuestionId = 22,
+                },
+                new ResponseModel
+                {
+                    Id = 65,
+                    Text = "Implementera ett omfattande program för beteendeanalys och anomalidetektering",
+                    IsRightAnswer = true,
+                    QuestionId = 22,
+                },
+                new ResponseModel
+                {
+                    Id = 66,
+                    Text = "Begränsa internetanvändningen på arbetsplatsen till arbetsrelaterade aktiviteter",
+                    IsRightAnswer = false,
+                    QuestionId = 22,
+                },
+                new ResponseModel
+                {
+                    Id = 67,
+                    Text = "Genomföra regelbundna medvetenhetsträningar för alla anställda om cybersäkerhet",
+                    IsRightAnswer = false,
+                    QuestionId = 23,
+                },
+                new ResponseModel
+                {
+                    Id = 68,
+                    Text = "Hålla all mjukvara och operativsystem uppdaterade med de senaste säkerhetspatcharna",
+                    IsRightAnswer = true,
+                    QuestionId = 23,
+                },
+                new ResponseModel
+                {
+                    Id = 69,
+                    Text = "Endast använda egenutvecklad mjukvara för alla verksamhetsprocesser",
+                    IsRightAnswer = false,
+                    QuestionId = 23,
                 });
+
+
         }
 
     }
