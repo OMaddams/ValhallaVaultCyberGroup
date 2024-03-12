@@ -41,19 +41,24 @@
         <Category PreviousComplete=true>
         <Title>
                                 <h1>@category.Name   <span>@DisplayCompletedSubcategoriesInCategory(category.Id)</span> </h1>
-     
-        </Title>
 
-           <Body>
-              
-                @foreach(var segment in category.Segments)
-                {
-                        <Category IsSegment=true PreviousComplete=@(segment.PreviousSegmentId == null ? true : GetPreviousSeg(segment.PreviousSegmentId))>
-                        <Title>
-                                            <h2>@segment.Name<span>@DisplayCompletedSegmentsInSubcategory(category.Id, segment.Id)</span></h2>
+                            </Title>
+                            <Body>
 
+                                @foreach (var segment in category.Segments)
+                                {
 
-                        </Title>
+                                    // Beräkna antalet avklarade subkategorier i segmentet
+                                    var completedSubcategories = CountCompletedSubcategoriesInSegment(category.Id, segment.Id);
+
+                                    <Category IsSegment=true PreviousComplete=@(segment.PreviousSegmentId == null ? true : GetPreviousSeg(segment.PreviousSegmentId))>
+                                        <Title>
+                                            <h1>@segment.Name</h1>
+
+                                            <progress max="@segment.SubCategories.Count" value="@completedSubcategories">
+                                            </progress>
+
+                                        </Title>
 
                         <Body>
                            
@@ -456,15 +461,43 @@
     }
 
 
+    private int CountCompletedSubcategoriesInSegment(int categoryId, int segmentId)
+    {
+        int completedSubcategories = 0;
+
+        var category = Categories.FirstOrDefault(c => c.Id == categoryId);
+        if (category != null)
+        {
+            var segment = category.Segments.FirstOrDefault(s => s.Id == segmentId);
+            if (segment != null)
+            {
+                foreach (var subCategory in segment.SubCategories)
+                {
+                    if (GetPreviousSub(subCategory.Id, segmentId))
+                    {
+                        completedSubcategories++;
+                    }
+                }
+            }
+        }
+
+        return completedSubcategories;
+    }
+
+
+
+
 
     private string DisplayCompletedSubcategoriesInCategory(int categoryId)
     {
         int completedSegments = 0;
         int totalSegments = 0;
 
+        // Hämta kategorin med categoryId
         var category = Categories.FirstOrDefault(c => c.Id == categoryId);
         if (category != null)
         {
+            // Loopa igenom segmenten i kategorin för att räkna de klarade segmenten
             foreach (var segment in category.Segments)
             {
                 totalSegments++;
@@ -478,10 +511,11 @@
         return $"You have completed {completedSegments} subcategory out of {totalSegments}  in this category.";
     }
 
-    private string DisplayCompletedSegmentsInSubcategory(int categoryId, int segmentId)
+
+
+    private int CountCompletedSegmentsInSubcategory(int categoryId, int segmentId)
     {
         int completedSegments = 0;
-        int totalSegments = 0;
 
         var category = Categories.FirstOrDefault(c => c.Id == categoryId);
         if (category != null)
@@ -489,8 +523,6 @@
             var segment = category.Segments.FirstOrDefault(s => s.Id == segmentId);
             if (segment != null)
             {
-                totalSegments = segment.SubCategories.Count;
-
                 foreach (var subCategory in segment.SubCategories)
                 {
                     if (GetPreviousSub(subCategory.Id, segmentId))
@@ -501,8 +533,20 @@
             }
         }
 
+        return completedSegments;
+    }
+
+
+
+    // Metod för att visa antalet klarade subkategorier för en subkategori
+    private string DisplayCompletedSegmentsInSubcategory(int categoryId, int segmentId)
+    {
+        int completedSegments = CountCompletedSegmentsInSubcategory(categoryId, segmentId);
+        int totalSegments = Categories.FirstOrDefault(c => c.Id == categoryId)?.Segments.FirstOrDefault(s => s.Id == segmentId)?.SubCategories.Count ?? 0;
+
         return $"You have completed {completedSegments} out of {totalSegments} subcategories in this segment.";
     }
+
 
 
  
