@@ -14,12 +14,12 @@
 
 <PageTitle>Resend email confirmation</PageTitle>
 <br />
-<h1>Resend email confirmation</h1>
-<h2>Enter your email.</h2>
+<h1 class="text-center">Resend email confirmation</h1>
+<h2 class="text-center">Enter your email.</h2>
 <hr />
 <StatusMessage Message="@message" />
-<div class="row justify-content-center">
-    <div class="col-md-4">
+<div class="row justify-content-center text-center">
+    <div class="container col-md-9 text-center" style="min-width: 500px">
         <EditForm Model="Input" FormName="resend-email-confirmation" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
