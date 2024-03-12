@@ -40,7 +40,8 @@
     {
         <Category PreviousComplete=true>
         <Title>
-            <h1>@category.Name</h1>
+                                <h1>@category.Name   <span>@DisplayCompletedSubcategoriesInCategory(category.Id)</span> </h1>
+     
         </Title>
 
            <Body>
@@ -49,8 +50,9 @@
                 {
                         <Category IsSegment=true PreviousComplete=@(segment.PreviousSegmentId == null ? true : GetPreviousSeg(segment.PreviousSegmentId))>
                         <Title>
-                            <h2>@segment.Name</h2>
-                            
+                                            <h2>@segment.Name<span>@DisplayCompletedSegmentsInSubcategory(category.Id, segment.Id)</span></h2>
+
+
                         </Title>
 
                         <Body>
@@ -61,9 +63,10 @@
                                 <Title>
                                     
                                     <div style="display: flex; justify-content: space-between; align-items: center; width:100%; padding:0px 10px">
-                                        <h3 style="margin: 0;">@subCategory.Name</h3>
+                                                            <h3 style="margin: 0;">@subCategory.Name </h3>
                                         <button class="subcat-button" style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
                                     </div>
+
                                 </Title>
                                     
                             </Category>
@@ -437,6 +440,58 @@
         Validation  =null; 
        
     }
+
+
+
+    private string DisplayCompletedSubcategoriesInCategory(int categoryId)
+    {
+        int completedSegments = 0;
+        int totalSegments = 0;
+
+        var category = Categories.FirstOrDefault(c => c.Id == categoryId);
+        if (category != null)
+        {
+            foreach (var segment in category.Segments)
+            {
+                totalSegments++;
+                if (GetPreviousSeg(segment.Id))
+                {
+                    completedSegments++;
+                }
+            }
+        }
+
+        return $"You have completed {completedSegments} subcategory out of {totalSegments}  in this category.";
+    }
+
+    private string DisplayCompletedSegmentsInSubcategory(int categoryId, int segmentId)
+    {
+        int completedSegments = 0;
+        int totalSegments = 0;
+
+        var category = Categories.FirstOrDefault(c => c.Id == categoryId);
+        if (category != null)
+        {
+            var segment = category.Segments.FirstOrDefault(s => s.Id == segmentId);
+            if (segment != null)
+            {
+                totalSegments = segment.SubCategories.Count;
+
+                foreach (var subCategory in segment.SubCategories)
+                {
+                    if (GetPreviousSub(subCategory.Id, segmentId))
+                    {
+                        completedSegments++;
+                    }
+                }
+            }
+        }
+
+        return $"You have completed {completedSegments} out of {totalSegments} subcategories in this segment.";
+    }
+
+
+ 
 
 }
 
