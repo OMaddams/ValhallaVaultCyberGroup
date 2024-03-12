@@ -131,13 +131,13 @@
                         }
                         <p style="color:red">@Validation</p>
                         
-                        <button type="submit"> Finish Test</button>
+                        <button class="subcat-button" type="submit"> Finish Test</button>
 
                            
 
         </EditForm>
                         <div style="flex: 1; display: flex; align-items: flex-end;">
-                            <button style="margin-left: auto;" @onclick="GoBack">Quit test</button>
+                            <button class="subcat-button" style="margin-left: auto;" @onclick="GoBack">Quit test</button>
                         </div>
        </Body>
             </QuestionForm>
@@ -204,7 +204,7 @@
                               
                                 }
                             }
-                            <button class="btn btn-primary" @onclick="GoBack">Go back</button>
+                            <button class="subcat-button" @onclick="GoBack">Go back</button>
 
                     </Body>
                 </QuestionForm>
@@ -230,7 +230,7 @@
 
     </Body>
     <Footer>
-        <button class="btn btn-primary" @onclick="PassedTestModal.Close">See results</button>
+        <button class="subcat-button" @onclick="PassedTestModal.Close">See results</button>
     </Footer>
 </Modal>
 
@@ -242,7 +242,7 @@
     </Body>
     <Footer>
 
-        <button class="btn btn-primary" @onclick="FailedTestModal.Close">See results</button>
+        <button class="subcat-button" @onclick="FailedTestModal.Close">See results</button>
     </Footer>
 </Modal>
 
