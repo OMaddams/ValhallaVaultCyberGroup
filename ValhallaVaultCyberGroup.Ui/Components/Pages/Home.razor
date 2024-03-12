@@ -102,15 +102,19 @@
     @if(isTestFinished ==false)
     {
             <QuestionForm>
-
+                
   
     
        <Header>
+                        <div style="flex: 1; display: flex; align-items: flex-end;">
+                            <button style="margin-left: auto;" @onclick="GoBack">Quit test</button>
+                        </div>
            <h2>@selectedSubCategory.Name</h2>
 
        </Header>
 
        <Body>
+                       
                    <EditForm Model="@selectedSubCategory" Context="formContext" FormName="QuizForm" OnSubmit="HandleSubmit">
                         @foreach(QuestionModel question in selectedSubCategory.Questions)
                         {
@@ -130,15 +134,21 @@
                             }
                         }
                         <p style="color:red">@Validation</p>
+
+
+                 
+
                         
                         <button class="subcat-button" type="submit"> Finish Test</button>
 
                            
 
         </EditForm>
-                        <div style="flex: 1; display: flex; align-items: flex-end;">
-                            <button class="subcat-button" style="margin-left: auto;" @onclick="GoBack">Quit test</button>
-                        </div>
+
+                        
+
+                      
+
        </Body>
             </QuestionForm>
   }
@@ -204,7 +214,11 @@
                               
                                 }
                             }
-                            <button class="subcat-button" @onclick="GoBack">Go back</button>
+
+                        
+
+                            <button class="subcat-button" style="margin-top:50px" @onclick="GoBack">Go back and save result</button>
+
 
                     </Body>
                 </QuestionForm>
@@ -224,7 +238,7 @@
 </AuthorizeView>
 
 <Modal @ref="PassedTestModal">
-    <Title><h4> Congratulations! You passed the test. Press continue to see results!</h4></Title>
+    <Title><h4> Congratulations! You passed the test! </h4></Title>
     <Body>
 
 
