@@ -171,7 +171,7 @@ h1:focus {
     width:95%;
 }
 .subcat-button {
-    background-color: black;
+    background-color:#212121;
     cursor: pointer;
     color: #fff;
     display: inline-block;
@@ -186,11 +186,11 @@ h1:focus {
     margin-right: 1px;
     border: 1px solid black;
 }
-.subcat-button:hover {
-    background-color:white;
-    border:1px solid black;
-    color:black;
-}
+    .subcat-button:hover {
+        background-color: white;
+        border: 1px solid #212121;
+        color: black;
+    }
 .subcat-button-invert {
     background-color: white;
     cursor: pointer;
@@ -209,11 +209,11 @@ h1:focus {
     margin-top:5px;
 }
 
-.subcat-button-invert:hover{
-        background-color: black;
+    .subcat-button-invert:hover {
+        background-color: #212121;
         border: 1px solid white;
         color: white;
-}
+    }
 .delete-button:hover {
     background-color: #DC4C64;
     border: 1px solid #DC4C64;
