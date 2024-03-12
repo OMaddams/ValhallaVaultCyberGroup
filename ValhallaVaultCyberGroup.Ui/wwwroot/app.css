@@ -219,10 +219,9 @@ h1:focus {
 
 
     .questionForm {
-    background-color: #ffffe0;
+    background-color: #fff;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+
 }
 
 .questionStyle {
