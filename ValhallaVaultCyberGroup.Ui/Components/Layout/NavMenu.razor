@@ -21,13 +21,6 @@
                 </NavLink>
 				</li>
                
-			
-
-            <li class="nav-item ">
-                <NavLink class="nav-link" href="auth">
-                    <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Admin
-                </NavLink>
-            </li>
 
             
                 <AuthorizeView Roles="Admin">
@@ -39,6 +32,12 @@
                     </li>
                 
                 </AuthorizeView>
+                       
+                <li class="nav-item">
+                            <NavLink class="nav-link" href="Account/Help">
+                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Help
+                            </NavLink>
+                        </li>
 
                 <AuthorizeView>
                     <Authorized>
@@ -74,11 +73,6 @@
                         <li class="nav-item">
                             <NavLink class="nav-link" href="Account/Login">
                                 <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
-                            </NavLink>
-                        </li>
-                        <li class="nav-item">
-                            <NavLink class="nav-link" href="Account/Help">
-                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Help
                             </NavLink>
                         </li>
                     </NotAuthorized>
