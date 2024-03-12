@@ -130,9 +130,14 @@
        <Body>
                        
                    <EditForm Model="@selectedSubCategory" Context="formContext" FormName="QuizForm" OnSubmit="HandleSubmit">
+
+                   
+
                         @foreach(QuestionModel question in selectedSubCategory.Questions)
                         {
-                            <label>@question.Text</label>
+                                <div style="border-bottom: 1px solid black; padding-bottom: 10px; margin-top: 20px">
+
+                                <label style="font-weight: bold">@question.Text</label>
 
                             @foreach(ResponseModel response in question.Responses)
                             {
@@ -142,14 +147,16 @@
                                        
                                       
                                    </InputRadio>
-                                    <label>@response.Text</label>
+                                            <label style="font-weight:lighter">@response.Text</label>
                                     <br />
                                </InputRadioGroup>
+                               
                             }
+                                </div>
                         }
                         <p style="color:red">@Validation</p>
 
-
+                          
                  
 
                         
