@@ -102,15 +102,19 @@
     @if(isTestFinished ==false)
     {
             <QuestionForm>
-
+                
   
     
        <Header>
+                        <div style="flex: 1; display: flex; align-items: flex-end;">
+                            <button style="margin-left: auto;" @onclick="GoBack">Quit test</button>
+                        </div>
            <h2>@selectedSubCategory.Name</h2>
 
        </Header>
 
        <Body>
+                       
                    <EditForm Model="@selectedSubCategory" Context="formContext" FormName="QuizForm" OnSubmit="HandleSubmit">
                         @foreach(QuestionModel question in selectedSubCategory.Questions)
                         {
@@ -130,15 +134,13 @@
                             }
                         }
                         <p style="color:red">@Validation</p>
-                        
-                        <button type="submit"> Finish Test</button>
+
+                            <button class="btn btn-success" type="submit"> Finish Test</button>
 
                            
 
         </EditForm>
-                        <div style="flex: 1; display: flex; align-items: flex-end;">
-                            <button style="margin-left: auto;" @onclick="GoBack">Quit test</button>
-                        </div>
+                        
        </Body>
             </QuestionForm>
   }
@@ -204,7 +206,7 @@
                               
                                 }
                             }
-                            <button class="btn btn-primary" @onclick="GoBack">Go back</button>
+                        <button class="btn btn-primary" style="margin-top:50px" @onclick="GoBack">Go back and save</button>
 
                     </Body>
                 </QuestionForm>
