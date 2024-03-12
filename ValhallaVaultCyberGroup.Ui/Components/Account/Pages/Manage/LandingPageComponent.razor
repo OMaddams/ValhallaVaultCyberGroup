@@ -15,10 +15,10 @@
 		<p style="font-weight:bold; font-size:20px" id="paragraph1">
 			Strengthen your organization's cybersecurity with our expert-led training.
 		</p>
-		<p style="font-weight:bold; font-size:20px; display:none;" id="paragraph2">
+		<p style="font-weight:bold; font-size:20px; color:#212121;" id="paragraph2">
 			Receive personalized guidance from industry experts to tackle any digital challenge
 		</p>
-		<p style="font-weight:bold; font-size:20px; display:none;" id="paragraph3">
+		<p style="font-weight:bold; font-size:20px; color:#212121;" id="paragraph3">
 			Join us to fortify your company's defenses and stay ahead in cybersecurity.
 		</p>
 
@@ -84,10 +84,10 @@
 		{
 			await JSRuntime.InvokeVoidAsync("showParagraph", "paragraph1");
 
-			await Task.Delay(2000); // Wait for 2 seconds before showing the next paragraph
+			await Task.Delay(500); // Wait for 2 seconds before showing the next paragraph
 			await JSRuntime.InvokeVoidAsync("showParagraph", "paragraph2");
 
-			await Task.Delay(2000); // Wait for 2 seconds before showing the next paragraph
+			await Task.Delay(500); // Wait for 2 seconds before showing the next paragraph
 			await JSRuntime.InvokeVoidAsync("showParagraph", "paragraph3");
 		}
 	}
@@ -97,7 +97,7 @@
 	window.showParagraph = function (id) {
 		var paragraph = document.getElementById(id);
 		if (paragraph) {
-			paragraph.style.display = "block";
+			paragraph.style.color = "#fff";
 		}
 	};
 </script>
