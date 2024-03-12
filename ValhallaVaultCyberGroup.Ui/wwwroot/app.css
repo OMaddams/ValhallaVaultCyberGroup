@@ -8,9 +8,13 @@ html, body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    
+    background-color: #414141;
 }
 
+/*.mt-custom {
+    margin-top: ;
+}
+*/
 .bg-lightgrey {
     background-color: #525252;
 }
@@ -41,9 +45,6 @@ html, body {
 
 a, .btn-link {
     color: #8F1383;
-}
-.btn{
-    border-radius:0px;
 }
 
 .btn-purple {
@@ -111,21 +112,20 @@ h1:focus {
 }
 
 
-.categoryBox{
+.categoryBox {
     color: #fff;
     width: 100%;
     min-height: 10vh;
-    
+    border-bottom: 2px solid #8F1383;
     text-align: left;
     display: flex;
     flex-direction: column;
     justify-content: center;
     line-height: 100px;
-    
+    border-radius: 15px;
     padding: 20px 10px 10px 10px;
     margin-bottom: 10px;
     transition: transform 1s linear;
-    
 }
 
 .segmentBox {
@@ -138,12 +138,10 @@ h1:focus {
     flex-direction: column;
     justify-content: center;
     line-height: 100px;
-
+    border-radius: 15px;
     padding: 25px 0px 0px 10px;
     margin-right: 10px;
-    
-    margin-left: 5px;
-    margin-bottom:10px;
+    margin-bottom: 10px;
     transition: transform 1s linear;
 }
 
@@ -159,66 +157,19 @@ h1:focus {
     margin-right:10px;*/
     padding: 5px;
     padding-bottom: 0px;
+    border-radius: 15px;
     align-items: center;
     text-align: center;
-    border-bottom: 1px solid black;
 }
-.w-95{
-    width:95%;
-}
-.subcat-button {
-    background-color: black;
+
+.categoryBox-button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
     cursor: pointer;
-    color: #fff;
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    border: none;
-    margin-left: 1px;
-    margin-right: 1px;
-    border: 1px solid black;
-}
-.subcat-button:hover {
-    background-color:white;
-    border:1px solid black;
-    color:black;
-}
-.subcat-button-invert {
-    background-color: white;
-    cursor: pointer;
-    color: black;
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    border: none;
-    margin-left: 1px;
-    margin-right: 1px;
-    border: 1px solid white;
-    margin-top:5px;
 }
 
-.subcat-button-invert:hover{
-        background-color: black;
-        border: 1px solid white;
-        color: white;
-}
-.delete-button:hover {
-    background-color: #DC4C64;
-    border: 1px solid #DC4C64;
-    color: black;
-}
-
-
-
-    .questionForm {
+.questionForm {
     background-color: #ffffe0;
     padding: 20px;
     border: 1px solid #ccc;

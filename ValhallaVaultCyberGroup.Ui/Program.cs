@@ -79,7 +79,7 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
 
 	context.Database.Migrate();
 
-<<<<<<< HEAD
+
 	ApplicationUser newUser = new()
 	{
 		UserName = "user",
@@ -90,20 +90,9 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
 		UserName = "admin",
 		EmailConfirmed = true,
 	};
-=======
-    ApplicationUser newUser = new()
-    {
-        UserName = "user",
 
-        EmailConfirmed = true,
-    };
-    ApplicationUser newAdmin = new()
-    {
-        UserName = "admin",
 
-        EmailConfirmed = true,
-    };
->>>>>>> e3fbce54ad1c21a88befd3e4cd37b51c84f1222f
+
 
 
 	var user = signInManager.UserManager.FindByNameAsync(newUser.UserName).GetAwaiter().GetResult();
