@@ -128,7 +128,10 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
 
         }
-
+        public async Task<List<SegmentModel>> GetAllSegmentsAsync()
+        {
+            return await _repo.GetAllSegmentsAsync();
+        }
 
         //Hämta alla Sub-kategorier
         public async Task<List<SubCategoryModel?>> GetAllSubCategoriesAsync()

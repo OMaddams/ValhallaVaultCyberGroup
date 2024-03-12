@@ -66,16 +66,22 @@
                                         <Title>
                                             <h1>@segment.Name</h1>
 
-                                            @if (!IsSegmentCompleted(category.Id, segment.Id))
+                                            @if (segment.PreviousSegmentId == null ? false : !GetPreviousSeg(segment.PreviousSegmentId))
+                                            {
+                                                <i class="glyphicon glyphicon-lock"></i>
+                                            }
+                                            else if (!IsSegmentCompleted(category.Id, segment.Id))
                                             {
                                                 <progress max="@segment.SubCategories.Count" value="@completedSubcategories">
                                                 </progress>
                                             }
-
-                                            @if (IsSegmentCompleted(category.Id, segment.Id))
+                                            else if (IsSegmentCompleted(category.Id, segment.Id))
                                             {
                                                 <i class="glyphicon glyphicon-ok"></i>
                                             }
+
+                                                
+                                          
                                         </Title>
 
                         <Body>
@@ -312,7 +318,7 @@
             UpdateUserCompletionStatus(_userId);
         }
 
-
+        
 
     }
 
