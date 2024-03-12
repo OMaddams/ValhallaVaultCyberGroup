@@ -117,8 +117,6 @@
     {
             <QuestionForm>
                 
-  
-    
        <Header>
                         <div style="flex: 1; display: flex; align-items: flex-end;">
                             <button class="subcat-button" style="margin-left: auto;" @onclick="GoBack">Quit test</button>
@@ -129,49 +127,48 @@
 
        <Body>
                        
-                   <EditForm Model="@selectedSubCategory" Context="formContext" FormName="QuizForm" OnSubmit="HandleSubmit">
+                   <EditForm Model="@selectedSubCategory" Context="formContext" FormName="QuizForm"    OnSubmit="HandleSubmit">
+                            
                         @foreach(QuestionModel question in selectedSubCategory.Questions)
-                        {
-                            <label>@question.Text</label>
+                       {
 
+                               
+                            <div style="border-bottom: 1px solid black; padding-bottom: 10px; margin-top: 20px">
+                            <label style="font-weight:bold; font-style:italic">@question.Text</label>
+
+                             <InputRadioGroup  Name="@question.Text" @bind-Value=question.selectedResponseModelId >
+
+                        <div style="margin:20px;">
                             @foreach(ResponseModel response in question.Responses)
                             {
-                               <InputRadioGroup @bind-Value=question.selectedResponseModelId >
-                                   
-                                   <InputRadio Value="response.Id">
-                                       
-                                      
-                                   </InputRadio>
-                                    <label>@response.Text</label>
+                                                <DataAnnotationsValidator />
+                                                <ValidationSummary />
+
+                                <div style="display:flex; " >
+                                                    <InputRadio required style="margin-bottom:15px; margin-right:20px" Value="response.Id"> </InputRadio>
+                                            <label style="font-weight:lighter">@response.Text</label>
+                                                    
                                     <br />
-                               </InputRadioGroup>
+                                            </div>
                             }
+                                        </div>
+                                        
+                                </InputRadioGroup>
+                                    
+
+                                </div>
                         }
-                        <p style="color:red">@Validation</p>
-
-
-                 
-
                         
-                        <button class="subcat-button" type="submit"> Finish Test</button>
-
-                           
-
+                        <p>@Validation</p>
+                            <p style="color:red">@Validation</p>
+                        <button style="margin-top:50px" class="subcat-button" type="submit"> Finish Test</button>
         </EditForm>
-
-                        
-
-                      
-
        </Body>
             </QuestionForm>
   }
-
             @if (isTestFinished)
             {
                 <QuestionForm>
-
-
 
                     <Header>
                         <h2>@selectedSubCategory.Name</h2>
@@ -182,73 +179,65 @@
                         
                             @foreach (QuestionModel question in selectedSubCategory.Questions)
                             {
-                                <label>@question.Text</label>
+                                
+                            <div style="border-bottom: 1px solid black; padding-bottom: 10px; margin-top: 20px">
+
+                                <label style="font-weight:bold">@question.Text</label>
 
                                 @foreach (ResponseModel response in question.Responses)
                                 {
                               
                                 @if(question.selectedResponseModelId == response.Id && response.IsRightAnswer==true)
                                 {
-                                    <i class="glyphicon glyphicon-ok"></i>
-                                    <input type="radio" checked disabled />
-                                    <label>@response.Text</label>
-                                    <span style="margin-left: 10px; color: green">You guessed the right answer!</span>
+                                    <div style="display:flex">
+                                    <i style="margin-right:20px;"class="glyphicon glyphicon-ok"></i>
+                                   
+                                        <label style="font-weight:lighter " >@response.Text</label>
+                                    <label style="margin-left: 10px; color: green; font-size:small">You guessed the right answer!</label>
+                                    </div>
                                     <br />
+                                   
+                                       
                                 }
                                 @if(question.selectedResponseModelId ==response.Id && response.IsRightAnswer ==false)
                                 {
-                                    <i class="glyphicon glyphicon-remove"></i>
-                                    <input type="radio" checked disabled/>
-                                    <label>@response.Text</label>
-                                    <span style="margin-left: 10px; color: red">Wrong answer</span>
+                                        <div style="display:flex;">
+                                            <i style="margin-right:20px;" class="glyphicon glyphicon-remove"></i>
+
+                                            <label style="font-weight:lighter">@response.Text</label>
+                                    <label style="margin-left: 10px; color: red; font-size:small">Wrong answer</label>
+                                    </div>
                                     <br />
+                                    
                                 }
                                 @if(!(question.selectedResponseModelId == response.Id) && response.IsRightAnswer == true)
 
                                     {
-                                    <i class="glyphicon glyphicon-ok"></i>
-                                    <input type="radio" checked disabled />
-                                        <label>@response.Text</label>
-                                    <span style="margin-left: 10px; color: green">Right answer</span>
+                                        <div style="display:flex">
+                                            <i style="margin-right:20px;" class="glyphicon glyphicon-ok"></i>
+                                        <label style="font-weight:lighter">@response.Text</label>
+                                    <label style="margin-left: 10px; color: green; font-size:small">Right answer</label>
                                     <br />
+                                    </div>
                                     }
                                 @if(!(question.selectedResponseModelId==response.Id)&& response.IsRightAnswer == false)
                                 {
-                                    <input type="radio" disabled />
-                                    <label>@response.Text</label>
+                                   
+                                        <label style="font-weight:lighter">@response.Text</label>
                                     <br />
                                   
                                 }
 
-
-
-                
-
-                        
-                                    
-                              
                                 }
+                            </div>
                             }
-
-                        
-
                             <button class="subcat-button" style="margin-top:50px" @onclick="GoBack">Go back and save result</button>
-
 
                     </Body>
                 </QuestionForm>
                 
-            }
-
-            
+            }    
        }     
-
-
-      
-
- 
-
-
     </Authorized>
 </AuthorizeView>
 
@@ -326,27 +315,22 @@
         selectedSubCategory = subCategory;
     }
 
+  
+
     public async Task HandleSubmit()
     {
 
-
-
-        foreach(QuestionModel question in selectedSubCategory.Questions)
+        foreach (QuestionModel question in selectedSubCategory.Questions)
         {
             ResponseModel selectedResponse = question.Responses.FirstOrDefault(r => r.Id == question.selectedResponseModelId);
 
-            if(selectedResponse == null)
-            {
-                Validation = "You have to select one option!";
-                return;
-            }
             if (selectedResponse.IsRightAnswer)
             {
                 ResultQuestionModel resultQuestionModel = new()
-                    {
-                        QuestionModelId = question.Id,
-                        IsCorrect = true
-                    };
+                        {
+                            QuestionModelId = question.Id,
+                            IsCorrect = true
+                        };
                 resultquestions.Add(resultQuestionModel);
 
             }
@@ -354,10 +338,10 @@
             else if (selectedResponse.IsRightAnswer != true)
             {
                 ResultQuestionModel resultQuestionModel = new()
-                    {
-                        QuestionModelId = question.Id,
-                        IsCorrect = false
-                    };
+                        {
+                            QuestionModelId = question.Id,
+                            IsCorrect = false
+                        };
                 resultquestions.Add(resultQuestionModel);
             }
 
@@ -381,9 +365,10 @@
         }
 
         isTestFinished = true;
-
     }
 
+
+   
 
     private bool GetPreviousSeg(int? segId)
     {
