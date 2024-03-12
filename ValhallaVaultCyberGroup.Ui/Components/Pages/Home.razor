@@ -40,7 +40,8 @@
     {
         <Category PreviousComplete=true>
         <Title>
-            <h1>@category.Name</h1>
+                                <h1>@category.Name   <span>@DisplayCompletedSubcategoriesInCategory(category.Id)</span> </h1>
+     
         </Title>
 
            <Body>
@@ -49,8 +50,9 @@
                 {
                         <Category IsSegment=true PreviousComplete=@(segment.PreviousSegmentId == null ? true : GetPreviousSeg(segment.PreviousSegmentId))>
                         <Title>
-                            <h2>@segment.Name</h2>
-                            
+                                            <h2>@segment.Name<span>@DisplayCompletedSegmentsInSubcategory(category.Id, segment.Id)</span></h2>
+
+
                         </Title>
 
                         <Body>
@@ -61,9 +63,10 @@
                                 <Title>
                                     
                                     <div style="display: flex; justify-content: space-between; align-items: center; width:100%; padding:0px 10px">
-                                        <h3 style="margin: 0;">@subCategory.Name</h3>
+                                                            <h3 style="margin: 0;">@subCategory.Name </h3>
                                         <button class="subcat-button" style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
                                     </div>
+
                                 </Title>
                                     
                             </Category>
@@ -96,18 +99,25 @@
 }
 <!--Om man trycker på starta test så hamnar man här och ser provet-->
 
-@if (isTestOpen == true)
 
-
+@if (isTestOpen == true )
 {
-  <QuestionForm>
-
+    @if(isTestFinished ==false)
+    {
+            <QuestionForm>
+                
+  
+    
        <Header>
+                        <div style="flex: 1; display: flex; align-items: flex-end;">
+                            <button class="subcat-button" style="margin-left: auto;" @onclick="GoBack">Quit test</button>
+                        </div>
            <h2>@selectedSubCategory.Name</h2>
 
        </Header>
 
        <Body>
+                       
                    <EditForm Model="@selectedSubCategory" Context="formContext" FormName="QuizForm" OnSubmit="HandleSubmit">
                         @foreach(QuestionModel question in selectedSubCategory.Questions)
                         {
@@ -115,7 +125,7 @@
 
                             @foreach(ResponseModel response in question.Responses)
                             {
-                               <InputRadioGroup @bind-Value=question.selectedResponseModelId>
+                               <InputRadioGroup @bind-Value=question.selectedResponseModelId >
                                    
                                    <InputRadio Value="response.Id">
                                        
@@ -126,28 +136,148 @@
                                </InputRadioGroup>
                             }
                         }
-                        <button type="submit"> Finish Test</button>
+                        <p style="color:red">@Validation</p>
+
+
+                 
+
+                        
+                        <button class="subcat-button" type="submit"> Finish Test</button>
+
+                           
 
         </EditForm>
+
+                        
+
+                      
+
        </Body>
+            </QuestionForm>
+  }
 
-   </QuestionForm>
-} 
-
-</Authorized>
-</AuthorizeView>
+            @if (isTestFinished)
+            {
+                <QuestionForm>
 
 
 
+                    <Header>
+                        <h2>@selectedSubCategory.Name</h2>
+
+                    </Header>
+
+                    <Body>
+                        
+                            @foreach (QuestionModel question in selectedSubCategory.Questions)
+                            {
+                                <label>@question.Text</label>
+
+                                @foreach (ResponseModel response in question.Responses)
+                                {
+                                @if(question.selectedResponseModelId == response.Id && response.IsRightAnswer==true)
+                                {
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                    <input type="radio" checked disabled />
+                                    <label>@response.Text</label>
+                                    <span style="margin-left: 10px; color: green">You guessed the right answer!</span>
+                                    <br />
+                                }
+                                @if(question.selectedResponseModelId ==response.Id && response.IsRightAnswer ==false)
+                                {
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                    <input type="radio" checked disabled/>
+                                    <label>@response.Text</label>
+                                    <span style="margin-left: 10px; color: red">Wrong answer</span>
+                                    <br />
+                                }
+                                @if(!(question.selectedResponseModelId == response.Id) && response.IsRightAnswer == true)
+
+                                    {
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                    <input type="radio" checked disabled />
+                                        <label>@response.Text</label>
+                                    <span style="margin-left: 10px; color: green">Right answer</span>
+                                    <br />
+                                    }
+                                @if(!(question.selectedResponseModelId==response.Id)&& response.IsRightAnswer == false)
+                                {
+                                    <input type="radio" disabled />
+                                    <label>@response.Text</label>
+                                    <br />
+                                  
+                                }
+
+
+
+                
+
+                        
+                                    
+                              
+                                }
+                            }
+
+                        
+
+                            <button class="subcat-button" style="margin-top:50px" @onclick="GoBack">Go back and save result</button>
+
+
+                    </Body>
+                </QuestionForm>
+                
+            }
+
+            
+       }     
+
+
+      
 
  
+
+
+    </Authorized>
+</AuthorizeView>
+
+<Modal @ref="PassedTestModal">
+    <Title><h4> Congratulations! You passed the test! </h4></Title>
+    <Body>
+
+
+    </Body>
+    <Footer>
+        <button class="subcat-button" @onclick="PassedTestModal.Close">See results</button>
+    </Footer>
+</Modal>
+
+<Modal @ref="FailedTestModal">
+    <Title><h4> You failed the test. You need to have at least 80% right answers to pass.</h4></Title>
+    <Body>
+
+
+    </Body>
+    <Footer>
+
+        <button class="subcat-button" @onclick="FailedTestModal.Close">See results</button>
+    </Footer>
+</Modal>
+
+
+
 @code
 {
+    private string? Validation;
+    bool isTestFinished = false;
+    bool isTestPassed;
+    private Modal PassedTestModal = new();
+    private Modal FailedTestModal = new();
     private SubCategoryModel selectedSubCategory = new();
     private bool isTestOpen = false; 
     private List<CategoryModel> Categories = new();
     private bool previousSegmentComplete = true;
     private bool previousSubcatComplete = true;
+    private List<ResultQuestionModel> resultquestions = new();
 
     private ResultModel? userSavedResults;
     private string _userId;
@@ -187,12 +317,17 @@
     public async Task HandleSubmit()
     {
 
-        List<ResultQuestionModel> resultquestions = new();
+
 
         foreach(QuestionModel question in selectedSubCategory.Questions)
         {
             ResponseModel selectedResponse = question.Responses.FirstOrDefault(r => r.Id == question.selectedResponseModelId);
 
+            if(selectedResponse == null)
+            {
+                Validation = "You have to select one option!";
+                return;
+            }
             if (selectedResponse.IsRightAnswer)
             {
                 ResultQuestionModel resultQuestionModel = new()
@@ -222,9 +357,19 @@
         ResultManager.CheckSubcategoryCompletion(_userId, selectedSubCategory.Id);
         ResultManager.CheckSegmentCompletion(_userId, selectedSubCategory.SegmentId);
 
-        selectedSubCategory = null;
-        isTestOpen = false;
-        StateHasChanged();
+
+        bool testResult = CalculateTestResult();
+        if (testResult)
+        {
+            PassedTestModal.Open();
+        }
+        else
+        {
+            FailedTestModal.Open();
+        }
+
+        isTestFinished = true;
+
     }
 
 
@@ -256,8 +401,111 @@
             }
         }
 
+
+    }
+
+
+
+    private bool CalculateTestResult()
+    {
+
+        int numberOfQuestions = 0;
+        int numberofRightAnswers = 0;
+
+        if (resultquestions != null)
+        {
+
+            foreach (ResultQuestionModel results in resultquestions)
+            {
+                numberOfQuestions++;
+
+                if(results.IsCorrect == true)
+                {
+                    numberofRightAnswers++;
+                }
+
+            }
+        }
+
+        if(numberofRightAnswers == 0 || numberofRightAnswers/numberOfQuestions< 0.8)
+        {
+            isTestPassed = false;
+        }
+        else
+        {
+            isTestPassed = true;
+        }
+
+        return isTestPassed;
+
+
+    }
+
+    private void GoBack()
+    {
+        isTestOpen = false;
+        isTestFinished = false;
+        foreach (var question in selectedSubCategory.Questions)
+        {
+            question.selectedResponseModelId = 0; 
+        }
+        selectedSubCategory = new SubCategoryModel();
+        resultquestions.Clear();
+        Validation  =null; 
        
     }
+
+
+
+    private string DisplayCompletedSubcategoriesInCategory(int categoryId)
+    {
+        int completedSegments = 0;
+        int totalSegments = 0;
+
+        var category = Categories.FirstOrDefault(c => c.Id == categoryId);
+        if (category != null)
+        {
+            foreach (var segment in category.Segments)
+            {
+                totalSegments++;
+                if (GetPreviousSeg(segment.Id))
+                {
+                    completedSegments++;
+                }
+            }
+        }
+
+        return $"You have completed {completedSegments} subcategory out of {totalSegments}  in this category.";
+    }
+
+    private string DisplayCompletedSegmentsInSubcategory(int categoryId, int segmentId)
+    {
+        int completedSegments = 0;
+        int totalSegments = 0;
+
+        var category = Categories.FirstOrDefault(c => c.Id == categoryId);
+        if (category != null)
+        {
+            var segment = category.Segments.FirstOrDefault(s => s.Id == segmentId);
+            if (segment != null)
+            {
+                totalSegments = segment.SubCategories.Count;
+
+                foreach (var subCategory in segment.SubCategories)
+                {
+                    if (GetPreviousSub(subCategory.Id, segmentId))
+                    {
+                        completedSegments++;
+                    }
+                }
+            }
+        }
+
+        return $"You have completed {completedSegments} out of {totalSegments} subcategories in this segment.";
+    }
+
+
+ 
 
 }
 
