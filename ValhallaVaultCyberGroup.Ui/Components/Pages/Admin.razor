@@ -603,13 +603,13 @@
     private async void SubmitAddCategory()
     {
         errorMessages.Clear();
-        if (string.IsNullOrEmpty(CategoryToAdd.Name))
+        if (string.IsNullOrEmpty(CategoryToAdd.Name.Trim()))
         {
             errorMessages.Add("The category needs a name");
             StateHasChanged();
             return;
         }
-        await questionManager.AddCategoryAsync(CategoryToAdd.Name);
+        await questionManager.AddCategoryAsync(CategoryToAdd.Name.Trim());
         errorMessages.Clear();
         ForceRefresh();
 
@@ -617,14 +617,14 @@
     private async void SubmitEditCategory()
     {
         errorMessages.Clear();
-        if (string.IsNullOrEmpty(CategoryToEdit.Name)) 
+        if (string.IsNullOrEmpty(CategoryToEdit.Name.Trim()))
         {
             errorMessages.Add("The category needs a name");
             editModal.Close();
             StateHasChanged();
             return;
         }
-        await questionManager.UpdateCategoryAsync(CategoryToEdit.Id, CategoryToEdit.Name);
+        await questionManager.UpdateCategoryAsync(CategoryToEdit.Id, CategoryToEdit.Name.Trim());
         errorMessages.Clear();
         ForceRefresh();
 
@@ -634,7 +634,7 @@
     {
         errorMessages.Clear();
         var category = await questionManager.GetCategoryAsync(SegmentToAdd.CategoriesId);
-        if (string.IsNullOrEmpty(SegmentToAdd.Name))
+        if (string.IsNullOrEmpty(SegmentToAdd.Name.Trim()))
         {
             errorMessages.Add("The segment needs a name");
 
@@ -648,14 +648,14 @@
             StateHasChanged();
             return;
         }
-        await questionManager.AddSegmentAsync(SegmentToAdd.Name, SegmentToAdd.CategoriesId);
+        await questionManager.AddSegmentAsync(SegmentToAdd.Name.Trim(), SegmentToAdd.CategoriesId);
         errorMessages.Clear();
         ForceRefresh();
     }
     private async void SubmitEditSegment()
     {
         errorMessages.Clear();
-        if (string.IsNullOrEmpty(SegmentToEdit.Name))
+        if (string.IsNullOrEmpty(SegmentToEdit.Name.Trim()))
         {
             errorMessages.Add("The segment needs a name");
         }
@@ -669,7 +669,7 @@
             StateHasChanged();
             return;
         }
-        await questionManager.UpdateSegmentAsync(SegmentToEdit.Id, SegmentToEdit.Name, SegmentToEdit.CategoriesId);
+        await questionManager.UpdateSegmentAsync(SegmentToEdit.Id, SegmentToEdit.Name.Trim(), SegmentToEdit.CategoriesId);
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -678,7 +678,7 @@
     {
         errorMessages.Clear();
         var segment = await questionManager.GetSegmentAsync(SubCatToAdd.SegmentId);
-        if (string.IsNullOrEmpty(SubCatToAdd.Name))
+        if (string.IsNullOrEmpty(SubCatToAdd.Name.Trim()))
         {
             errorMessages.Add("The subcategory needs a name");
 
@@ -694,14 +694,14 @@
             return;
         }
 
-        await questionManager.AddSubCategoryAsync(SubCatToAdd.Name, SubCatToAdd.SegmentId);
+        await questionManager.AddSubCategoryAsync(SubCatToAdd.Name.Trim(), SubCatToAdd.SegmentId);
         errorMessages.Clear();
         ForceRefresh();
     }
     private async void SubmitEditSubCat()
     {
         errorMessages.Clear();
-        if (string.IsNullOrEmpty(SubCatToEdit.Name))
+        if (string.IsNullOrEmpty(SubCatToEdit.Name.Trim()))
         {
             errorMessages.Add("The subcategory needs a name");
         }
@@ -716,7 +716,7 @@
             StateHasChanged();
             return;
         }
-        await questionManager.UpdateSubCategoryAsync(SubCatToEdit.Id, SubCatToEdit.Name, SubCatToEdit.SegmentId);
+        await questionManager.UpdateSubCategoryAsync(SubCatToEdit.Id, SubCatToEdit.Name.Trim(), SubCatToEdit.SegmentId);
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -725,7 +725,7 @@
     {
         errorMessages.Clear();
         var subCategory = await questionManager.GetSegmentAsync(QuestionToAdd.SubCategoryId);
-        if (string.IsNullOrEmpty(QuestionToAdd.Text))
+        if (string.IsNullOrEmpty(QuestionToAdd.Text.Trim()))
         {
             errorMessages.Add("The question needs Text");
 
@@ -740,14 +740,14 @@
             return;
         }
 
-        await questionManager.AddQuestionAsync(QuestionToAdd.Text, QuestionToAdd.SubCategoryId);
+        await questionManager.AddQuestionAsync(QuestionToAdd.Text.Trim(), QuestionToAdd.SubCategoryId);
         errorMessages.Clear();
         ForceRefresh();
     }
     private async void SubmitEditQuestion()
     {
         errorMessages.Clear();
-        if (string.IsNullOrEmpty(QuestionToEdit.Text))
+        if (string.IsNullOrEmpty(QuestionToEdit.Text.Trim()))
         {
             errorMessages.Add("The question needs text");
         }
@@ -761,7 +761,7 @@
             StateHasChanged();
             return;
         }
-        await questionManager.UpdateQuestionAsync(QuestionToEdit.Id, QuestionToEdit.Text, QuestionToEdit.SubCategoryId);
+        await questionManager.UpdateQuestionAsync(QuestionToEdit.Id, QuestionToEdit.Text.Trim(), QuestionToEdit.SubCategoryId);
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -770,7 +770,7 @@
     {
         errorMessages.Clear();
         var question = await questionManager.GetQuestionAsync(ResponseToAdd.QuestionId);
-        if (string.IsNullOrEmpty(ResponseToAdd.Text))
+        if (string.IsNullOrEmpty(ResponseToAdd.Text.Trim()))
         {
             errorMessages.Add("The answer / response needs text");
 
@@ -785,14 +785,14 @@
             return;
         }
 
-        await questionManager.AddResponseAsync(ResponseToAdd.Text, ResponseToAdd.QuestionId, ResponseToAdd.IsRightAnswer);
+        await questionManager.AddResponseAsync(ResponseToAdd.Text.Trim(), ResponseToAdd.QuestionId, ResponseToAdd.IsRightAnswer);
         errorMessages.Clear();
         ForceRefresh();
     }
     private async void SubmitEditResponse()
     {
         errorMessages.Clear();
-        if (string.IsNullOrEmpty(ResponseToEdit.Text))
+        if (string.IsNullOrEmpty(ResponseToEdit.Text.Trim()))
         {
             errorMessages.Add("The answer needs text");
         }

@@ -11,6 +11,7 @@
 @inject QuestionManager questionManager
 @inject ResultManager ResultManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager navmanager
 @rendermode InteractiveServer
 
 
@@ -324,7 +325,7 @@
             UpdateUserCompletionStatus(_userId);
         }
 
-        
+
 
     }
 
@@ -340,7 +341,7 @@
         selectedSubCategory = subCategory;
     }
 
-  
+
 
     public async Task HandleSubmit()
     {
@@ -393,7 +394,7 @@
     }
 
 
-   
+
 
     private bool GetPreviousSeg(int? segId)
     {
@@ -465,15 +466,18 @@
 
     private void GoBack()
     {
-        isTestOpen = false;
-        isTestFinished = false;
-        foreach (var question in selectedSubCategory.Questions)
-        {
-            question.selectedResponseModelId = 0; 
-        }
-        selectedSubCategory = new SubCategoryModel();
-        resultquestions.Clear();
-        Validation  =null; 
+
+        navmanager.NavigateTo("", true);
+        // Old alinia core
+        // isTestOpen = false;
+        // isTestFinished = false;
+        // foreach (var question in selectedSubCategory.Questions)
+        // {
+        //     question.selectedResponseModelId = 0; 
+        // }
+        // selectedSubCategory = new SubCategoryModel();
+        // resultquestions.Clear();
+        // Validation  =null; 
        
     }
 
