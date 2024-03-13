@@ -43,6 +43,7 @@
 
                         <Category PreviousComplete="true">
                             <Title>
+                                <div class="d-flex justify-content-between align-items-center" style="width:100%; padding-right:15px;">
                                 <h1>@category.Name</h1>
                                 @if (!IsCategoryCompleted(category.Id))
                                 {
@@ -54,6 +55,7 @@
                                 {
                                     <i class="glyphicon glyphicon-ok"></i>
                                 }
+                                </div>
                             </Title>
                             <Body>
 
@@ -64,6 +66,7 @@
 
                                     <Category IsSegment=true PreviousComplete=@(segment.PreviousSegmentId == null ? true : GetPreviousSeg(segment.PreviousSegmentId))>
                                         <Title>
+                                            <div class="d-flex justify-content-between align-items-center" style="width:100%; padding-right:15px;">
                                             <h1>@segment.Name</h1>
 
                                             @if (segment.PreviousSegmentId == null ? false : !GetPreviousSeg(segment.PreviousSegmentId))
@@ -79,7 +82,7 @@
                                             {
                                                 <i class="glyphicon glyphicon-ok"></i>
                                             }
-
+                                            </div>
                                                 
                                           
                                         </Title>
@@ -92,7 +95,10 @@
                                 <Title>
                                     
                                     <div style="display: flex; justify-content: space-between; align-items: center; width:100%; padding:0px 10px">
+                                        
                                                             <h3 style="margin: 0;">@subCategory.Name </h3>
+                                                            
+                                       
                                         <button class="subcat-button" style="margin-left: 10px;" @onclick="()=>StartTest(subCategory)">Start test</button>
                                     </div>
 
