@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ValhallaVaultCyberGroup.App.Managers;
+using ValhallaVaultCyberGroup.App.Middleware;
 using ValhallaVaultCyberGroup.Data.Data;
 using ValhallaVaultCyberGroup.Data.Repositories;
 using ValhallaVaultCyberGroup.Ui.Components;
@@ -39,8 +40,8 @@ builder.Services.AddScoped<IQuestionsRepo, QuestionsRepo>();
 builder.Services.AddScoped<IResultRepo, ResultRepo>();
 builder.Services.AddScoped<QuestionManager>();
 builder.Services.AddScoped<ResultManager>();
-
-
+builder.Services.AddLogging();
+builder.Logging.AddConsole();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -130,7 +131,7 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
 
 var app = builder.Build();
 
-
+app.UseMiddleware<LoggerMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
