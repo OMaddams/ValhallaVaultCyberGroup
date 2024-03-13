@@ -10,16 +10,21 @@
 <div class="@cssStyling bg-white text-black ">
 
     <div class="d-flex justify-content-between align-items-baseline" style="width:100%; @( !IsSubcategory ? "border-bottom: 1px solid black" : "")" @onclick="Expand">
+        
         @Title
+        
+        
 
         @if (IsExpanded && !IsSubcategory)
         {
+            
             <span style="font-size:24px" class="glyphicon glyphicon-chevron-up"></span>
         }
         else if (!IsExpanded && !IsSubcategory)
         {
             <span style="font-size:24px"  class="glyphicon glyphicon-chevron-down"></span>
         }
+      
     </div>
     <div class="@(IsSegment ? "p-1" : "" )" >
     @if (IsExpanded == true)

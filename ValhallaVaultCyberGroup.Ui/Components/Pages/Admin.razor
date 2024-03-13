@@ -47,7 +47,7 @@
                     @if((isAdding || isEditing) && addOption == "Category")
                     {
 
-                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="@(isAdding ? SubmitAddCategory : () => ShowEditModal(SubmitEditCategory))">
+                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnValidSubmit="@(isAdding ? SubmitAddCategory : () => ShowEditModal(SubmitEditCategory))">
                             <label>Category</label>
                             <label for="category-name">Name:</label>
                             @if(isAdding)
@@ -64,7 +64,7 @@
                     }
                     @if ((isAdding || isEditing) && addOption == "Segment")
                     {
-                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnSubmit="@(isAdding ? SubmitAddSegment : () => ShowEditModal(SubmitEditSegment))">
+                    <EditForm Model="@(isAdding ? CategoryToAdd : CategoryToEdit)" OnValidSubmit="@(isAdding ? SubmitAddSegment : () => ShowEditModal(SubmitEditSegment))">
                             <label>Segment</label>
                             <div>
                                  <label for="category-id">Category Id:</label>
@@ -94,18 +94,18 @@
                     }
                     @if ((isAdding || isEditing) && addOption == "SubCategory")
                     {
-                    <EditForm Model="@(isAdding ? SubCatToAdd : SubCatToEdit)" OnSubmit="@(isAdding ? SubmitAddSubCat : () => ShowEditModal(SubmitEditSubCat))">
+                    <EditForm Model="@(isAdding ? SubCatToAdd : SubCatToEdit)" OnValidSubmit="@(isAdding ? SubmitAddSubCat : () => ShowEditModal(SubmitEditSubCat))">
                         <label>Subcategory</label>
                             <div>
                                 <label for="segment-id">Segment Id:</label>
                                 @if(isAdding)
                                 {
                                 <InputNumber id="segment-id" class="form-control" @bind-Value="SubCatToAdd.SegmentId"></InputNumber>
-                            }
-                            else
-                            {
-                                <InputNumber id="segment-id" class="form-control" @bind-Value="SubCatToEdit.SegmentId"></InputNumber>
-                            }
+                                }
+                                else
+                                {
+                                    <InputNumber id="segment-id" class="form-control" @bind-Value="SubCatToEdit.SegmentId"></InputNumber>
+                                }
                         </div>
                             <div>
                                 <label for="subcat-name">Name:</label>
@@ -125,7 +125,7 @@
                     }
                     @if ((isAdding || isEditing) && addOption == "Question")
                     {
-                        <EditForm Model="@(isAdding ? QuestionToAdd : QuestionToEdit)" OnSubmit="@(isAdding ? SubmitAddQuestion : () => ShowEditModal(SubmitEditQuestion))">
+                        <EditForm Model="@(isAdding ? QuestionToAdd : QuestionToEdit)" OnValidSubmit="@(isAdding ? SubmitAddQuestion : () => ShowEditModal(SubmitEditQuestion))">
                             <label>Question</label>
                             <div>
                                 <label for="subcategory-id">Subcategory Id:</label>
@@ -157,7 +157,7 @@
                     }
                     @if ((isAdding || isEditing) && addOption == "Answer")
                     {
-                    <EditForm Model="@(isAdding ? ResponseToAdd : ResponseToEdit)" OnSubmit="@(isAdding ? SubmitAddResponse : () => ShowEditModal(SubmitEditResponse))">
+                    <EditForm Model="@(isAdding ? ResponseToAdd : ResponseToEdit)" OnValidSubmit="@(isAdding ? SubmitAddResponse : () => ShowEditModal(SubmitEditResponse))">
                         <label>Answer</label>
                         <div>
                             <label for="question-id">Question Id:</label>
@@ -320,8 +320,8 @@
         <Title><h4>Are you sure you wish to edit this item?</h4></Title>
         
         <Footer>
-            <button class="btn btn-primary" @onclick=editAction>Edit </button>
-            <button class="btn btn-primary" @onclick=CancelModal>Cancel</button>
+            <button class="subcat-button" @onclick=editAction>Edit </button>
+            <button class="subcat-button" @onclick=CancelModal>Cancel</button>
         </Footer>
     </Modal>
 
@@ -620,6 +620,7 @@
         if (string.IsNullOrEmpty(CategoryToEdit.Name)) 
         {
             errorMessages.Add("The category needs a name");
+            editModal.Close();
             StateHasChanged();
             return;
         }
@@ -664,6 +665,7 @@
         }
         if (errorMessages.Any())
         {
+            editModal.Close();
             StateHasChanged();
             return;
         }
@@ -701,14 +703,16 @@
         errorMessages.Clear();
         if (string.IsNullOrEmpty(SubCatToEdit.Name))
         {
-            errorMessages.Add("The sub category needs a name");
+            errorMessages.Add("The subcategory needs a name");
         }
-        if (SubCatToEdit.SegmentId == 0 || SubCatToEdit.SegmentId > questionManager.GetAllSubCategoriesAsync().Result.Count())
+        var segments = await questionManager.GetAllSegmentsAsync();
+        if (SubCatToEdit.SegmentId == 0 || SubCatToEdit.SegmentId > segments.Count())
         {
             errorMessages.Add(" The sub category needs a valid parent segment");
         }
         if (errorMessages.Any())
         {
+            editModal.Close();
             StateHasChanged();
             return;
         }
@@ -753,6 +757,7 @@
         }
         if (errorMessages.Any())
         {
+            editModal.Close();
             StateHasChanged();
             return;
         }
@@ -791,12 +796,14 @@
         {
             errorMessages.Add("The answer needs text");
         }
-        if (ResponseToEdit.QuestionId == 0 || ResponseToEdit.QuestionId > questionManager.GetAllQuestionsAsync().Result.Count())
+        var questions = await questionManager.GetAllQuestionsAsync();
+        if (ResponseToEdit.QuestionId == 0 || ResponseToEdit.QuestionId > questions.Count())
         {
             errorMessages.Add(" The answer needs a valid parent question");
         }
         if (errorMessages.Any())
         {
+            editModal.Close();
             StateHasChanged();
             return;
         }
