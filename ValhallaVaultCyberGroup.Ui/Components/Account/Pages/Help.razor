@@ -5,19 +5,19 @@
 <ul>
     @foreach (var helpItem in helpList)
     {
-        <div class="p-3 text-center  m-3">
-        <li>
+        <div class="border p-3 text-center  m-3">
+        
             <h3>@helpItem.Question</h3>
             <p>@helpItem.Answer</p>
-        </li>
+      
         </div>
     }
 </ul>
 
-<div style="height: 100px"></div>
+<div style="height: 50px"></div>
 <div class="p-3 text-center text-dark m-5">
     <h3>Couldn't find your question?</h3>
-    <h3 style="font-size: 16px">Feel free to contact us at email@email.com and we will get back to you as soon as possible!</h3>
+    <a href="mailto:email@email.com" class="btn btn-dark btn-lg">Contact us!</a>
 </div>
 
 
