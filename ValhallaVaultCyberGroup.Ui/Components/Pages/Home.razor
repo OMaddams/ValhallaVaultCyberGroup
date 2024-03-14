@@ -48,14 +48,18 @@
                                 <h1>@category.Name</h1>
                                 @if (!IsCategoryCompleted(category.Id))
                                 {
+                                    <div class="d-flex flex-column" style="align-self:center; margin-top: 20px;">
+
                                     <progress max="@category.Segments.Count" value="@completedSegments">
                                     </progress>
+                                        </div>
+
 
                                 }
                                 @if (IsCategoryCompleted(category.Id))
                                 {
-                                    <i class="glyphicon glyphicon-ok"></i>
-                                }
+                                        <i class="glyphicon glyphicon-ok" style="font-size: 40px;"></i>
+                                    }
                                 </div>
                             </Title>
                             <Body>
@@ -76,13 +80,19 @@
                                             }
                                             else if (!IsSegmentCompleted(category.Id, segment.Id))
                                             {
+                                                <div class="d-flex flex-column" style="align-self:center; margin-top: 18px;">
+
                                                 <progress max="@segment.SubCategories.Count" value="@completedSubcategories">
                                                 </progress>
+                                                   
+                                                </div>
+
+
                                             }
                                             else if (IsSegmentCompleted(category.Id, segment.Id))
                                             {
-                                                <i class="glyphicon glyphicon-ok"></i>
-                                            }
+                                                    <i class="glyphicon glyphicon-ok" style="font-size: 40px;"></i>
+                                                }
                                             </div>
                                                 
                                           
