@@ -261,3 +261,22 @@ input[type=radio]#Red {
 }
 
 
+progress {
+    color: #0063a6;
+    font-size: .6em;
+    line-height: 1.5em;
+    text-indent: .5em;
+    width: 15em;
+    height: 1.8em;
+    border: 1px solid #000;
+    box-shadow: 2px 2px 5px grey; 
+}
+
+    progress::-webkit-progress-bar {
+        background: #fff;
+    }
+
+    progress::-webkit-progress-value {
+        background: #000;
+    }
+
