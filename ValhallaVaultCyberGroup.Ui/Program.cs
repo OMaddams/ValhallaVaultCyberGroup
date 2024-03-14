@@ -7,6 +7,7 @@ using ValhallaVaultCyberGroup.Data.Data;
 using ValhallaVaultCyberGroup.Data.Repositories;
 using ValhallaVaultCyberGroup.Ui.Components;
 using ValhallaVaultCyberGroup.Ui.Components.Account;
+
 using ValhallaVaultCyberGroup.Ui.Data;
 
 
@@ -40,6 +41,7 @@ builder.Services.AddScoped<IQuestionsRepo, QuestionsRepo>();
 builder.Services.AddScoped<IResultRepo, ResultRepo>();
 builder.Services.AddScoped<QuestionManager>();
 builder.Services.AddScoped<ResultManager>();
+builder.Services.AddScoped<AdminConnectionRepo>();
 builder.Services.AddLogging();
 builder.Logging.AddConsole();
 
@@ -71,60 +73,60 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 
 
-using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider())
-{
-    var context = serviceprovider.GetRequiredService<ApplicationDbContext>();
-    var signInManager = serviceprovider.GetRequiredService<SignInManager<ApplicationUser>>();
-    var roleManager = serviceprovider.GetRequiredService<RoleManager<IdentityRole>>();
-    var resultManager = serviceprovider.GetRequiredService<ResultManager>();
+//using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider())
+//{
+//    var context = serviceprovider.GetRequiredService<ApplicationDbContext>();
+//    var signInManager = serviceprovider.GetRequiredService<SignInManager<ApplicationUser>>();
+//    var roleManager = serviceprovider.GetRequiredService<RoleManager<IdentityRole>>();
+//    var resultManager = serviceprovider.GetRequiredService<ResultManager>();
 
-    context.Database.Migrate();
+//    context.Database.Migrate();
 
-    ApplicationUser newUser = new()
-    {
-        UserName = "user",
+//    ApplicationUser newUser = new()
+//    {
+//        UserName = "user",
 
-        EmailConfirmed = true,
-    };
-    ApplicationUser newAdmin = new()
-    {
-        UserName = "admin",
+//        EmailConfirmed = true,
+//    };
+//    ApplicationUser newAdmin = new()
+//    {
+//        UserName = "admin",
 
-        EmailConfirmed = true,
-    };
-
-
-    var user = signInManager.UserManager.FindByNameAsync(newUser.UserName).GetAwaiter().GetResult();
-    var admin = signInManager.UserManager.FindByNameAsync(newAdmin.UserName).GetAwaiter().GetResult();
-
-    if (user == null)
-    {
-        signInManager.UserManager.CreateAsync(newUser, "Password1234!").GetAwaiter().GetResult();
-        var userId = signInManager.UserManager.GetUserIdAsync(newUser).GetAwaiter().GetResult();
-        resultManager.CreateUserResults(userId, newUser.UserName).GetAwaiter().GetResult();
+//        EmailConfirmed = true,
+//    };
 
 
-    }
-    if (admin == null)
-    {
-        signInManager.UserManager.CreateAsync(newAdmin, "Password1234!").GetAwaiter().GetResult();
+//    var user = signInManager.UserManager.FindByNameAsync(newUser.UserName).GetAwaiter().GetResult();
+//    var admin = signInManager.UserManager.FindByNameAsync(newAdmin.UserName).GetAwaiter().GetResult();
 
-        bool adminRoleExists = roleManager.RoleExistsAsync("Admin").GetAwaiter().GetResult();
+//    if (user == null)
+//    {
+//        signInManager.UserManager.CreateAsync(newUser, "Password1234!").GetAwaiter().GetResult();
+//        var userId = signInManager.UserManager.GetUserIdAsync(newUser).GetAwaiter().GetResult();
+//        resultManager.CreateUserResults(userId, newUser.UserName).GetAwaiter().GetResult();
 
-        if (!adminRoleExists)
-        {
-            IdentityRole adminRole = new()
-            {
-                Name = "Admin"
-            };
-            roleManager.CreateAsync(adminRole).GetAwaiter().GetResult();
-        }
 
-        signInManager.UserManager.AddToRoleAsync(newAdmin, "Admin").GetAwaiter().GetResult();
-        var userId = signInManager.UserManager.GetUserIdAsync(newAdmin).GetAwaiter().GetResult();
-        resultManager.CreateUserResults(userId, newAdmin.UserName).GetAwaiter().GetResult();
-    }
-}
+//    }
+//    if (admin == null)
+//    {
+//        signInManager.UserManager.CreateAsync(newAdmin, "Password1234!").GetAwaiter().GetResult();
+
+//        bool adminRoleExists = roleManager.RoleExistsAsync("Admin").GetAwaiter().GetResult();
+
+//        if (!adminRoleExists)
+//        {
+//            IdentityRole adminRole = new()
+//            {
+//                Name = "Admin"
+//            };
+//            roleManager.CreateAsync(adminRole).GetAwaiter().GetResult();
+//        }
+
+//        signInManager.UserManager.AddToRoleAsync(newAdmin, "Admin").GetAwaiter().GetResult();
+//        var userId = signInManager.UserManager.GetUserIdAsync(newAdmin).GetAwaiter().GetResult();
+//        resultManager.CreateUserResults(userId, newAdmin.UserName).GetAwaiter().GetResult();
+//    }
+//}
 
 
 
