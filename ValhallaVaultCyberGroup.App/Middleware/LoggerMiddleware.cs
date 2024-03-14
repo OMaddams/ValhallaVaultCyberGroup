@@ -16,7 +16,8 @@ namespace ValhallaVaultCyberGroup.App.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
-            logger.LogInformation($"Request: {context.Request.Method} {context.Request.Path}");
+            logger.LogInformation($"Request: {context.Request.Method} {context.Request.Path} from {context.Connection.RemoteIpAddress}");
+
             foreach (var cookie in context.Request.Cookies)
             {
                 logger.LogInformation($"Cookie: {cookie}");
