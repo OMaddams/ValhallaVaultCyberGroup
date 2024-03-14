@@ -1,8 +1,11 @@
 ﻿@page "/Account/Help"
 
+
 <div style="height: 100px"></div>
 <h1 class="container-fluid text-center text-dark mb-5">What do you need help with today?</h1>
 <ul>
+     <!--Lists all the questions and answers on the webpage  -->
+
     @foreach (var helpItem in helpList)
     {
         <div class="border p-3 text-center  m-3">
@@ -24,6 +27,9 @@
 
 
 @code {
+
+    //A list over questions and answers
+
     List<HelpItem> helpList;
 
     protected override void OnInitialized()
