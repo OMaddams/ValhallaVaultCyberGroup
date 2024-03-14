@@ -70,14 +70,6 @@ namespace ValhallaVaultCyberGroup.App.Managers
             await _resultRepo.UpdateResultAsync(result);
         }
 
-
-
-        /// <summary>
-        /// Receives a userId and Username, a resultmodel tied to that user, fills it out with ResultSegments, fills those out with ResultSubcategories, and fills those out with ResultQuestions
-        /// </summary>
-        /// <param name="applicationUserId"> The id of the user to create the result tree for</param>
-        /// <param name="userName">The username of the user to create the result tree for</param>
-        /// <returns></returns>
         public async Task CreateUserResults(string applicationUserId, string userName)
         {
             CategoriesTree = await questionManager.GetAllCategoriesAsync();
@@ -169,9 +161,5 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
 
         }
-
-
-        //TODO 
-        // Add New result of type added from admin screen
     }
 }

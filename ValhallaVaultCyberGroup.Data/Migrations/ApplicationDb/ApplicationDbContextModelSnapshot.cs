@@ -155,26 +155,6 @@ namespace ValhallaVaultCyberGroup.Data.Migrations.ApplicationDb
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.AdminConnection.AdminConnectionModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DateTimeConnected")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FromIp")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdminConnections");
-                });
-
             modelBuilder.Entity("ValhallaVaultCyberGroup.Data.Models.Result.ResultModel", b =>
                 {
                     b.Property<int>("Id")
