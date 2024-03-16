@@ -7,6 +7,7 @@ using ValhallaVaultCyberGroup.Data.Repositories;
 using ValhallaVaultCyberGroup.Ui.Components;
 using ValhallaVaultCyberGroup.Ui.Components.Account;
 using ValhallaVaultCyberGroup.Ui.Data;
+using ValhallaVaultCyberGroup.Ui.Middleware;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -152,6 +153,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
+app.UseMiddleware<TimingRequestMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();

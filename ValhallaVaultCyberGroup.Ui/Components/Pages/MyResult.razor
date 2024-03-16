@@ -1,0 +1,24 @@
+﻿@page "/my-result"
+@using ValhallaVaultCyberGroup.App.Managers
+@using ValhallaVaultCyberGroup.Data.Models.Result
+
+@inject ResultManager resultManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+
+
+@code {
+    private string _userId;
+
+    private ResultModel? userResult;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        _userId = user.Identity.Name;
+
+        userResult = await resultManager.GetByUserIdAsync(_userId);
+    }
+}
