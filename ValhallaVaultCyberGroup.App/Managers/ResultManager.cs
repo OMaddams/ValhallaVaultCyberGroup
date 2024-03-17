@@ -161,5 +161,20 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
 
         }
+
+        public async Task RemoveSegment(int segmentId)
+        {
+            await _resultRepo.RemoveAllSegment(segmentId);
+        }
+
+        public async Task RemoveSubCat(int subcatId)
+        {
+            await _resultRepo.RemoveAllSubcat(subcatId);
+        }
+
+        public async Task RemoveQuestion(int questionId)
+        {
+            await _resultRepo.RemoveAllQuestion(questionId);
+        }
     }
 }

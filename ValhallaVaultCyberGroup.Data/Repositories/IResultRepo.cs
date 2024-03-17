@@ -1,4 +1,3 @@
-
 using ValhallaVaultCyberGroup.Data.Models.Result;
 
 namespace ValhallaVaultCyberGroup.Data.Repositories
@@ -23,6 +22,14 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         Task<ResultSubCategoryModel?> GetSubCatByUserId(string userId, int subCatId);
 
         Task<ResultModel?> GetByUserIdAsync(string userId);
+
+        Task RemoveAllSegment(int segmentId);
+
+        Task RemoveAllSubcat(int subcatId);
+
+        Task RemoveAllQuestion(int questionId);
+
+
         Task SaveChanges();
     }
 }

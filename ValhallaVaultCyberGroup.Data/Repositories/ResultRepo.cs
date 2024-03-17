@@ -121,6 +121,21 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             return await _context.ResultSubCategories.Include(rsc => rsc.ResultQuestions).FirstOrDefaultAsync(rsc => rsc.SubCategoryModelId == subCatId && rsc.username == userId);
 
         }
+
+        public async Task RemoveAllSegment(int segmentId)
+        {
+            await _context.ResultSegments.Where(s => s.SegmentModelId == segmentId).ExecuteDeleteAsync();
+        }
+        public async Task RemoveAllSubcat(int subcatId)
+        {
+            await _context.ResultSubCategories.Where(s => s.SubCategoryModelId == subcatId).ExecuteDeleteAsync();
+        }
+        public async Task RemoveAllQuestion(int questionId)
+        {
+            await _context.ResultQuestions.Where(q => q.QuestionModelId == questionId).ExecuteDeleteAsync();
+        }
+
+
         public async Task SaveChanges()
         {
             await _context.SaveChangesAsync();

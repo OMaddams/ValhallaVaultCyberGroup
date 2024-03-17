@@ -4,6 +4,7 @@
 @using ValhallaVaultCyberGroup.Data.Models.Domain
 @using ValhallaVaultCyberGroup.Ui.Components.Reusable_Components
 @inject QuestionManager questionManager
+@inject ResultManager ResultManager
 @inject NavigationManager navmanager
 @attribute [Authorize(Roles = "Admin")]
 @rendermode InteractiveServer
@@ -399,7 +400,9 @@
                         var categoryToRemove = await questionManager.GetCategoryAsync(id);
                         if(categoryToRemove != null)
                         {
+
                             questionManager.RemoveCategory(categoryToRemove);
+
 
                         }
                         break;
@@ -414,6 +417,7 @@
                         var segmentToRemove = await questionManager.GetSegmentAsync(id);
                         if (segmentToRemove != null)
                         {
+                            await ResultManager.RemoveSegment(segmentToRemove.Id);
                             questionManager.RemoveSegmentAsync(segmentToRemove);
                         }
                         break;
@@ -428,6 +432,7 @@
                         var SubCatToRemove = await questionManager.GetSubCategoryAsync(id);
                         if (SubCatToRemove != null)
                         {
+                            await ResultManager.RemoveSubCat(SubCatToRemove.Id);
                             questionManager.RemoveSubCategoryAsync(SubCatToRemove);
                         }
                         break;
@@ -442,6 +447,7 @@
                         var questionToRemove = await questionManager.GetQuestionAsync(id);
                         if (questionToRemove != null)
                         {
+                            await ResultManager.RemoveQuestion(questionToRemove.Id);
                             questionManager.RemoveQuestionAsync(questionToRemove);
                         }
                         break;
