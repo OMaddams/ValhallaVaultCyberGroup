@@ -8,9 +8,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using ValhallaVaultCyberGroup.Data.Repositories;
 using ValhallaVaultCyberGroup.Data.Models.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ValhallaVaultCyberGroup.App.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class QuizController : ControllerBase

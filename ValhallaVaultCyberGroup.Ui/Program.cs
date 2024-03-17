@@ -2,17 +2,24 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ValhallaVaultCyberGroup.App.Managers;
+using ValhallaVaultCyberGroup.App.Services;
 using ValhallaVaultCyberGroup.Data.Data;
 using ValhallaVaultCyberGroup.Data.Repositories;
 using ValhallaVaultCyberGroup.Ui.Components;
 using ValhallaVaultCyberGroup.Ui.Components.Account;
 using ValhallaVaultCyberGroup.Ui.Data;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Net.Http;
+using ValhallaVaultCyberGroup.Ui.Middleware;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddControllers();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +47,7 @@ builder.Services.AddScoped<IResultRepo, ResultRepo>();
 builder.Services.AddScoped<QuestionManager>();
 builder.Services.AddScoped<ResultManager>();
 
+builder.Services.AddScoped<QuestionService>();
 
 
 builder.Services.AddAuthentication(options =>
@@ -131,6 +139,8 @@ using (ServiceProvider serviceprovider = builder.Services.BuildServiceProvider()
 var app = builder.Build();
 
 
+app.UseMiddleware<LoggingMiddleware>();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -143,6 +153,13 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+//app.Use(async (context, next) =>
+//{
+//    context.Response.Headers.Add("Custom-Header", "Custom-Value");
+
+//    await next();
+//});
 
 //// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
