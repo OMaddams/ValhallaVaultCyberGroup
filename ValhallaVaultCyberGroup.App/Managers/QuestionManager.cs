@@ -8,9 +8,11 @@ namespace ValhallaVaultCyberGroup.App.Managers
 
         private readonly IQuestionsRepo _repo;
 
+
         public QuestionManager(IQuestionsRepo repo)
         {
             _repo = repo;
+
         }
 
         //Hämta alla kategorier
@@ -106,6 +108,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
             model.Text = text;
             var addedModel = await _repo.AddQuestionAsync(model);
             await _repo.SaveChangesAsync();
+
             return addedModel;
         }
 
@@ -122,6 +125,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
                 questionToUpdate.Text = text;
                 await _repo.UpdateQuestionAsync(questionToUpdate);
                 await _repo.SaveChangesAsync();
+
             }
 
             return questionToUpdate;
@@ -186,6 +190,7 @@ namespace ValhallaVaultCyberGroup.App.Managers
             model.PreviousSubCategoryId = await _repo.GetLastSubcatId(id);
             var addedModel = await _repo.AddSubCategoryAsync(model);
             await _repo.SaveChangesAsync();
+
             return addedModel;
         }
 
@@ -309,9 +314,9 @@ namespace ValhallaVaultCyberGroup.App.Managers
             model.PreviousSegmentId = await _repo.GetLastSegmentId(id);
             var addedModel = await _repo.AddSegmentAsync(model);
             await _repo.SaveChangesAsync();
+
             return addedModel;
         }
-
 
 
     }

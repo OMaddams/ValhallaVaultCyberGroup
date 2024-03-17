@@ -4,6 +4,7 @@
 @using ValhallaVaultCyberGroup.Data.Models.Domain
 @using ValhallaVaultCyberGroup.Ui.Components.Reusable_Components
 @inject QuestionManager questionManager
+@inject ResultManager ResultManager
 @inject NavigationManager navmanager
 @attribute [Authorize(Roles = "Admin")]
 @rendermode InteractiveServer
@@ -157,7 +158,7 @@
                     }
                     @if ((isAdding || isEditing) && addOption == "Answer")
                     {
-                    <EditForm Model="@(isAdding ? ResponseToAdd : ResponseToEdit)" OnValidSubmit="@(isAdding ? SubmitAddResponse : () => ShowEditModal(SubmitEditResponse))">
+                    <EditForm Model="@(isAdding ? ResponseToAdd : ResponseToEdit)" OnSubmit="@(isAdding ? SubmitAddResponse : () => ShowEditModal(SubmitEditResponse))">
                         <label>Answer</label>
                         <div>
                             <label for="question-id">Question Id:</label>
@@ -399,7 +400,9 @@
                         var categoryToRemove = await questionManager.GetCategoryAsync(id);
                         if(categoryToRemove != null)
                         {
+
                             questionManager.RemoveCategory(categoryToRemove);
+
 
                         }
                         break;
@@ -414,6 +417,7 @@
                         var segmentToRemove = await questionManager.GetSegmentAsync(id);
                         if (segmentToRemove != null)
                         {
+                            await ResultManager.RemoveSegment(segmentToRemove.Id);
                             questionManager.RemoveSegmentAsync(segmentToRemove);
                         }
                         break;
@@ -428,6 +432,7 @@
                         var SubCatToRemove = await questionManager.GetSubCategoryAsync(id);
                         if (SubCatToRemove != null)
                         {
+                            await ResultManager.RemoveSubCat(SubCatToRemove.Id);
                             questionManager.RemoveSubCategoryAsync(SubCatToRemove);
                         }
                         break;
@@ -442,6 +447,7 @@
                         var questionToRemove = await questionManager.GetQuestionAsync(id);
                         if (questionToRemove != null)
                         {
+                            await ResultManager.RemoveQuestion(questionToRemove.Id);
                             questionManager.RemoveQuestionAsync(questionToRemove);
                         }
                         break;
@@ -648,7 +654,11 @@
             StateHasChanged();
             return;
         }
-        await questionManager.AddSegmentAsync(SegmentToAdd.Name.Trim(), SegmentToAdd.CategoriesId);
+        var addedSegment = await questionManager.AddSegmentAsync(SegmentToAdd.Name.Trim(), SegmentToAdd.CategoriesId);
+        if(addedSegment != null)
+        {
+            await ResultManager.AddSegmentToUsers(addedSegment);
+        }
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -694,7 +704,11 @@
             return;
         }
 
-        await questionManager.AddSubCategoryAsync(SubCatToAdd.Name.Trim(), SubCatToAdd.SegmentId);
+        var addedSubCat = await questionManager.AddSubCategoryAsync(SubCatToAdd.Name.Trim(), SubCatToAdd.SegmentId);
+        if(addedSubCat != null)
+        {
+            await ResultManager.AddSubcatsToUsers(addedSubCat);
+        }
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -716,7 +730,11 @@
             StateHasChanged();
             return;
         }
-        await questionManager.UpdateSubCategoryAsync(SubCatToEdit.Id, SubCatToEdit.Name.Trim(), SubCatToEdit.SegmentId);
+        var editedSubCategory = await questionManager.UpdateSubCategoryAsync(SubCatToEdit.Id, SubCatToEdit.Name.Trim(), SubCatToEdit.SegmentId);
+        if(editedSubCategory != null)
+        {   
+            await ResultManager.UpdateSubcats(editedSubCategory);
+        }
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -740,7 +758,11 @@
             return;
         }
 
-        await questionManager.AddQuestionAsync(QuestionToAdd.Text.Trim(), QuestionToAdd.SubCategoryId);
+        var addedQuestion = await questionManager.AddQuestionAsync(QuestionToAdd.Text.Trim(), QuestionToAdd.SubCategoryId);
+        if(addedQuestion != null)
+        {
+            await ResultManager.AddQuestionToUser(addedQuestion);
+        }
         errorMessages.Clear();
         ForceRefresh();
     }
@@ -751,7 +773,8 @@
         {
             errorMessages.Add("The question needs text");
         }
-        if (QuestionToEdit.SubCategoryId == 0 || QuestionToEdit.SubCategoryId > questionManager.GetAllSubCategoriesAsync().Result.Count())
+        var numSubCats = await questionManager.GetAllSubCategoriesAsync();
+        if (QuestionToEdit.SubCategoryId == 0 || QuestionToEdit.SubCategoryId > numSubCats.Count())
         {
             errorMessages.Add(" The sub category needs a valid parent segment");
         }
@@ -761,7 +784,11 @@
             StateHasChanged();
             return;
         }
-        await questionManager.UpdateQuestionAsync(QuestionToEdit.Id, QuestionToEdit.Text.Trim(), QuestionToEdit.SubCategoryId);
+        var editedQuestionModel = await questionManager.UpdateQuestionAsync(QuestionToEdit.Id, QuestionToEdit.Text.Trim(), QuestionToEdit.SubCategoryId);
+        if(editedQuestionModel != null)
+        {
+            await ResultManager.UpdateQuestions(editedQuestionModel);
+        }
         errorMessages.Clear();
         ForceRefresh();
     }

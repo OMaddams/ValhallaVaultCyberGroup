@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using ValhallaVaultCyberGroup.Data.Models.Domain;
 using ValhallaVaultCyberGroup.Data.Models.Result;
 using ValhallaVaultCyberGroup.Ui.Data;
 
@@ -121,9 +122,67 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             return await _context.ResultSubCategories.Include(rsc => rsc.ResultQuestions).FirstOrDefaultAsync(rsc => rsc.SubCategoryModelId == subCatId && rsc.username == userId);
 
         }
+
+        public async Task RemoveAllSegment(int segmentId)
+        {
+            await _context.ResultSegments.Where(s => s.SegmentModelId == segmentId).ExecuteDeleteAsync();
+        }
+        public async Task RemoveAllSubcat(int subcatId)
+        {
+            await _context.ResultSubCategories.Where(s => s.SubCategoryModelId == subcatId).ExecuteDeleteAsync();
+        }
+        public async Task RemoveAllQuestion(int questionId)
+        {
+            await _context.ResultQuestions.Where(q => q.QuestionModelId == questionId).ExecuteDeleteAsync();
+        }
+
+        public async Task<List<ResultModel>> GetAllResult()
+        {
+            return await _context.Results.Include(r => r.ResultSegments).ThenInclude(rs => rs.ResultSubCategories).ToListAsync();
+        }
+
+        public async Task<List<ResultSubCategoryModel>> GetAllSubcategoriesBySubcatId(int subcategoryId)
+        {
+            return await _context.ResultSubCategories.Where(s => s.SubCategoryModelId == subcategoryId).ToListAsync();
+        }
+
         public async Task SaveChanges()
         {
             await _context.SaveChangesAsync();
         }
+
+
+
+        public async Task UpdateAllSubCats(SubCategoryModel changedSubcatModel)
+        {
+            List<ResultSubCategoryModel> resultSubCategories = await _context.ResultSubCategories.Where(s => s.SubCategoryModelId == changedSubcatModel.Id).ToListAsync();
+            ResultSegmentModel? resultSegmentModelToChangeTo = await _context.ResultSegments.FirstOrDefaultAsync(rs => rs.SegmentModelId == changedSubcatModel.SegmentId);
+            if (resultSegmentModelToChangeTo == null)
+            {
+                return;
+            }
+            foreach (var subcat in resultSubCategories)
+            {
+                subcat.ResultSegmentModelId = changedSubcatModel.SegmentId;
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAllQuestions(QuestionModel changedQuestionModel)
+        {
+            List<ResultQuestionModel> resultQuestionModels = await _context.ResultQuestions.Where(s => s.QuestionModelId == changedQuestionModel.Id).ToListAsync();
+            ResultSubCategoryModel? resultSubCategoryModelToChangeTo = await _context.ResultSubCategories.FirstOrDefaultAsync(rsc => rsc.SubCategoryModelId == changedQuestionModel.SubCategoryId);
+            if (resultSubCategoryModelToChangeTo == null)
+            {
+                return;
+            }
+            foreach (var question in resultQuestionModels)
+            {
+                question.ResultSubCategoryModelId = resultSubCategoryModelToChangeTo.Id;
+            }
+            await _context.SaveChangesAsync();
+        }
+
+
     }
 }
