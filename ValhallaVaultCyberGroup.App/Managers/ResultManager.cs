@@ -165,16 +165,82 @@ namespace ValhallaVaultCyberGroup.App.Managers
         public async Task RemoveSegment(int segmentId)
         {
             await _resultRepo.RemoveAllSegment(segmentId);
+            await _resultRepo.SaveChanges();
         }
 
         public async Task RemoveSubCat(int subcatId)
         {
             await _resultRepo.RemoveAllSubcat(subcatId);
+            await _resultRepo.SaveChanges();
         }
 
         public async Task RemoveQuestion(int questionId)
         {
             await _resultRepo.RemoveAllQuestion(questionId);
+            await _resultRepo.SaveChanges();
         }
+
+        public async Task AddSegmentToUsers(SegmentModel segmentToAdd)
+        {
+            List<ResultModel> Results = await _resultRepo.GetAllResult();
+
+            ResultSegmentModel resultSegmentModelToAdd = new ResultSegmentModel()
+            {
+                SegmentModelId = segmentToAdd.Id,
+                IsCompleted = false,
+
+            };
+
+            foreach (var result in Results)
+            {
+                resultSegmentModelToAdd.ResultModelId = result.Id;
+                await _resultRepo.AddResultSegmentAsync(resultSegmentModelToAdd);
+            }
+            await _resultRepo.SaveChanges();
+        }
+
+        public async Task AddSubcatsToUsers(SubCategoryModel subcatToAdd)
+        {
+            List<ResultModel> Results = await _resultRepo.GetAllResult();
+
+            ResultSubCategoryModel resultSubCatModelToAdd = new ResultSubCategoryModel()
+            {
+                SubCategoryModelId = subcatToAdd.Id,
+                IsCompleted = false,
+
+
+            };
+
+            foreach (var result in Results)
+            {
+                resultSubCatModelToAdd.username = result.username;
+                resultSubCatModelToAdd.ResultSegmentModelId = result.ResultSegments.FirstOrDefault(rs => rs.SegmentModelId == subcatToAdd.SegmentId).Id;
+                await _resultRepo.AddResultSubCategoryAsync(resultSubCatModelToAdd);
+            }
+            await _resultRepo.SaveChanges();
+        }
+
+        public async Task AddQuestionToUser(QuestionModel questionToAdd)
+        {
+            List<ResultModel> Results = await _resultRepo.GetAllResult();
+            List<ResultSubCategoryModel> subcatsToAddTo = await _resultRepo.GetAllSubcategoriesBySubcatId(questionToAdd.SubCategoryId);
+
+            ResultQuestionModel resultQuestionToAdd = new ResultQuestionModel()
+            {
+                IsCorrect = false,
+                QuestionModelId = questionToAdd.Id,
+
+
+            };
+
+            foreach (var subcat in subcatsToAddTo)
+            {
+                resultQuestionToAdd.ResultSubCategoryModelId = subcat.Id;
+                await _resultRepo.AddResultQuestionAsync(resultQuestionToAdd);
+            }
+            await _resultRepo.SaveChanges();
+        }
+
+
     }
 }

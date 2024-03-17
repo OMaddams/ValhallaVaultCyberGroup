@@ -29,6 +29,10 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
 
         Task RemoveAllQuestion(int questionId);
 
+        Task<List<ResultModel>> GetAllResult();
+
+        Task<List<ResultSubCategoryModel>> GetAllSubcategoriesBySubcatId(int subcategoryId);
+
 
         Task SaveChanges();
     }

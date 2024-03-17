@@ -135,6 +135,15 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
             await _context.ResultQuestions.Where(q => q.QuestionModelId == questionId).ExecuteDeleteAsync();
         }
 
+        public async Task<List<ResultModel>> GetAllResult()
+        {
+            return await _context.Results.Include(r => r.ResultSegments).ThenInclude(rs => rs.ResultSubCategories).ToListAsync();
+        }
+
+        public async Task<List<ResultSubCategoryModel>> GetAllSubcategoriesBySubcatId(int subcategoryId)
+        {
+            return await _context.ResultSubCategories.Where(s => s.SubCategoryModelId == subcategoryId).ToListAsync();
+        }
 
         public async Task SaveChanges()
         {
