@@ -229,8 +229,6 @@ namespace ValhallaVaultCyberGroup.App.Managers
             {
                 IsCorrect = false,
                 QuestionModelId = questionToAdd.Id,
-
-
             };
 
             foreach (var subcat in subcatsToAddTo)
@@ -241,6 +239,14 @@ namespace ValhallaVaultCyberGroup.App.Managers
             await _resultRepo.SaveChanges();
         }
 
+        public async Task UpdateSubcats(SubCategoryModel subCategory)
+        {
+            await _resultRepo.UpdateAllSubCats(subCategory);
+        }
+        public async Task UpdateQuestions(QuestionModel questionModel)
+        {
+            await _resultRepo.UpdateAllQuestions(questionModel);
+        }
 
     }
 }

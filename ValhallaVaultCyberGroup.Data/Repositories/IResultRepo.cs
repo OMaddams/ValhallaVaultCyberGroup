@@ -1,3 +1,4 @@
+using ValhallaVaultCyberGroup.Data.Models.Domain;
 using ValhallaVaultCyberGroup.Data.Models.Result;
 
 namespace ValhallaVaultCyberGroup.Data.Repositories
@@ -28,6 +29,11 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         Task RemoveAllSubcat(int subcatId);
 
         Task RemoveAllQuestion(int questionId);
+
+
+        Task UpdateAllSubCats(SubCategoryModel changedSubcatModel);
+
+        Task UpdateAllQuestions(QuestionModel changedQuestionModel);
 
         Task<List<ResultModel>> GetAllResult();
 

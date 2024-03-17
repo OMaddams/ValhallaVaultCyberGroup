@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using ValhallaVaultCyberGroup.Data.Models.Domain;
 using ValhallaVaultCyberGroup.Data.Models.Result;
 using ValhallaVaultCyberGroup.Ui.Data;
 
@@ -149,5 +150,39 @@ namespace ValhallaVaultCyberGroup.Data.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+
+
+        public async Task UpdateAllSubCats(SubCategoryModel changedSubcatModel)
+        {
+            List<ResultSubCategoryModel> resultSubCategories = await _context.ResultSubCategories.Where(s => s.SubCategoryModelId == changedSubcatModel.Id).ToListAsync();
+            ResultSegmentModel? resultSegmentModelToChangeTo = await _context.ResultSegments.FirstOrDefaultAsync(rs => rs.SegmentModelId == changedSubcatModel.SegmentId);
+            if (resultSegmentModelToChangeTo == null)
+            {
+                return;
+            }
+            foreach (var subcat in resultSubCategories)
+            {
+                subcat.ResultSegmentModelId = changedSubcatModel.SegmentId;
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAllQuestions(QuestionModel changedQuestionModel)
+        {
+            List<ResultQuestionModel> resultQuestionModels = await _context.ResultQuestions.Where(s => s.QuestionModelId == changedQuestionModel.Id).ToListAsync();
+            ResultSubCategoryModel? resultSubCategoryModelToChangeTo = await _context.ResultSubCategories.FirstOrDefaultAsync(rsc => rsc.SubCategoryModelId == changedQuestionModel.SubCategoryId);
+            if (resultSubCategoryModelToChangeTo == null)
+            {
+                return;
+            }
+            foreach (var question in resultQuestionModels)
+            {
+                question.ResultSubCategoryModelId = resultSubCategoryModelToChangeTo.Id;
+            }
+            await _context.SaveChangesAsync();
+        }
+
+
     }
 }
