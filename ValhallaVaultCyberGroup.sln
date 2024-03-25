@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValhallaVaultCyberGroup.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValhallaVaultCyberGroup.App", "ValhallaVaultCyberGroup.App\ValhallaVaultCyberGroup.App.csproj", "{05D3C9C6-2177-4741-AFDD-C34DA8248B04}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{8F531F63-6D3B-4FFC-8090-CB87AA78FB6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{05D3C9C6-2177-4741-AFDD-C34DA8248B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05D3C9C6-2177-4741-AFDD-C34DA8248B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05D3C9C6-2177-4741-AFDD-C34DA8248B04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F531F63-6D3B-4FFC-8090-CB87AA78FB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F531F63-6D3B-4FFC-8090-CB87AA78FB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F531F63-6D3B-4FFC-8090-CB87AA78FB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F531F63-6D3B-4FFC-8090-CB87AA78FB6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
