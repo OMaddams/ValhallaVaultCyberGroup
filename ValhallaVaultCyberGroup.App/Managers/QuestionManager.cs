@@ -318,7 +318,6 @@ namespace ValhallaVaultCyberGroup.App.Managers
             return addedModel;
         }
 
-
     }
 
 }

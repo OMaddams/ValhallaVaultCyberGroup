@@ -17,6 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ValhallaVaultCyberGroup.App\ValhallaVaultCyberGroup.App.csproj" />
+    <ProjectReference Include="..\ValhallaVaultCyberGroup.Data\ValhallaVaultCyberGroup.Data.csproj" />
+    <ProjectReference Include="..\ValhallaVaultCyberGroup.Ui\ValhallaVaultCyberGroup.Ui.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
